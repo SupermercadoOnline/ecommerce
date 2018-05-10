@@ -1,0 +1,9 @@
+1º Abrir CMD
+2° Executar "docker-machine create default"
+3° '''''''' "docker-machine start"
+4º Navegar até a pasta onde o repositório foi clonado
+5º Executar "docker-compose up -d --build"
+6º Abrir navegador e acessar 192.168.99.100
+
+
+Se não aparecer nenhum Warning ou Error, tá tudo funcionando!
