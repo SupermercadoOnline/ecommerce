@@ -1,9 +1,23 @@
-1º Abrir CMD
-2° Executar "docker-machine create default"
-3° '''''''' "docker-machine start"
-4º Navegar até a pasta onde o repositório foi clonado
-5º Executar "docker-compose up -d --build"
-6º Abrir navegador e acessar 192.168.99.100
+Instalação:
+    1º Abrir CMD
+    2° Executar "docker-machine create default"
+    3° '''''''' "docker-machine start"
+    4º Navegar até a pasta onde o repositório foi clonado
+    5º Executar "docker-compose up -d --build"
+    6º Abrir navegador e acessar 192.168.99.100
+    Se não aparecer nenhum Warning ou Error, tá tudo funcionando!
 
 
-Se não aparecer nenhum Warning ou Error, tá tudo funcionando!
+Iniciar o ambiente:
+    1º Abrir CMD
+    2º Executar "docker-machine start"
+    3º Navegar até a pasta do repositório
+    4° Executar "docker-compose up -d"
+
+
+Criar o banco de dados:
+    1° Iniciar ambiente
+    2° Abir CMD
+    3° Navegar até a pasta do repositório
+    4° Executar "mysql -h 192.168.99.100 -u root --port 3307"
+    5º Executar "source dump/supermercado.sql"
