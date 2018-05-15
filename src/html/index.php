@@ -1,7 +1,7 @@
 <?php
-$mysqli = new mysqli('mysql', 'root', '');
-$databases = $mysqli->query("SHOW DATABASES");
-while($row = $databases->fetch_row())
-    echo $row[0] . '<br>';
+include_once '../model/EstadosDAO.php';
 
-phpinfo();
+$estadosDAO = new EstadosDAO();
+foreach ($estadosDAO->getAll() as $estadoBean)
+    if($estadoBean instanceof EstadosBean)
+        echo $estadoBean->getNome() . '<br>';
