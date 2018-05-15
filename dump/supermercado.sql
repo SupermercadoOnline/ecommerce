@@ -309,6 +309,7 @@ CREATE TABLE `produtos` (
   `preco` decimal(11,2) NOT NULL,
   `fabricante` varchar(100) NOT NULL,
   `descricao` varchar(500) NOT NULL,
+  `estoque_minimo` int(11) NOT NULL,
   `is_ativo` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `fk_id_categoria_produtos_idx` (`id_categoria`),
@@ -612,4 +613,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-05-15 10:43:56
+-- Dump completed on 2018-05-15 14:27:08
