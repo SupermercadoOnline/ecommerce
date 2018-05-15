@@ -19,12 +19,12 @@ class EstadosDAO extends DAOInterface
         return $listaEstados;
     }
 
-    public function insert($bean)
+    protected function insert($bean)
     {
         // TODO: Implement insert() method.
     }
 
-    public function update($bean)
+    protected function update($bean)
     {
         // TODO: Implement update() method.
     }
