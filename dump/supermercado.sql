@@ -59,7 +59,7 @@ CREATE TABLE `cidades` (
   UNIQUE KEY `id` (`id`),
   KEY `fk_id_estado_cidades_idx` (`id_estado`),
   CONSTRAINT `fk_id_estado_cidades` FOREIGN KEY (`id_estado`) REFERENCES `estados` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=8192 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5589 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -145,7 +145,7 @@ CREATE TABLE `estados` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `nome` (`nome`),
   UNIQUE KEY `sigla` (`sigla`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -208,6 +208,57 @@ CREATE TABLE `faixas_desconto_promocao` (
 LOCK TABLES `faixas_desconto_promocao` WRITE;
 /*!40000 ALTER TABLE `faixas_desconto_promocao` DISABLE KEYS */;
 /*!40000 ALTER TABLE `faixas_desconto_promocao` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `permissoes_possiveis_usuario_admin`
+--
+
+DROP TABLE IF EXISTS `permissoes_possiveis_usuario_admin`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `permissoes_possiveis_usuario_admin` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `nome` (`nome`)
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `permissoes_possiveis_usuario_admin`
+--
+
+LOCK TABLES `permissoes_possiveis_usuario_admin` WRITE;
+/*!40000 ALTER TABLE `permissoes_possiveis_usuario_admin` DISABLE KEYS */;
+INSERT INTO `permissoes_possiveis_usuario_admin` VALUES (19,'administradores__cadastrar'),(20,'administradores__editar'),(21,'administradores__editar_endereco'),(23,'administradores__editar_permissoes_acesso'),(22,'administradores__editar_telefones'),(24,'administradores__excluir'),(18,'administradores__visualizar'),(1,'categoria_produtos__cadastrar'),(3,'categoria_produtos__editar'),(4,'categoria_produtos__excluir'),(2,'categoria_produtos__visualizar'),(16,'clientes__adicionar_creditos'),(12,'clientes__editar'),(13,'clientes__editar_endereco'),(14,'clientes__editar_telefones'),(15,'clientes__excluir'),(17,'clientes__remover_creditos'),(11,'clientes__visualizar'),(5,'produtos__cadastrar'),(7,'produtos__editar'),(9,'produtos__editar_estoque'),(8,'produtos__editar_preco'),(10,'produtos__excluir'),(6,'produtos__visualizar'),(26,'promocoes__cadastrar'),(27,'promocoes__editar'),(30,'promocoes__editar_data_fim'),(29,'promocoes__editar_data_inicio'),(31,'promocoes__editar_faixas_desconto'),(28,'promocoes__editar_produtos'),(32,'promocoes__excluir'),(25,'promocoes__visualizar'),(34,'vendas__cancelar'),(35,'vendas__editar_status_entrega'),(33,'vendas__visualizar');
+/*!40000 ALTER TABLE `permissoes_possiveis_usuario_admin` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `permissoes_usuario_admin`
+--
+
+DROP TABLE IF EXISTS `permissoes_usuario_admin`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `permissoes_usuario_admin` (
+  `id_pessoa` int(11) NOT NULL,
+  `id_permissao` int(11) NOT NULL,
+  PRIMARY KEY (`id_pessoa`,`id_permissao`),
+  KEY `fk_id_permissao_permissoes_usuario_admin_idx` (`id_permissao`),
+  CONSTRAINT `fk_id_permissao_permissoes_usuario_admin` FOREIGN KEY (`id_permissao`) REFERENCES `permissoes_possiveis_usuario_admin` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_id_pessoa_permissoes_usuario_admin` FOREIGN KEY (`id_pessoa`) REFERENCES `pessoas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `permissoes_usuario_admin`
+--
+
+LOCK TABLES `permissoes_usuario_admin` WRITE;
+/*!40000 ALTER TABLE `permissoes_usuario_admin` DISABLE KEYS */;
+/*!40000 ALTER TABLE `permissoes_usuario_admin` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -536,6 +587,7 @@ CREATE TABLE `vendas` (
   `data_venda` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `is_cliente_buscar` tinyint(4) NOT NULL,
   `data_cliente_agendou_entrega` datetime DEFAULT NULL,
+  `is_cancelada` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `fk_id_pessoa_vendas_idx` (`id_pessoa`),
   CONSTRAINT `fk_id_pessoa_vendas` FOREIGN KEY (`id_pessoa`) REFERENCES `pessoas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -560,4 +612,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-05-14 17:38:01
+-- Dump completed on 2018-05-15 10:43:56
