@@ -1,34 +1,26 @@
 <?php
 
-class ProdutoBean{
-	//duvida estilo da variavel camelcase
+class ProdutosBean{
+
 	private $id;
 	private $nome;
-	private $id_catergoria;
+	private $idCatergoria;
 	private $preco;
 	private $fabricante;
 	private $descricao;
-	private $is_ativo;
+	private $estoqueMinimo;
+	private $isAtivo;
 	
-	public function __construct($id, $nome, $id_catergoria, $preco, $fabricante, $descricao, $is_ativo){
+	public function __construct($id, $nome, $idCatergoria, $preco, $fabricante, $descricao, $estoqueMinimo, $isAtivo){
 		$this->id = $id;
 		$this->nome = $nome;
-		$this->id_catergoria = $id_catergoria;
+		$this->idCatergoria = $idCatergoria;
 		$this->preco = $preco;
 		$this->fabricante = $fabricante;
 		$this->descricao = $descricao;
-		$this->is_ativo = $is_ativo;
+		$this->estoqueMinimo = $estoqueMinimo;
+		$this->isAtivo = $isAtivo;
 	}
-
-	/*
-	public function __construct($nome, $id_catergoria, $preco, $fabricante, $descricao, $is_ativo){
-		$this->nome = $nome;
-		$this->id_catergoria = $id_catergoria;
-		$this->preco = $preco;
-		$this->fabricante = $fabricante;
-		$this->descricao = $descricao;
-		this->is_ativo = $is_ativo;
-	}*/
 	
 	public function setId($id): void{
 		$this->id= $id;
@@ -46,12 +38,12 @@ class ProdutoBean{
 		return $this->nome;
 	}
 
-	public function setIdCategoria($id_categoria): void{
-	    $this->id_categoria = $id_categoria;
+	public function setIdCategoria($idCategoria): void{
+	    $this->idCatergoria = $idCategoria;
     }
 
     public function getIdCatergoria(){
-        return $this->id_catergoria;
+        return $this->idCatergoria;
     }
 
     public function setPreco($preco){
@@ -78,11 +70,21 @@ class ProdutoBean{
         return $this->descricao;
     }
 
-    public function setIsAtivo($is_ativo){
-        $this->is_ativo = $is_ativo;
+    public function getEstoqueMinimo()
+    {
+        return $this->estoqueMinimo;
+    }
+
+    public function setEstoqueMinimo($estoqueMinimo): void
+    {
+        $this->estoqueMinimo = $estoqueMinimo;
+    }
+
+    public function setIsAtivo($isAtivo){
+        $this->isAtivo = $isAtivo;
     }
 
     public function getIsAtivo(){
-        return $this->is_ativo;
+        return $this->isAtivo;
     }
 }
