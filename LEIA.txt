@@ -1,0 +1,5 @@
+Antes de executar os comandos do docker, faça o seguinte:
+1º - Escolha uma pasta no seu computador.
+2º - Através do cmd navegue até ela.
+3º - Nessa pasta execute o comando "git clone https://github.com/SupermercadoOnline/ecommerce.git"
+4º - Inicie a configuração do docker :)
