@@ -23,8 +23,12 @@ class ProdutosDAO extends DAOInterface{
 
         if($produtosBean instanceof ProdutosBean){
             
-            $query = $this->mysqli->prepare("INSERT INTO produtos (nome, id_categoria, preco, fabricante, descricao, estoque_minimo) VALUES (?, ?, ?, ?, ?, ?)");
-            $query->bind_param('sidssi', $produtosBean->getNome(), $produtosBean->getIdCatergoria(), $produtosBean->getPreco(), $produtosBean->getFabricante(), $produtosBean->getDescricao(), $produtosBean->getEstoqueMinimo());
+            $query = $this->mysqli->prepare("INSERT INTO produtos (nome, id_categoria, preco, fabricante, descricao,
+                                      estoque_minimo) VALUES (?, ?, ?, ?, ?, ?)");
+            $query->bind_param('sidssi', $produtosBean->getNome(), $produtosBean->getIdCatergoria(),
+                $produtosBean->getPreco(), $produtosBean->getFabricante(), $produtosBean->getDescricao(),
+                $produtosBean->getEstoqueMinimo());
+
             if($query->execute()){
                 $produtosBean->setId($query->insert_id);
                 return $produtosBean;
@@ -38,13 +42,46 @@ class ProdutosDAO extends DAOInterface{
 
     protected function update($produtosBean){
 
+        if($produtosBean instanceof ProdutosBean){
+
+            $query = $this->mysqli->prepare("UPDATE produtos SET nome=?, id_categoria=?, preco=?, fabricante=?, 
+                                    descricao=?, estoque_minimo=?, is_ativo=? WHERE id=?)");
+            $query->bind_param('sidssi', $produtosBean->getNome(), $produtosBean->getIdCatergoria(),
+                $produtosBean->getPreco(), $produtosBean->getFabricante(), $produtosBean->getDescricao(),
+                $produtosBean->getEstoqueMinimo(), $produtosBean->getIsAtivo(),$produtosBean->getId());
+
+            if($query->execute()){
+                return true;
+            }
+        }
+
+        return false;
     }
 
     protected function salvar($produtosBean){
-        // TODO: Implement salvar() method.
+
+        if($produtosBean instanceof ProdutosBean){
+            return $this->update($produtosBean);
+
+        } else {
+            return $this->insert($produtosBean);
+        }
+
+        return false;
     }
 
     protected function delete($produtosBean){
-        // TODO: Implement delete() method.
+
+        if($produtosBean instanceof ProdutosBean){
+
+            $query = $this->mysqli->prepare("DELETE FROM produtos WHERE id=?)");
+            $query->bind_param('sidssi', $produtosBean->getId());
+
+            if($query->execute()){
+                return true;
+            }
+        }
+
+        return false;
     }
 }
