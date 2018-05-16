@@ -31,13 +31,10 @@ class ProdutosDAO extends DAOInterface{
 
             if($query->execute()){
                 $produtosBean->setId($query->insert_id);
-                return $produtosBean;
+                return true;
             }
-
         }
-
         return false;
-
     }
 
     protected function update($produtosBean){
@@ -61,10 +58,14 @@ class ProdutosDAO extends DAOInterface{
     protected function salvar($produtosBean){
 
         if($produtosBean instanceof ProdutosBean){
-            return $this->update($produtosBean);
+            $id = $produtosBean->getId();
 
-        } else {
-            return $this->insert($produtosBean);
+            if($this->select("SELECT FROM produtos WHERE id=$id") > 0){
+                return $this->update($produtosBean);
+
+            } else {
+                return $this->insert($produtosBean);
+            }
         }
 
         return false;
