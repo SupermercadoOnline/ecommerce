@@ -1,6 +1,6 @@
 <?php
 
-class PessoasBEAN
+class PessoasBean
 {
     private $id;
     private $nome;
@@ -13,7 +13,7 @@ class PessoasBEAN
     private $isReceberAlertasPromocao;
 
     /**
-     * PessoasBEAN constructor.
+     * PessoasBean constructor.
      * @param $id
      * @param $nome
      * @param $razaoSocial
