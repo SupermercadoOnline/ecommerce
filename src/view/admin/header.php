@@ -13,6 +13,36 @@ include_once dirname(__DIR__) . '/header_html_section.php';
         </a>
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
+                <a href="#" class="dropdown-toggle" id="navbarDropdownUsuarios" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <b>
+                        Usuários
+                        <span class="caret"></span>
+                    </b>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdownUsuarios">
+                    <li>
+                        <a href="<?php echo URL_HOST?>/admin/form_cadastrar_usuario.php">
+                            <b>Novo</b>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <b>Editar</b>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <b>Inativar</b>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <b>Consultar</b>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="dropdown">
                 <a href="#" class="dropdown-toggle" id="navbarDropdownProdutos" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <b>
                         Produtos
