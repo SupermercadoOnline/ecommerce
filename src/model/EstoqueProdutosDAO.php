@@ -6,12 +6,12 @@ include_once dirname(__DIR__) . '/functions.php';
 class EstoqueProdutosDAO
 {
 
-    public function entradaProduto($produtoBean, $quantidade, $dataBrMovimento = null){
+    public function entradaProduto($produtosBean, $quantidade, $dataBrMovimento = null){
 
-        if($produtoBean instanceof ProdutosBean && $quantidade > 0){
+        if($produtosBean instanceof ProdutosBean && $quantidade > 0){
 
             $dataPhpMovimento = empty($dataBrMovimento) ? get_string_datetime_atual() : data_br_to_data_php($dataBrMovimento);
-            return $this->insertMovimento($produtoBean, $quantidade, $dataPhpMovimento);
+            return $this->insertMovimento($produtosBean, $quantidade, $dataPhpMovimento);
 
         }
 
@@ -19,12 +19,12 @@ class EstoqueProdutosDAO
 
     }
 
-    public function saidaProduto($produtoBean, $quantidade, $dataBrMovimento = null){
+    public function saidaProduto($produtosBean, $quantidade, $dataBrMovimento = null){
 
-        if($produtoBean instanceof ProdutosBean && $quantidade > 0){
+        if($produtosBean instanceof ProdutosBean && $quantidade > 0){
 
             $dataPhpMovimento = empty($dataBrMovimento) ? get_string_datetime_atual() : data_br_to_data_php($dataBrMovimento);
-            return $this->insertMovimento($produtoBean, $quantidade * -1, $dataPhpMovimento);
+            return $this->insertMovimento($produtosBean, $quantidade * -1, $dataPhpMovimento);
 
         }
 
@@ -32,13 +32,30 @@ class EstoqueProdutosDAO
 
     }
 
-    private function insertMovimento($produtoBean, $quantidade, $dataPhpMovimento){
+    public function getQuantidadeEmEstoque($produtosBean){
 
-        if($produtoBean instanceof ProdutosBean){
+        $quantidadeEstoque = 0;
+        
+        if($produtosBean instanceof ProdutosBean){
+
+            $query = "SELECT sum(quantidade) FROM estoque_produtos WHERE id_produto = ?";
+            $parametros = array($produtosBean->getId());
+            $result = MySqlDAO::getResult($query, $parametros)->fetch_row();
+            $quantidadeEstoque = $result[0];
+
+        }
+
+        return $quantidadeEstoque;
+
+    }
+
+    private function insertMovimento($produtosBean, $quantidade, $dataPhpMovimento){
+
+        if($produtosBean instanceof ProdutosBean){
 
             $query = "INSERT INTO estoque_produtos (id_produto, quantidade, data_movimento) VALUES (?, ?, ?)";
             $parametros = array(
-                $produtoBean->getId(),
+                $produtosBean->getId(),
                 $quantidade,
                 data_br_to_data_php($dataPhpMovimento)
             );
