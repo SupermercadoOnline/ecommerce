@@ -22,22 +22,22 @@ include_once dirname(__DIR__) . '/header_html_section.php';
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownUsuarios">
                     <li>
                         <a href="<?php echo URL_HOST?>/admin/form_cadastrar_usuario.php">
-                            Novo
+                            <b>Novo</b>
                         </a>
                     </li>
                     <li>
                         <a href="#">
-                            Editar
+                            <b>Editar</b>
                         </a>
                     </li>
                     <li>
                         <a href="#">
-                            Inativar
+                            <b>Inativar</b>
                         </a>
                     </li>
                     <li>
                         <a href="#">
-                            Consultar
+                            <b>Consultar</b>
                         </a>
                     </li>
                 </ul>
