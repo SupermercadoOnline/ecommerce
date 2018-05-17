@@ -1,8 +1,8 @@
 <?php
-include_once 'DAOInterface.php';
+include_once 'MySqlDAO.php';
 include_once 'PessoasBean.php';
 
-class PessoasDAO extends DAOInterface
+class PessoasDAO
 {
 
     public function consultaPorId($id)
@@ -15,56 +15,68 @@ class PessoasDAO extends DAOInterface
         return $this->select("select * from pessoas where nome = '$nome' order by nome");
     }
 
-    protected function select($query): array
+    private function select($query): array
     {
         $listaDePessoas = array();
-        $select = $this->mysqli->query($query);
+        $select = MySqlDAO::getResult($query);
         while($row = $select->fetch_array()) {
             $listaDePessoas[] = new PessoasBean($row['id'], $row['nome'],
-                $row['razaoSocial'], $row['cpf'], $row['cnpj'], $row['email'], $row['senha'],
-                $row['isAtivo'], $row['isReceberAlertasPromocao']);
+                $row['razao_social'], $row['cpf'], $row['cnpj'], $row['email'], $row['senha'],
+                $row['is_ativo'], $row['is_receber_alertas_promocao']);
         }
 
         return $listaDePessoas;
     }
 
-    protected function insert($bean)
+    private function insert($bean)
     {
         if($bean instanceof PessoasBean) {
-            $insert = $this->mysqli->prepare("insert into pessoas (nome, razao_social, cpf, 
+            $query = "insert into pessoas (nome, razao_social, cpf, 
                 cnpj, email, senha, is_receber_alertas_promocao)
-                values (?, ?, ?, ?, ?, ?, ?)");
+                values (?, ?, ?, ?, ?, ?, ?)";
 
-            $insert->bind_param("ssssssi", $bean->getNome(),
-                $bean->getRazaoSocial(), $bean->getCpf(), $bean->getCnpj(),
-                $bean->getEmail(), $bean->getSenha(), $bean->getIsReceberAlertasPromocao());
+            $params = array(
+                $bean->getNome(),
+                $bean->getRazaoSocial(),
+                $bean->getCpf(),
+                $bean->getCnpj(),
+                $bean->getEmail(),
+                password_hash($bean->getSenha(), PASSWORD_DEFAULT),
+                $bean->getIsReceberAlertasPromocao()
+            );
 
-            if($insert->execute()) {
-                $bean->setId($insert->insert_id);
+            $result = MySqlDAO::executeQuery($query, $params);
+
+            if($result != false) {
+                $bean->setId($result);
                 return $bean;
             }
         }
-
         return false;
     }
 
-    protected function update($bean)
+    private function update($bean)
     {
         if($bean instanceof PessoasBean) {
-            $update = $this->mysqli->prepare("update pessoas set nome = ?, razao_social = ?,
+            $query = "update pessoas set nome = ?, razao_social = ?,
                 cpf = ?, cnpj = ?, email = ?, senha = ?, is_receber_alertas_promocao = ?
-                where id = ?");
+                where id = ?";
 
-            $update->bind_param("ssssssii",$bean->getNome(), $bean->getRazaoSocial(),
-                $bean->getCpf(), $bean->getCnpj(), $bean->getEmail(), $bean->getSenha(),
-                $bean->getIsReceberAlertasPromocao(), $bean->getId());
+            $params = array(
+                $bean->getNome(),
+                $bean->getRazaoSocial(),
+                $bean->getCpf(), $bean->getCnpj(),
+                $bean->getEmail(),
+                password_hash($bean->getSenha(), PASSWORD_DEFAULT),
+                $bean->getIsReceberAlertasPromocao(),
+                $bean->getId()
+            );
 
-            if($update->execute()) {
+            if(MySqlDAO::executeQuery($query, $params)) {
                 return true;
             }
-
-            return false;
         }
+        return false;
     }
 
     public function salvar($bean)
@@ -76,22 +88,18 @@ class PessoasDAO extends DAOInterface
                 return $this->insert($bean);
             }
 
-            return false;
         }
+            return false;
     }
 
     public function delete($bean)
     {
         if($bean instanceof PessoasBean) {
-            $delete = $this->mysqli->prepare("update pessoas set is_ativo = ? where id = ?");
 
-            $delete->bind_param("i",$bean->getIsAtivo(),$bean->getId());
+            $bean->setIsAtivo(false);
+            return $this->update($bean);
 
-            if($delete->execute()) {
-                return true;
-            }
-
-            return false;
         }
+            return false;
     }
 }

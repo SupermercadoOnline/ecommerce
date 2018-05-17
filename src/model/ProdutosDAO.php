@@ -1,8 +1,8 @@
 <?php
-include_once 'DAOInterface.php';
+include_once 'MySqlDAO.php';
 include_once 'ProdutosBean.php';
 
-class ProdutosDAO extends DAOInterface{
+class ProdutosDAO{
 
     public function getAll(){
         return $this->select('SELECT * FROM produtos ORDER BY nome');
@@ -19,10 +19,9 @@ class ProdutosDAO extends DAOInterface{
 
     }
 
-    protected function select($query):array{
+    private function select($query):array{
         $listaProdutos = array();
-        $selectProdutos = $this->mysqli->query($query);
-
+        $selectProdutos = MySqlDAO::getResult($query);
         while($row = $selectProdutos->fetch_array())
             $listaProdutos[] = new ProdutosBean($row['id'], $row['nome'], $row['id_categoria'], $row['preco'],
                 $row['fabricante'], $row['descricao'], $row['estoque_minimo'], $row['is_ativo']);
@@ -30,35 +29,48 @@ class ProdutosDAO extends DAOInterface{
         return $listaProdutos;
     }
 
-    protected function insert($produtosBean){
+    private function insert($produtosBean){
 
         if($produtosBean instanceof ProdutosBean){
             
-            $query = $this->mysqli->prepare("INSERT INTO produtos (nome, id_categoria, preco, fabricante, descricao,
-                                      estoque_minimo) VALUES (?, ?, ?, ?, ?, ?)");
-            $query->bind_param('sidssi', $produtosBean->getNome(), $produtosBean->getIdCatergoria(),
-                $produtosBean->getPreco(), $produtosBean->getFabricante(), $produtosBean->getDescricao(),
-                $produtosBean->getEstoqueMinimo());
+            $query = "INSERT INTO produtos (nome, id_categoria, preco, fabricante, descricao, estoque_minimo) VALUES (?, ?, ?, ?, ?, ?)";
+            $parametros = array(
+                $produtosBean->getNome(),
+                $produtosBean->getIdCatergoria(),
+                $produtosBean->getPreco(),
+                $produtosBean->getFabricante(),
+                $produtosBean->getDescricao(),
+                $produtosBean->getEstoqueMinimo()
+            );
+            $result = MySqlDAO::executeQuery($query, $parametros);
+            if($result != false){
 
-            if($query->execute()){
-                $produtosBean->setId($query->insert_id);
-                return true;
+                $produtosBean->setId($result);
+                return $produtosBean;
+
             }
+
         }
         return false;
     }
 
-    protected function update($produtosBean){
+    private function update($produtosBean){
 
         if($produtosBean instanceof ProdutosBean){
 
-            $query = $this->mysqli->prepare("UPDATE produtos SET nome=?, id_categoria=?, preco=?, fabricante=?, 
-                                    descricao=?, estoque_minimo=?, is_ativo=? WHERE id=?");
-            $query->bind_param('sidssibi', $produtosBean->getNome(), $produtosBean->getIdCatergoria(),
-                $produtosBean->getPreco(), $produtosBean->getFabricante(), $produtosBean->getDescricao(),
-                $produtosBean->getEstoqueMinimo(), $produtosBean->getIsAtivo(),$produtosBean->getId());
+            $query = "UPDATE produtos SET nome=?, id_categoria=?, preco=?, fabricante=?, descricao=?, estoque_minimo=?, is_ativo=? WHERE id=?";
+            $parametros = array(
+                $produtosBean->getNome(),
+                $produtosBean->getIdCatergoria(),
+                $produtosBean->getPreco(),
+                $produtosBean->getFabricante(),
+                $produtosBean->getDescricao(),
+                $produtosBean->getEstoqueMinimo(),
+                $produtosBean->getIsAtivo(),
+                $produtosBean->getId()
+            );
 
-            if($query->execute()){
+            if(MySqlDAO::executeQuery($query, $parametros)){
                 return true;
             }
         }
@@ -85,12 +97,9 @@ class ProdutosDAO extends DAOInterface{
 
         if($produtosBean instanceof ProdutosBean){
 
-            $query = $this->mysqli->prepare("DELETE FROM produtos WHERE id=?");
-            $query->bind_param('i', $produtosBean->getId());
+            $produtosBean->setIsAtivo(false);
+            return $this->update($produtosBean);
 
-            if($query->execute()){
-                return true;
-            }
         }
 
         return false;
