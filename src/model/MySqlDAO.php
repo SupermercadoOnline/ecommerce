@@ -9,7 +9,7 @@ class MySqlDAO
     private static function getConnection(){
 
         if(empty(self::$connection)){
-            self::$connection = new mysqli('mysqli', 'root', '', 'supermercado_online');
+            self::$connection = new mysqli('mysql', 'root', '', 'supermercado_online');
             self::$connection->set_charset('utf8');
         }
 
