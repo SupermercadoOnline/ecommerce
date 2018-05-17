@@ -31,15 +31,15 @@ class PessoasDAO
 
     private function select($query): array
     {
-        $listaDePessoas = array();
-        $select = MySqlDAO::getResult($query);
-        while($row = $select->fetch_array()) {
-            $listaDePessoas[] = new PessoasBean($row['id'], $row['nome'],
+        $lista = array();
+        $result = MySqlDAO::getResult($query);
+        while($row = $result->fetch_array()) {
+            $lista[] = new PessoasBean($row['id'], $row['nome'],
                 $row['razao_social'], $row['cpf'], $row['cnpj'], $row['email'], $row['senha'],
                 $row['is_ativo'], $row['is_receber_alertas_promocao']);
         }
 
-        return $listaDePessoas;
+        return $lista;
     }
 
     private function insert($bean)
