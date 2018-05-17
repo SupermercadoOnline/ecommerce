@@ -48,7 +48,7 @@ class ProdutosDAO extends DAOInterface{
         return false;
     }
 
-    public function update($produtosBean){
+    protected function update($produtosBean){
 
         if($produtosBean instanceof ProdutosBean){
 

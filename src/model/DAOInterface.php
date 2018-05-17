@@ -14,11 +14,11 @@ abstract class DAOInterface
         $this->mysqli = MySqlDAO::getInstance();
     }
 
-    protected abstract function select($query):array ;
-    protected abstract function insert($bean);
-    protected abstract function update($bean);
-    protected abstract function salvar($bean);
-    protected abstract function delete($bean);
+    abstract protected function select($query):array ;
+    abstract protected function insert($bean);
+    abstract protected function update($bean);
+    abstract public function salvar($bean);
+    abstract public function delete($bean);
 
     public function __destruct()
     {
