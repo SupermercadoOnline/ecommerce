@@ -71,7 +71,7 @@ class MySqlDAO
         return false;
     }
 
-    public static function closeConnection()
+    private static function closeConnection()
     {
         if(self::getConnection() != null) {
             self::getConnection()->close();
@@ -84,8 +84,7 @@ class MySqlDAO
 
     public function __destruct()
     {
-        if(self::getConnection() instanceof mysqli)
-            self::getConnection()->close();
+        self::closeConnection();
     }
 
 }
