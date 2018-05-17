@@ -1,3 +1,4 @@
+</div>
 <div class="container-fluid bg-info">
 
     <div class="row">

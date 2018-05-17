@@ -21,7 +21,7 @@ include_once dirname(__DIR__) . '/header_html_section.php';
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownProdutos">
                     <li>
-                        <a href="#" class="">
+                        <a href="<?php echo URL_HOST ?>/admin/form_cadastrar_produto.php">
                             <b>Novo</b>
                         </a>
                     </li>
@@ -37,3 +37,5 @@ include_once dirname(__DIR__) . '/header_html_section.php';
     </div>
 
 </nav>
+
+<div class="container">
