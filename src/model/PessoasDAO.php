@@ -21,8 +21,8 @@ class PessoasDAO
         $select = MySqlDAO::getResult($query);
         while($row = $select->fetch_array()) {
             $listaDePessoas[] = new PessoasBean($row['id'], $row['nome'],
-                $row['razaoSocial'], $row['cpf'], $row['cnpj'], $row['email'], $row['senha'],
-                $row['isAtivo'], $row['isReceberAlertasPromocao']);
+                $row['razao_social'], $row['cpf'], $row['cnpj'], $row['email'], $row['senha'],
+                $row['is_ativo'], $row['is_receber_alertas_promocao']);
         }
 
         return $listaDePessoas;
@@ -35,11 +35,17 @@ class PessoasDAO
                 cnpj, email, senha, is_receber_alertas_promocao)
                 values (?, ?, ?, ?, ?, ?, ?)";
 
-            $params = array($bean->getNome(),
-                $bean->getRazaoSocial(), $bean->getCpf(), $bean->getCnpj(),
-                $bean->getEmail(), $bean->getSenha(), $bean->getIsReceberAlertasPromocao());
+            $params = array(
+                $bean->getNome(),
+                $bean->getRazaoSocial(),
+                $bean->getCpf(),
+                $bean->getCnpj(),
+                $bean->getEmail(),
+                password_hash($bean->getSenha(), PASSWORD_DEFAULT),
+                $bean->getIsReceberAlertasPromocao()
+            );
 
-            $result = MySqlDAO::executeQuery(query, $params);
+            $result = MySqlDAO::executeQuery($query, $params);
 
             if($result != false) {
                 $bean->setId($result);
@@ -56,11 +62,17 @@ class PessoasDAO
                 cpf = ?, cnpj = ?, email = ?, senha = ?, is_receber_alertas_promocao = ?
                 where id = ?";
 
-            $params = array($bean->getNome(),
-                $bean->getRazaoSocial(), $bean->getCpf(), $bean->getCnpj(),
-                $bean->getEmail(), $bean->getSenha(), $bean->getIsReceberAlertasPromocao(), $bean->getId());
+            $params = array(
+                $bean->getNome(),
+                $bean->getRazaoSocial(),
+                $bean->getCpf(), $bean->getCnpj(),
+                $bean->getEmail(),
+                password_hash($bean->getSenha(), PASSWORD_DEFAULT),
+                $bean->getIsReceberAlertasPromocao(),
+                $bean->getId()
+            );
 
-            if(MySqlDAO::executeQuery(query, $params)) {
+            if(MySqlDAO::executeQuery($query, $params)) {
                 return true;
             }
         }
@@ -76,8 +88,8 @@ class PessoasDAO
                 return $this->insert($bean);
             }
 
-            return false;
         }
+            return false;
     }
 
     public function delete($bean)
@@ -91,7 +103,7 @@ class PessoasDAO
                 return true;
             }
 
-            return false;
         }
+            return false;
     }
 }

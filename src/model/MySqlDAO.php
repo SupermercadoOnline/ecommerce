@@ -23,8 +23,9 @@ class MySqlDAO
         if(!empty($params)) {
             $types = null;
             foreach ($params as $param) {
-                $types .= substr(gettype($param), 0, 1);
+                $types .= $param === null ? 's' : substr(gettype($param), 0,1);
             }
+            $types = str_replace('b', 'i', $types);
 
             $params = array_merge(array($types), $params);
 
@@ -53,8 +54,9 @@ class MySqlDAO
 
         $types = null;
         foreach ($params as $param) {
-            $types .= substr(gettype($param), 0,1);
+            $types .= $param === null ? 's' : substr(gettype($param), 0,1);
         }
+        $types = str_replace('b', 'i', $types);
 
         $params = array_merge(array($types), $params);
 
@@ -78,6 +80,12 @@ class MySqlDAO
         }
 
         return false;
+    }
+
+    public function __destruct()
+    {
+        if(self::getConnection() instanceof mysqli)
+            self::getConnection()->close();
     }
 
 }
