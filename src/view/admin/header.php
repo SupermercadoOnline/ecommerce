@@ -4,26 +4,31 @@ include_once dirname(__DIR__) . '/header_html_section.php';
 
 <body style="padding-top: 70px !important; background-color: whitesmoke !important;">
 
-<nav class="nav fixed-top navbar-expand-lg navbar-light bg-light">
+<nav class="navbar-fixed-top navbar-default">
 
     <div class="container">
 
         <a href="#" class="navbar-brand">
             <img src="#" alt="Brand">
         </a>
-        <ul class="navbar-nav float-right">
-            <li class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownProdutos" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" id="navbarDropdownProdutos" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Produtos
+                    <span class="caret"></span>
                 </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownProdutos">
-                    <a href="#" class="dropdown-item">
-                        Novo
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        Visualizar
-                    </a>
-                </div>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdownProdutos">
+                    <li>
+                        <a href="#" class="">
+                            Novo
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="dropdown-item">
+                            Visualizar
+                        </a>
+                    </li>
+                </ul>
             </li>
         </ul>
 

@@ -9,7 +9,7 @@ include_once '../view/header_html_section.php';
 
     <div class="row">
 
-        <div class="col-xl-12 col-lg-12">
+        <div class="col-lg-12">
 
             <h1 class="text-center">
                 Modelo
@@ -21,7 +21,7 @@ include_once '../view/header_html_section.php';
 
     <div class="row">
 
-        <div class="col-xl-12 col-lg-12">
+        <div class="col-lg-12">
 
             <div class="table-responsive">
 
