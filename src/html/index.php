@@ -1,11 +1,8 @@
 <?php
 include_once '../model/EstadosDAO.php';
-?>
 
-<html lang="pt-br">
 
-<?php
-include_once '../view/head_section.php';
+include_once '../view/header_html_section.php';
 ?>
 
 <div class="container">
@@ -44,7 +41,7 @@ include_once '../view/head_section.php';
                     $estadosDAO = new EstadosDAO();
                     foreach ($estadosDAO->getAll() as $estadoBean){
                         if($estadoBean instanceof EstadosBean){
-                    ?>
+                            ?>
 
                             <tr>
                                 <td><?php echo $estadoBean->getId() ?></td>
@@ -52,7 +49,7 @@ include_once '../view/head_section.php';
                                 <td><?php echo $estadoBean->getSigla() ?></td>
                             </tr>
 
-                    <?php
+                            <?php
                         }
                     }
                     ?>
@@ -71,7 +68,4 @@ include_once '../view/head_section.php';
 </div>
 
 <?php
-include_once '../view/js_section.php';
-?>
-
-</html>
+include_once '../view/footer_html_section.php';
