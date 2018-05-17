@@ -82,6 +82,16 @@ class PessoasDAO extends DAOInterface
 
     public function delete($bean)
     {
-        // TODO: Implement delete() method.
+        if($bean instanceof PessoasBean) {
+            $delete = $this->mysqli->prepare("update pessoas set is_ativo = ? where id = ?");
+
+            $delete->bind_param("i",$bean->getIsAtivo(),$bean->getId());
+
+            if($delete->execute()) {
+                return true;
+            }
+
+            return false;
+        }
     }
 }

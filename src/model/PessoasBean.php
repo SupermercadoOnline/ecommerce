@@ -152,7 +152,7 @@ class PessoasBean
     /**
      * @return mixed
      */
-    public function getisAtivo()
+    public function getIsAtivo()
     {
         return $this->isAtivo;
     }
@@ -168,7 +168,7 @@ class PessoasBean
     /**
      * @return mixed
      */
-    public function getisReceberAlertasPromocao()
+    public function getIsReceberAlertasPromocao()
     {
         return $this->isReceberAlertasPromocao;
     }
