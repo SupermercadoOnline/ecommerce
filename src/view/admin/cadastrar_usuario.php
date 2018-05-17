@@ -4,9 +4,15 @@ include_once '../../model/PessoasDAO.php';
 include_once '../../model/PessoasBean.php';
 
 if($_POST["cadastrar"]) {
-    $pessoa = new PessoasBean(null, $_POST["nome"], $_POST["razaoSocial"], $_POST["cpf"], $_POST["cnpj"],
-        $_POST["email"], $_POST["senha"], null,
-        $_POST["isReceberAlertasPromocao"] ? 1 : 0);
+    $pessoa = new PessoasBean(null,
+        $_POST["nome"],
+        null,
+        $_POST["cpf"],
+        null,
+        $_POST["email"],
+        $_POST["senha"],
+        null,
+        null);
     $dao = new PessoasDAO();
 
     $pessoa = $dao->salvar($pessoa);
@@ -58,25 +64,15 @@ if($_POST["cadastrar"]) {
 
                         <label for="nome">Nome:</label>
                         <input id="nome" name="nome" type="text" class="form-control input-lg">
-
-                        <label for="razaoSocial">Razão Social: </label>
-                        <input id="razaoSocial" name="razaoSocial" type="text" class="form-control input-lg">
-
+                        
                         <label for="cpf">CPF: </label>
                         <input id="cpf" name="cpf" type="text" class="form-control input-lg">
-
-                        <label for="cnpj">CNPJ: </label>
-                        <input id="cnpj" name="cnpj" type="text" class="form-control input-lg">
 
                         <label for="email">Email: </label>
                         <input id="email" name="email" type="email" class="form-control input-lg">
 
                         <label for="senha">Senha: </label>
                         <input id="senha" name="senha" type="password" class="form-control input-lg">
-
-                        <label for="isReceberAlertasPromocao">Receber alertas de promoções: </label>
-                        <input id="isReceberAlertasPromocao" name="isReceberAlertasPromocao" type="checkbox"
-                               class="checkbox-inline input-lg">
 
                         <br/>
                         <input type="submit" class="form-control" name="cadastrar" value="Cadastrar">
