@@ -9,4 +9,3 @@ include_once '../configs.php';
     include_once 'head_section.php';
     ?>
 
-    <body>
