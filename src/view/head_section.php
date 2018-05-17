@@ -1,5 +1,5 @@
 <?php
-include_once '../configs.php';
+include_once dirname(__DIR__) . '/configs.php';
 ?>
 
 <head>
@@ -7,5 +7,6 @@ include_once '../configs.php';
     <link rel="stylesheet" href="<?php echo URL_CSS_DIR ?>/bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo URL_CSS_DIR ?>/bootstrap-datepicker.min.css">
     <link rel="stylesheet" href="<?php echo URL_CSS_DIR ?>/bootstrap-select.min.css">
+    <link rel="stylesheet" href="<?php echo URL_CSS_DIR ?>/main.css">
     <title>Supermercado Online</title>
 </head>

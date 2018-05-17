@@ -1,0 +1,11 @@
+body{
+    background-color: whitesmoke !important;
+}
+
+#navbar-admin{
+    box-shadow: black 0 0 5px;
+}
+
+.text-white{
+    color: white !important;
+}

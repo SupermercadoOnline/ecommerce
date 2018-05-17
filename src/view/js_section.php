@@ -1,5 +1,5 @@
 <?php
-include_once '../configs.php';
+include_once dirname(__DIR__) . '/configs.php';
 ?>
 
 <script src="<?php echo URL_JS_DIR ?>/jQuery.min.js"></script>

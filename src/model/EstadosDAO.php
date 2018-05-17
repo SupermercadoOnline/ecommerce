@@ -19,6 +19,7 @@ class EstadosDAO extends DAOInterface
         return $listaEstados;
     }
 
+
     protected function insert($bean)
     {
         // TODO: Implement insert() method.
@@ -38,4 +39,5 @@ class EstadosDAO extends DAOInterface
     {
         // TODO: Implement delete() method.
     }
+
 }
