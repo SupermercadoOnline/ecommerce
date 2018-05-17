@@ -23,6 +23,13 @@ include_once 'header.php';
 
                 </div>
 
+                <div class="col-lg-4">
+
+                    <label for="preco">Preço</label>
+                    <input id="preco" name="preco" type="text" class="form-control input-lg">
+
+                </div>
+
                 <!--continuar com os outros atributos-->
 
             </div>
