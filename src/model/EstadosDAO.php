@@ -1,8 +1,8 @@
 <?php
-include_once 'DAOInterface.php';
+include_once 'MySqlDAO.php';
 include_once 'EstadosBean.php';
 
-class EstadosDAO extends DAOInterface
+class EstadosDAO
 {
 
     public function getAll(){
@@ -12,7 +12,7 @@ class EstadosDAO extends DAOInterface
     protected function select($query):array
     {
         $listaEstados = array();
-        $selectEstados = $this->mysqli->query($query);
+        $selectEstados = MySqlDAO::getResult($query);
         while($row = $selectEstados->fetch_array())
             $listaEstados[] = new EstadosBean($row['id'], $row['nome'], $row['sigla']);
 

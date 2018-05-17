@@ -15,7 +15,7 @@ class PessoasDAO
         return $this->select("select * from pessoas where nome = '$nome' order by nome");
     }
 
-    protected function select($query): array
+    private function select($query): array
     {
         $listaDePessoas = array();
         $select = MySqlDAO::getResult($query);
@@ -28,7 +28,7 @@ class PessoasDAO
         return $listaDePessoas;
     }
 
-    protected function insert($bean)
+    private function insert($bean)
     {
         if($bean instanceof PessoasBean) {
             $query = "insert into pessoas (nome, razao_social, cpf, 
@@ -55,7 +55,7 @@ class PessoasDAO
         return false;
     }
 
-    protected function update($bean)
+    private function update($bean)
     {
         if($bean instanceof PessoasBean) {
             $query = "update pessoas set nome = ?, razao_social = ?,
@@ -95,13 +95,9 @@ class PessoasDAO
     public function delete($bean)
     {
         if($bean instanceof PessoasBean) {
-            $delete = $this->mysqli->prepare("update pessoas set is_ativo = ? where id = ?");
 
-            $delete->bind_param("i",$bean->getIsAtivo(),$bean->getId());
-
-            if($delete->execute()) {
-                return true;
-            }
+            $bean->setIsAtivo(false);
+            return $this->update($bean);
 
         }
             return false;
