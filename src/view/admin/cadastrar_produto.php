@@ -1,5 +1,6 @@
 <?php
 include_once 'header.php';
+include_once "../../model/CategoriasDAO.php";
 ?>
 
 <div class="panel panel-primary">
@@ -23,13 +24,37 @@ include_once 'header.php';
 
                 </div>
 
-                <div class="col-lg-4">
+                <div class="col-lg-2">
 
                     <label for="preco">Preço</label>
                     <input id="preco" name="preco" type="text" class="form-control input-lg">
 
                 </div>
 
+                <div class="col-lg-3">
+                    <label for="categoria">Categoria</label>
+
+                    <select name="categoria" class="form-control input-lg">
+                        <?php
+                        $categoriasDAO = new CategoriasDAO();
+
+                        foreach ($categoriasDAO->getAll() as $categoriaBean){
+                            if($categoriaBean instanceof EstadosBean){
+
+                                echo "<option value='".$categoriaBean->getId()."'>".$categoriaBean->getNome()."</option";
+
+                            }
+                        }
+                        ?>
+                    </select>
+                </div>
+
+                <div class="col-lg-2">
+
+                    <label for="fabricante">Fabricante</label>
+                    <input id="fabricante" name="fabricante" type="text" class="form-control input-lg">
+
+                </div>
                 <!--continuar com os outros atributos-->
 
             </div>
