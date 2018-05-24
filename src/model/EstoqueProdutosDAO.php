@@ -57,10 +57,10 @@ class EstoqueProdutosDAO
             $parametros = array(
                 $produtosBean->getId(),
                 $quantidade,
-                data_br_to_data_php($dataPhpMovimento)
+                $dataPhpMovimento
             );
 
-            return MySqlDAO::executeQuery($query, $parametros) != false;
+            return MySqlDAO::executeQuery($query, $parametros) === true;
 
         }
 

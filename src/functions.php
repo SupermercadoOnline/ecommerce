@@ -61,3 +61,53 @@ function data_br_to_data_php(string $data_br){
     return null;
 
 }
+
+function envia_email($email_destino, $assunto, $mensagem_html, $anexos = array()){
+
+    include_once PATH_AUTOLOAD_COMPOSER;
+
+    $mail = new PHPMailer\PHPMailer\PHPMailer();
+
+    $mail->isSMTP();
+
+    $mail->SMTPOptions = array (
+        'ssl' => array (
+            'verify_peer' => false,
+            'verify_peer_name' => false,
+            'allow_self_signed' => true
+        )
+    );
+
+    $mail->SMTPAuth = true;
+
+    $mail->Priority = 1;
+
+    $mail->CharSet = 'utf-8';
+
+    $mail->Host = 'smtp.gmail.com';
+    $mail->SMTPSecure = 'tls';
+    $mail->Port = '587';
+    $mail->Username = 'smtp.supermercadoonline@gmail.com';
+    $mail->Password = 'v&9Ri@rl8R3s';
+    $mail->setFrom('smtp.supermercadoonline@gmail.com', 'Supermercado Online');
+
+    $mail->isHTML(true);
+    $mail->Subject = $assunto;
+    $mail->Body = $mensagem_html;
+
+    if(!empty($anexos))
+        foreach($anexos as $anexo)
+            $mail->addAttachment($anexo['path'], $anexo['name']);
+
+
+    $mail->addAddress($email_destino);
+
+    if($mail->send()){
+
+        return true;
+
+    }
+
+    return false;
+
+}
