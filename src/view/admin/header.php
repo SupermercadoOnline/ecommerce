@@ -56,7 +56,7 @@ include_once dirname(__DIR__) . '/header_html_section.php';
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="dropdown-item">
+                        <a href="<?php echo URL_HOST?>/admin/form_visualizar_produto.php" class="dropdown-item">
                             <b>Visualizar</b>
                         </a>
                     </li>

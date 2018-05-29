@@ -9,10 +9,10 @@ include_once '../../model/ProdutosDAO.php';
     <div class="panel panel-primary">
 
         <div class="panel-heading">
-
             <h3 class="panel-title">
                 <b>Lista de produtos</b>
             </h3>
+        </div>
 
             <div class="panel-body">
 
@@ -35,7 +35,7 @@ include_once '../../model/ProdutosDAO.php';
 
                                 <tbody>
                                 <?php
-                                $produtosDao = new ProdutosDAO();
+                                /*$produtosDao = new ProdutosDAO();
                                 $categoriasDao = new CategoriasDAO();
 
                                 foreach ($produtosDao->getAll() as $produtoBean) {
@@ -47,31 +47,30 @@ include_once '../../model/ProdutosDAO.php';
 
                                         } else {
                                             $status = "Inativo";
-                                        }
+                                        }*/
 
                                         ?>
                                         <tr>
-                                            <td><?php echo $produtoBean->getNome() ?></td>
-                                            <td><?php echo $produtoBean->getPreco() ?></td>
-                                            <td><?php echo $categoriaBean->getNome() ?></td>
-                                            <td><?php echo $status ?></td>
-                                            <td> <input type="button" name="desativar" value="Desativar"></td>
+                                            <td><?php //echo $produtoBean->getNome() ?> um</td>
+                                            <td><?php //echo $produtoBean->getPreco() ?> dois</td>
+                                            <td><?php //echo $categoriaBean->getNome() ?> tres</td>
+                                            <td><?php //echo $status ?> quatro</td>
+                                            <td>
+                                                <a href="listar_deletar_produto.php?$produtoBean->getId()">Desativar</a>
+                                                <a href="form_editar_produto.php?$produtoBean->getId()">Editar</a>
+                                            </td>
                                         </tr>
 
-                                        <?php
+                                        <?php/*
                                     }
-                                }
+                                }*/
                                         ?>
                                 </tbody>
                             </table>
-
                         </div>
                     </div>
-
                 </div>
-
             </div>
-        </div>
     </div>
 
 
