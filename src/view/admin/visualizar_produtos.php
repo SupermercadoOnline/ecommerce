@@ -4,6 +4,42 @@ include_once '../../model/CategoriasDAO.php';
 include_once '../../model/ProdutosBean.php';
 include_once '../../model/ProdutosDAO.php';
 
+if($_GET["desativar"]){
+    $id = $_GET["desativar"];
+    $produtoDao = new ProdutosDAO();
+    $produto = $produtoDao->getProdutoPorId($id);
+
+    if($produto instanceof ProdutosBean){
+        if($produtoDao->delete($produto)){
+            ?>
+
+            <div class="panel-body">
+                <div class="row">
+                    <div class="alert alert-success col-lg-4">
+                        Produto inativado com sucesso!
+                        <button class="close" data-dismiss="alert">X</button>
+                    </div>
+                </div>
+            </div>
+
+            <?php
+        } else {
+            ?>
+
+            <div class="panel-body">
+                <div class="row">
+                    <div class="alert alert-danger col-lg-4">
+                        Não foi possível inativar o produto!
+                        <button class="close" data-dismiss="alert">X</button>
+                    </div>
+                </div>
+            </div>
+
+            <?php
+        }
+    }
+}
+
 ?>
 
     <div class="panel panel-primary">
@@ -19,6 +55,8 @@ include_once '../../model/ProdutosDAO.php';
                 <div class="row">
 
                     <div class="col-lg-12">
+                        <label for="exibir">Exibir cadastros</label>
+                        <a href="visualizar_produtos_inativos.php">Inativos </a>
 
                         <div class="table-responsive">
 
@@ -35,10 +73,10 @@ include_once '../../model/ProdutosDAO.php';
 
                                 <tbody>
                                 <?php
-                                /*$produtosDao = new ProdutosDAO();
+                                $produtosDao = new ProdutosDAO();
                                 $categoriasDao = new CategoriasDAO();
 
-                                foreach ($produtosDao->getAll() as $produtoBean) {
+                                foreach ($produtosDao->retornePorStatus(true) as $produtoBean) {
                                     $categoriaBean = $categoriasDao->getCategoriaPorId($produtoBean->getIdCatergoria());
                                     if ($produtoBean instanceof ProdutosBean && $categoriaBean instanceof CategoriasBean) {
 
@@ -47,23 +85,23 @@ include_once '../../model/ProdutosDAO.php';
 
                                         } else {
                                             $status = "Inativo";
-                                        }*/
+                                        }
 
                                         ?>
                                         <tr>
-                                            <td><?php //echo $produtoBean->getNome() ?> um</td>
-                                            <td><?php //echo $produtoBean->getPreco() ?> dois</td>
-                                            <td><?php //echo $categoriaBean->getNome() ?> tres</td>
-                                            <td><?php //echo $status ?> quatro</td>
+                                            <td><?php echo $produtoBean->getNome() ?> um</td>
+                                            <td><?php echo $produtoBean->getPreco() ?> dois</td>
+                                            <td><?php echo $categoriaBean->getNome() ?> tres</td>
+                                            <td><?php echo $status ?> quatro</td>
                                             <td>
-                                                <a href="listar_deletar_produto.php?$produtoBean->getId()">Desativar</a>
-                                                <a href="form_editar_produto.php?$produtoBean->getId()">Editar</a>
+                                                <a href="visualizar_produtos.php?desativar=<?php $produtoBean->getId() ?>">Desativar</a>
+                                                <a href="editar_produto.php?editar=<?php $produtoBean->getId() ?>">Editar</a>
                                             </td>
                                         </tr>
 
-                                        <?php/*
+                                        <?php
                                     }
-                                }*/
+                                }
                                         ?>
                                 </tbody>
                             </table>
