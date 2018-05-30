@@ -89,10 +89,10 @@ if($_GET["ativar"]){
 
                             ?>
                             <tr>
-                                <td><?php echo $produtoBean->getNome() ?> um</td>
-                                <td><?php echo $produtoBean->getPreco() ?> dois</td>
-                                <td><?php echo $categoriaBean->getNome() ?> tres</td>
-                                <td><?php echo $status ?> quatro</td>
+                                <td><?php echo $produtoBean->getNome() ?> </td>
+                                <td><?php echo $produtoBean->getPreco() ?> </td>
+                                <td><?php echo $categoriaBean->getNome() ?> </td>
+                                <td><?php echo $status ?> </td>
                                 <td>
                                     <a href="visualizar_produtos_inativos.php?ativar=<?php $produtoBean->getId() ?>">Ativar</a>
                                 </td>
