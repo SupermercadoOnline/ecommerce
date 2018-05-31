@@ -4,6 +4,41 @@ include_once '../../model/CategoriasDAO.php';
 include_once '../../model/ProdutosBean.php';
 include_once '../../model/ProdutosDAO.php';
 
+if($_POST["alterar"]){
+    $produto = new ProdutosBean($_POST["id"], $_POST["nome"], $_POST["categoria"], $_POST["preco"],
+        $_POST["fabricante"], $_POST["descricao"], $_POST["estoque_minimo"], true);
+
+    $produtoDao = new ProdutosDAO();
+
+    if($produtoDao->salvar()){
+        ?>
+
+        <div class="panel-body">
+            <div class="row">
+                <div class="alert alert-success col-lg-4">
+                    Produto alterado com sucesso!
+                    <button class="close" data-dismiss="alert">X</button>
+                </div>
+            </div>
+        </div>
+
+        <?php
+    } else {
+        ?>
+
+        <div class="panel-body">
+            <div class="row">
+                <div class="alert alert-danger col-lg-4">
+                    Não foi possível alterar este produto!
+                    <button class="close" data-dismiss="alert">X</button>
+                </div>
+            </div>
+        </div>
+
+        <?php
+    }
+}
+
 ?>
 
     <div class="panel panel-primary">
@@ -25,7 +60,6 @@ include_once '../../model/ProdutosDAO.php';
                         $categoriaDao = new CategoriasDAO();
                         $produto = $produtoDao->getProdutoPorId($id);
                         $categorias = $categoriaDao->getAll();
-
 
 
                         ?>
@@ -51,9 +85,10 @@ include_once '../../model/ProdutosDAO.php';
                                     $categoriasDAO = new CategoriasDAO();
 
                                     foreach ($categoriasDAO->getAll() as $categoriaBean) {
-                                        if ($categoriaBean instanceof EstadosBean) {
+                                        if ($categoriaBean instanceof CategoriasBean) {
 
-                                            echo "<option value='" . $categoriaBean->getId() . "'>" . $categoriaBean->getNome() . "</option";
+                                            $selected = $produto->getIdCategoria() == $categoriaBean->getId() ? 'selected' : null;
+                                            echo "<option value='".$categoriaBean->getId()."'>".$categoriaBean->getNome()."</option";
 
                                         }
                                     }
@@ -80,6 +115,8 @@ include_once '../../model/ProdutosDAO.php';
                                 <input id="estoque_minimo" name="estoque_minimo" value="<?php $produto->getEstoqueMinimo() ?>" type="text"
                                        class="form-control input-lg">
                             </div>
+
+                            <input id="id" name="id" type="hidden" value="<?php $produto->getId() ?>">
                         </div>
 
                         <?php
