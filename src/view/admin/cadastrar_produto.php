@@ -73,7 +73,7 @@ if($_POST["cadastrar"]){
                         $categoriasDAO = new CategoriasDAO();
 
                         foreach ($categoriasDAO->getAll() as $categoriaBean){
-                            if($categoriaBean instanceof EstadosBean){
+                            if($categoriaBean instanceof CategoriasBean){
 
                                 echo "<option value='".$categoriaBean->getId()."'>".$categoriaBean->getNome()."</option";
 
