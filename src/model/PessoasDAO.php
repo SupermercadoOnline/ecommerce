@@ -15,6 +15,20 @@ class PessoasDAO
         return $this->select("select * from pessoas where nome = '$nome' order by nome");
     }
 
+    public function consultarPorPermissao($idPermissao){
+
+        return $this->select(
+            "select
+              pessoas.* 
+            from 
+              pessoas 
+            inner join permissoes_usuario_admin on pessoas.id = permissoes_usuario_admin.id_pessoa 
+            where 
+              permissoes_usuario_admin.id_permissao = '$idPermissao'"
+        );
+
+    }
+
     private function select($query): array
     {
         $lista = array();
