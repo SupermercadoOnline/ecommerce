@@ -7,12 +7,12 @@ class TelefonesDAO
 {
     public function getById($id)
     {
-        return $this->select("select * from telefones where id = $id")[0];
+        return $this->select("select * from telefones where id = '$id'")[0];
     }
 
     public function getByPessoa($id)
     {
-        return $this->select("select * from telefones where id_pessoa = $id order by numero_telefone");
+        return $this->select("select * from telefones where id_pessoa = '$id' order by numero_telefone");
     }
 
     private function select($query): array
