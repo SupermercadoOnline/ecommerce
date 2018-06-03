@@ -5,17 +5,17 @@ include_once 'PessoasBean.php';
 class PessoasDAO
 {
 
-    public function consultaPorId($id)
+    public function getById($id)
     {
-        return $this->select("select * from pessoas where id = '$id' order by nome")[0];
+        return $this->select("select * from pessoas where id = '$id'")[0];
     }
 
-    public function consultarPorNome($nome)
+    public function getByNome($nome)
     {
         return $this->select("select * from pessoas where nome = '$nome' order by nome");
     }
 
-    public function consultarPorPermissao($idPermissao){
+    public function getByPermissoes($idPermissao){
 
         return $this->select(
             "select
@@ -96,7 +96,7 @@ class PessoasDAO
     public function salvar($bean)
     {
         if($bean instanceof PessoasBean) {
-            if($this->consultaPorId($bean->getId()) != null) {
+            if($this->getById($bean->getId()) != null) {
                 return $this->update($bean);
             } else {
                 return $this->insert($bean);

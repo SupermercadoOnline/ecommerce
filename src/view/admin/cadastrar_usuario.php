@@ -58,7 +58,7 @@ if($_POST["cadastrar"]) {
 
                         <label for="permissoes[]">Permissões: </label>
                         <?php
-                        $permissoes = $tiposPermissoesDAO->consultarPermissoes();
+                        $permissoes = $tiposPermissoesDAO->getByPermissoes();
                         foreach ($permissoes as $permissao) {
                             echo "<input id='permissoes' name='permissoes[]' type='checkbox' 
                             class='checkbox input-lg' value='" . $permissao->getId() . "'>" . $permissao->getNome() . "<br/>";

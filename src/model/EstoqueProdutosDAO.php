@@ -66,7 +66,7 @@ class EstoqueProdutosDAO
 
         $idPermissaoEditarEstoque = 9;
         $pessoasDAO = new PessoasDAO();
-        foreach($pessoasDAO->consultarPorPermissao($idPermissaoEditarEstoque) as $pessoasBean){
+        foreach($pessoasDAO->getByPermissoes($idPermissaoEditarEstoque) as $pessoasBean){
             if($pessoasBean instanceof PessoasBean)
                 envia_email($pessoasBean->getEmail(), 'Estoque crítico', $mensagem_estoque_critico);
         }
