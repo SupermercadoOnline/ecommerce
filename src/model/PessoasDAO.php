@@ -7,7 +7,7 @@ class PessoasDAO
 
     public function consultaPorId($id)
     {
-        return $this->select("select * from pessoas where id = '$id' order by nome");
+        return $this->select("select * from pessoas where id = '$id' order by nome")[0];
     }
 
     public function consultarPorNome($nome)
