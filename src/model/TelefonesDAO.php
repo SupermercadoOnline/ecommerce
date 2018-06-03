@@ -30,11 +30,10 @@ class TelefonesDAO
     private function insert($bean)
     {
         if($bean instanceof TelefonesBean) {
-            $query = "insert into telefones (id, id_pessoa, numero_telefone, is_ativo)
-                values (?, ?, ?, ?)";
+            $query = "insert into telefones (id_pessoa, numero_telefone, is_ativo)
+                values (?, ?, ?)";
 
             $params = array(
-                $bean->getId(),
                 $bean->getIdPessoa(),
                 $bean->getNumeroTelefone(),
                 $bean->getisAtivo(),
@@ -53,12 +52,12 @@ class TelefonesDAO
     private function update($bean)
     {
         if($bean instanceof TelefonesBean) {
-            $query = "update telefones set numero_telefone = ?, is_ativo = ? where id_pessoa = ?";
+            $query = "update telefones set numero_telefone = ?, is_ativo = ? where id = ?";
 
             $params = array(
                 $bean->getNumeroTelefone(),
                 $bean->getisAtivo(),
-                $bean->getIdPessoa()
+                $bean->getId()
             );
 
             if(MySqlDAO::executeQuery($query, $params)) {
