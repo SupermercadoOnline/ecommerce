@@ -1,8 +1,9 @@
 <?php
 include_once 'header.php';
 include_once '../../model/PessoasDAO.php';
-include_once '../../model/PessoasBean.php';
+include_once '../../model/TiposPessoasDAO.php';
 
+$tiposPessoasDAO = new TiposPessoasDAO();
 if($_POST["cadastrar"]) {
     $pessoa = new PessoasBean(null,
         $_POST["nome"],
@@ -12,36 +13,39 @@ if($_POST["cadastrar"]) {
         $_POST["email"],
         $_POST["senha"],
         null,
-        null);
-    $dao = new PessoasDAO();
+        0);
+    $pessoasDAO = new PessoasDAO();
 
-    $pessoa = $dao->salvar($pessoa);
+    $pessoa = $pessoasDAO->salvar($pessoa);
     if($pessoa instanceof PessoasBean && $pessoa->getId() != null) {
-        ?>
+        if($tiposPessoasDAO->salvar($pessoa, $_POST["tipoPessoa"])) {
+            ?>
 
-        <div class="panel-body">
-            <div class="row">
-                <div class="alert alert-success col-lg-4">
-                    Usuário cadastrado com sucesso!
-                    <button class="close" data-dismiss="alert">X</button>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="alert alert-success col-lg-4">
+                        Usuário cadastrado com sucesso!
+                        <button class="close" data-dismiss="alert">X</button>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <?php
-    } else {
-        ?>
+            <?php
+        } else {
+        echo $pessoa->getId();
+            ?>
 
-        <div class="panel-body">
-            <div class="row">
-                <div class="alert alert-danger col-lg-4">
-                    Não foi possível cadastrar esse usuário!
-                    <button class="close" data-dismiss="alert">X</button>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="alert alert-danger col-lg-4">
+                        Não foi possível cadastrar esse usuário!
+                        <button class="close" data-dismiss="alert">X</button>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <?php
+            <?php
+        }
     }
 }
 ?>
@@ -73,6 +77,19 @@ if($_POST["cadastrar"]) {
 
                         <label for="senha">Senha: </label>
                         <input id="senha" name="senha" type="password" class="form-control input-lg">
+
+                        <label for="tipoPessoa">Tipo: </label>
+                        <select class="form-control" name="tipoPessoa">
+                            <option></option>
+                            <?php
+                            $tiposPessoas = $tiposPessoasDAO->consultarTudo();
+                            foreach ($tiposPessoas as $tipoPessoa) {
+                                if ($tipoPessoa instanceof TiposPessoasBean) {
+                                    echo "<option value='" . $tipoPessoa->getId() . "'>" . $tipoPessoa->getNome() . "</option>";
+                                }
+                            }
+                            ?>
+                        </select>
 
                         <br/>
                         <input type="submit" class="form-control" name="cadastrar" value="Cadastrar">
