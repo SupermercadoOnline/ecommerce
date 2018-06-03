@@ -5,7 +5,7 @@ include_once 'PessoasBean.php';
 
 class TiposPessoasDAO
 {
-    public function consultarTudo()
+    public function getAll()
     {
         return $this->select("select * from tipos_possiveis_pessoa order by nome");
     }

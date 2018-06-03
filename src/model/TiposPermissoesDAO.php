@@ -5,7 +5,7 @@ include_once 'PessoasBean.php';
 
 class TiposPermissoesDAO
 {
-    public function consultarPermissoes()
+    public function getByPermissoes()
     {
         return $this->select("select * from permissoes_possiveis_usuario_admin order by nome");
     }
