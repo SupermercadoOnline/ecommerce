@@ -26,14 +26,14 @@ class TiposPessoasDAO
         return $lista;
     }
 
-    public function salvar($pessoaBean, $tipoPessoaBean)
+    public function salvar($pessoaBean, $id_tipo)
     {
-        if ($pessoaBean instanceof PessoasBean && $tipoPessoaBean instanceof TiposPessoasBean) {
+        if ($pessoaBean instanceof PessoasBean) {
             $query = "INSERT INTO tipo_pessoa (id_pessoa, id_tipo) VALUES (?, ?)";
 
             $params = array(
                 $pessoaBean->getId(),
-                $tipoPessoaBean->getId()
+                $id_tipo
             );
 
             if (MySqlDAO::executeQuery($query, $params)) {
