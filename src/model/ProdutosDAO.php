@@ -8,7 +8,7 @@ class ProdutosDAO{
         return $this->select('SELECT * FROM produtos ORDER BY nome');
     }
 
-    public function getProdutoPorId($id){
+    public function getById($id){
 
         $produtoBean = null;
         $listaProdutos = $this->select("SELECT * FROM produtos WHERE id = '$id'");
@@ -81,7 +81,7 @@ class ProdutosDAO{
 
         if($produtosBean instanceof ProdutosBean){
 
-            if(empty($this->getProdutoPorId($produtosBean->getId())))
+            if(empty($this->getById($produtosBean->getId())))
                 if($this->insert($produtosBean))
                     return true;
             else
