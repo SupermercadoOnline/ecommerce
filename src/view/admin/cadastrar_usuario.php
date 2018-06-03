@@ -64,7 +64,7 @@ if($_POST["cadastrar"]) {
 
                         <label for="nome">Nome:</label>
                         <input id="nome" name="nome" type="text" class="form-control input-lg">
-                        
+
                         <label for="cpf">CPF: </label>
                         <input id="cpf" name="cpf" type="text" class="form-control input-lg">
 
