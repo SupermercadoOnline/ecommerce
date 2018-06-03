@@ -2,8 +2,9 @@
 include_once 'header.php';
 include_once '../../model/PessoasDAO.php';
 include_once '../../model/TiposPessoasDAO.php';
+include_once '../../model/TiposPermissoesDAO.php';
 
-$tiposPessoasDAO = new TiposPessoasDAO();
+$tiposPermissoesDAO = new TiposPermissoesDAO();
 if($_POST["cadastrar"]) {
     $pessoa = new PessoasBean(null,
         $_POST["nome"],
@@ -15,36 +16,13 @@ if($_POST["cadastrar"]) {
         null,
         0);
     $pessoasDAO = new PessoasDAO();
+    $tiposPessoasDAO = new TiposPessoasDAO();
 
     $pessoa = $pessoasDAO->salvar($pessoa);
-    if($pessoa instanceof PessoasBean && $pessoa->getId() != null) {
-        if($tiposPessoasDAO->salvar($pessoa, $_POST["tipoPessoa"])) {
-            ?>
-
-            <div class="panel-body">
-                <div class="row">
-                    <div class="alert alert-success col-lg-4">
-                        Usuário cadastrado com sucesso!
-                        <button class="close" data-dismiss="alert">X</button>
-                    </div>
-                </div>
-            </div>
-
-            <?php
-        } else {
-        echo $pessoa->getId();
-            ?>
-
-            <div class="panel-body">
-                <div class="row">
-                    <div class="alert alert-danger col-lg-4">
-                        Não foi possível cadastrar esse usuário!
-                        <button class="close" data-dismiss="alert">X</button>
-                    </div>
-                </div>
-            </div>
-
-            <?php
+    if ($pessoa instanceof PessoasBean && $pessoa->getId() != null) {
+        $tiposPessoasDAO->salvar($pessoa, 1);
+        foreach ($_POST["permissoes"] as $permissao) {
+            $tiposPermissoesDAO->salvar($pessoa, $permissao);
         }
     }
 }
@@ -78,18 +56,14 @@ if($_POST["cadastrar"]) {
                         <label for="senha">Senha: </label>
                         <input id="senha" name="senha" type="password" class="form-control input-lg">
 
-                        <label for="tipoPessoa">Tipo: </label>
-                        <select class="form-control" name="tipoPessoa">
-                            <option></option>
-                            <?php
-                            $tiposPessoas = $tiposPessoasDAO->consultarTudo();
-                            foreach ($tiposPessoas as $tipoPessoa) {
-                                if ($tipoPessoa instanceof TiposPessoasBean) {
-                                    echo "<option value='" . $tipoPessoa->getId() . "'>" . $tipoPessoa->getNome() . "</option>";
-                                }
-                            }
-                            ?>
-                        </select>
+                        <label for="permissoes[]">Permissões: </label>
+                        <?php
+                        $permissoes = $tiposPermissoesDAO->consultarPermissoes();
+                        foreach ($permissoes as $permissao) {
+                            echo "<input id='permissoes' name='permissoes[]' type='checkbox' 
+                            class='checkbox input-lg' value='" . $permissao->getId() . "'>" . $permissao->getNome() . "<br/>";
+                        }
+                        ?>
 
                         <br/>
                         <input type="submit" class="form-control" name="cadastrar" value="Cadastrar">
