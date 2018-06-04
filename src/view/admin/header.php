@@ -61,7 +61,9 @@ include_once dirname(__DIR__) . '/header_html_section.php';
                         </a>
                     </li>
                     <li>
-                        <a href="<?php echo URL_HOST?>"></a>
+                        <a href="<?php echo URL_HOST?>/admin/cadastrar_categoria_produto.php">
+                            <b>Cadastrar categorias</b>
+                        </a>
                     </li>
                 </ul>
             </li>
