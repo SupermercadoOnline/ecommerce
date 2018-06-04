@@ -8,7 +8,11 @@ class ProdutosDAO{
         return $this->select('SELECT * FROM produtos ORDER BY nome');
     }
 
-    public function getById($id){
+    public function retornePorStatus($status){
+        return $this->select("SELECT * FROM produtos WHERE is_ativo = '$status'");
+    }
+
+    public function getProdutoPorId($id){
 
         $produtoBean = null;
         $listaProdutos = $this->select("SELECT * FROM produtos WHERE id = '$id'");
@@ -81,7 +85,7 @@ class ProdutosDAO{
 
         if($produtosBean instanceof ProdutosBean){
 
-            if(empty($this->getById($produtosBean->getId())))
+            if(empty($this->getProdutoPorId($produtosBean->getId())))
                 if($this->insert($produtosBean))
                     return true;
             else
@@ -98,6 +102,18 @@ class ProdutosDAO{
         if($produtosBean instanceof ProdutosBean){
 
             $produtosBean->setIsAtivo(false);
+            return $this->update($produtosBean);
+
+        }
+
+        return false;
+    }
+
+    public function ativar($produtosBean){
+
+        if($produtosBean instanceof ProdutosBean){
+
+            $produtosBean->setIsAtivo(true);
             return $this->update($produtosBean);
 
         }
