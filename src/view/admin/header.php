@@ -60,6 +60,9 @@ include_once dirname(__DIR__) . '/header_html_section.php';
                             <b>Visualizar</b>
                         </a>
                     </li>
+                    <li>
+                        <a href="<?php echo URL_HOST?>"></a>
+                    </li>
                 </ul>
             </li>
         </ul>
