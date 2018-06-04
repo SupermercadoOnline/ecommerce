@@ -1,6 +1,6 @@
 <?php
 include_once 'header.php';
-include_once '../../model/CategoriasDAO.php';
+include_once '../../model/CategoriasProdutosDAO.php';
 include_once '../../model/ProdutosBean.php';
 include_once '../../model/ProdutosDAO.php';
 
@@ -70,10 +70,10 @@ if($_POST["cadastrar"]){
 
                     <select name="categoria" class="form-control input-lg">
                         <?php
-                        $categoriasDAO = new CategoriasDAO();
+                        $categoriasDAO = new CategoriasProdutosDAO();
 
                         foreach ($categoriasDAO->getAll() as $categoriaBean){
-                            if($categoriaBean instanceof CategoriasBean){
+                            if($categoriaBean instanceof CategoriasProdutosBean){
 
                                 echo "<option value='".$categoriaBean->getId()."'>".$categoriaBean->getNome()."</option";
 

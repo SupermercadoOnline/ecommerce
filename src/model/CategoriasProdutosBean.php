@@ -6,7 +6,7 @@
  * Time: 10:51
  */
 
-class CategoriasBean
+class CategoriasProdutosBean
 {
     private $id;
     private $nome;

@@ -1,6 +1,6 @@
 <?php
 include_once 'header.php';
-include_once '../../model/CategoriasDAO.php';
+include_once '../../model/CategoriasProdutosDAO.php';
 include_once '../../model/ProdutosBean.php';
 include_once '../../model/ProdutosDAO.php';
 
@@ -57,7 +57,7 @@ if($_POST["alterar"]){
                     if($_GET["editar"]) {
                         $id = $_GET["editar"];
                         $produtoDao = new ProdutosDAO();
-                        $categoriaDao = new CategoriasDAO();
+                        $categoriaDao = new CategoriasProdutosDAO();
                         $produto = $produtoDao->getProdutoPorId($id);
                         $categorias = $categoriaDao->getAll();
 
@@ -82,10 +82,10 @@ if($_POST["alterar"]){
 
                                 <select name="categoria" class="form-control input-lg">
                                     <?php
-                                    $categoriasDAO = new CategoriasDAO();
+                                    $categoriasDAO = new CategoriasProdutosDAO();
 
                                     foreach ($categoriasDAO->getAll() as $categoriaBean) {
-                                        if ($categoriaBean instanceof CategoriasBean) {
+                                        if ($categoriaBean instanceof CategoriasProdutosBean) {
 
                                             $selected = $produto->getIdCategoria() == $categoriaBean->getId() ? 'selected' : null;
                                             echo "<option value='".$categoriaBean->getId()."'>".$categoriaBean->getNome()."</option";

@@ -6,7 +6,7 @@
  * Time: 10:51
  */
 
-class CategoriasDAO
+class CategoriasProdutosDAO
 {
 
 
@@ -20,7 +20,7 @@ class CategoriasDAO
         $listaCategorias = array();
         $selectListas = MySqlDAO::getResult($query);
         while($row = $selectListas->fetch_array())
-            $listaCategorias[] = new CategoriasBean($row['id'], $row['nome'], $row['is_ativo']);
+            $listaCategorias[] = new CategoriasProdutosBean($row['id'], $row['nome'], $row['is_ativo']);
 
         return $listaCategorias;
     }
@@ -51,7 +51,7 @@ class CategoriasDAO
     {
 
 
-        if($categoriasBean instanceof CategoriasBean){
+        if($categoriasBean instanceof CategoriasProdutosBean){
 
             $query = "UPDATE categoria_produtos SET id=?, nome=?, is_ativo=? WHERE id=?";
             $parametros = array(
@@ -71,14 +71,14 @@ class CategoriasDAO
 
     public function salvar($categoriasBean)
     {
-        if($categoriasBean instanceof CategoriasBean){
+        if($categoriasBean instanceof CategoriasProdutosBean){
 
-            if(empty($this->getAll($categoriasBean->getId())))
+            if(empty($categoriasBean->getId()))
                 if($this->insert($categoriasBean))
                     return true;
-                else
-                    if($this->update($categoriasBean))
-                        return true;
+
+            if($this->update($categoriasBean))
+                return true;
         }
 
         return false;
@@ -89,7 +89,7 @@ class CategoriasDAO
     {
 
 
-        if($categoriasBean instanceof CategoriasBean){
+        if($categoriasBean instanceof CategoriasProdutosBean){
 
             $categoriasBean->setIsAtivo(false);
             return $this->update($categoriasBean);

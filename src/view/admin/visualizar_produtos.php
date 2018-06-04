@@ -1,6 +1,6 @@
 <?php
 include_once 'header.php';
-include_once '../../model/CategoriasDAO.php';
+include_once '../../model/CategoriasProdutosDAO.php';
 include_once '../../model/ProdutosBean.php';
 include_once '../../model/ProdutosDAO.php';
 
@@ -74,11 +74,11 @@ if($_GET["desativar"]){
                                 <tbody>
                                 <?php
                                 $produtosDao = new ProdutosDAO();
-                                $categoriasDao = new CategoriasDAO();
+                                $categoriasDao = new CategoriasProdutosDAO();
 
                                 foreach ($produtosDao->retornePorStatus(true) as $produtoBean) {
                                     $categoriaBean = $categoriasDao->getCategoriaPorId($produtoBean->getIdCatergoria());
-                                    if ($produtoBean instanceof ProdutosBean && $categoriaBean instanceof CategoriasBean) {
+                                    if ($produtoBean instanceof ProdutosBean && $categoriaBean instanceof CategoriasProdutosBean) {
 
                                         if($produtoBean->getIsAtivo()){
                                             $status = "Ativo";
