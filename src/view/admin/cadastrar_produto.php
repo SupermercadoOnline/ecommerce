@@ -10,7 +10,7 @@ if($_POST["cadastrar"]){
 
     $produtoDao = new ProdutosDAO();
 
-    if($produtoDao->salvar()){
+    if($produtoDao->salvar($produto)){
         ?>
 
         <div class="panel-body">

@@ -10,7 +10,7 @@ if($_POST["alterar"]){
 
     $produtoDao = new ProdutosDAO();
 
-    if($produtoDao->salvar()){
+    if($produtoDao->salvar($produto)){
         ?>
 
         <div class="panel-body">
