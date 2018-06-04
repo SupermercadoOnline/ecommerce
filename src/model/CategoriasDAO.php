@@ -47,19 +47,57 @@ class CategoriasDAO
 
     }
 
-    protected function update($bean)
+    protected function update($categoriasBean)
     {
-        // TODO: Implement update() method.
+
+
+        if($categoriasBean instanceof CategoriasBean){
+
+            $query = "UPDATE categoria_produtos SET id=?, nome=?, is_ativo=? WHERE id=?";
+            $parametros = array(
+                $categoriasBean->getNome(),
+                $categoriasBean->getId(),
+                $categoriasBean->getIsAtivo(),
+
+            );
+
+            if(MySqlDAO::executeQuery($query, $parametros)){
+                return true;
+            }
+        }
+        return false;
     }
 
-    public function salvar($bean)
+
+    public function salvar($categoriasBean)
     {
-        // TODO: Implement salvar() method.
+        if($categoriasBean instanceof CategoriasBean){
+
+            if(empty($this->getAll($categoriasBean->getId())))
+                if($this->insert($categoriasBean))
+                    return true;
+                else
+                    if($this->update($categoriasBean))
+                        return true;
+        }
+
+        return false;
+
     }
 
-    public function delete($bean)
+    public function delete($categoriasBean)
     {
-        // TODO: Implement delete() method.
+
+
+        if($categoriasBean instanceof CategoriasBean){
+
+            $categoriasBean->setIsAtivo(false);
+            return $this->update($categoriasBean);
+
+        }
+
+        return false;
+
     }
 
 
