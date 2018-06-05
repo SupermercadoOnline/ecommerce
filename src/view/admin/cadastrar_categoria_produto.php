@@ -5,7 +5,7 @@ include_once 'header.php';
 
 if($_POST["Cadastrar"]){
 
-    $categoriaProdutos = new CategoriasProdutosBean(null, $_POST["nome"], $_POST["isAtivo"]);
+    $categoriaProdutos = new CategoriasProdutosBean(null, $_POST["nome"], null);
 
     $categoriaProdutosDAO = new CategoriasProdutosDAO();
 
@@ -28,10 +28,7 @@ if($_POST["Cadastrar"]){
         </div>
         <?php
 
-
     }
-
-
 
 }
 
@@ -43,26 +40,18 @@ if($_POST["Cadastrar"]){
             </h3>
         </div>
         <div class="panel-body">
-            <form action="<?php echo URL_HOST ?>/admin/cadastrar_categoria_produto.php" method="post"></form>
-            <div class="row">
-                <div class="col-lg-4">
-                    <label for="nome">Nome:</label>
-                    <input id="nome" name="nome" type="text" class="form-control input-lg">
+            <form action="<?php echo URL_HOST ?>/admin/form_cadastrar_categoria_produto.php" method="post">
+                <div class="row">
+                    <div class="col-lg-offset-4 col-lg-4">
+                        <label for="nome">Nome:</label>
+                        <input id="nome" name="nome" type="text" class="form-control input-lg">
+                    </div>
                 </div>
-
-
-
-            </div>
-
-
-
-
-
-
-
-
-
-        </div>
+                <div class="row">
+                    <input name= "Cadastrar" type="submit" class="btn btn-primary center-block" value="Salvar">
+                </div>
+            </form>
+          </div>
     </div>
 
 

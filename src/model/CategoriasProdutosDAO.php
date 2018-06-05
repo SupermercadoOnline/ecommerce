@@ -1,10 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: lucas
- * Date: 17/05/2018
- * Time: 10:51
- */
+include_once "MySqlDAO.php";
+include_once "CategoriasProdutosBean.php";
 
 class CategoriasProdutosDAO
 {
@@ -28,11 +24,11 @@ class CategoriasProdutosDAO
 
     protected function insert($categoriasBean)
     {
-        $query = "INSERT INTO categoria_produtos (id, nome, is_ativo) values (?,?,?)";
+        $query = "INSERT INTO categoria_produtos (nome) values (?)";
         $parametros = array(
-            $categoriasBean->getId(),
-            $categoriasBean->getNome(),
-            $categoriasBean->getIsAtivo()
+
+            $categoriasBean->getNome()
+
 
         );
         $result = MySqlDAO::executeQuery($query, $parametros);

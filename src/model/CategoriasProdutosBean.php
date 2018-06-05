@@ -54,7 +54,7 @@ class CategoriasProdutosBean
 
     public function getIsAtivo()
     {
-        return $this->getIsAtivo();
+        return $this->isAtivo;
     }
 
     /**
