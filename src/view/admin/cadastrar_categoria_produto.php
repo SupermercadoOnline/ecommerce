@@ -1,5 +1,5 @@
 <?php
-<<<<<<< HEAD
+
 include_once '../../model/CategoriasProdutosDAO.php';
 include_once '../../model/CategoriasProdutosBean.php';
 include_once 'header.php';
@@ -58,9 +58,3 @@ if($_POST["Cadastrar"]){
 
 <?php
 include_once 'footer.php';
-=======
-include_once 'header.php';
-include_once '../../model/CategoriasProdutosDAO.php';
-include_once '../../model/CategoriasProdutosBean.php';
-
->>>>>>> Criando a interface html do cadastro de categoria.
