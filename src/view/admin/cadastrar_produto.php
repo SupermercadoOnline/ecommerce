@@ -68,14 +68,19 @@ if($_POST["cadastrar"]){
 
                     <label for="categoria">Categoria</label>
 
-                    <select name="categoria" class="form-control input-lg">
+                    <select name="categoria" class="form-control input-lg selectpicker" title="Selecione">
                         <?php
                         $categoriasDAO = new CategoriasProdutosDAO();
 
                         foreach ($categoriasDAO->getAll() as $categoriaBean){
                             if($categoriaBean instanceof CategoriasProdutosBean){
+                                ?>
 
-                                echo "<option value='".$categoriaBean->getId()."'>".$categoriaBean->getNome()."</option";
+                                <option value='<?php $categoriaBean->getId() ?>'>
+                                    <?php $categoriaBean->getNome()?>
+                                </option>
+
+                                <?php
 
                             }
                         }
