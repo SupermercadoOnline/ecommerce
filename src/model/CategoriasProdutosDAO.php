@@ -102,12 +102,8 @@ class CategoriasProdutosDAO
 
             $categoriasBean->setIsAtivo(false);
             return $this->update($categoriasBean);
-
         }
 
         return false;
-
     }
-
-
 }
