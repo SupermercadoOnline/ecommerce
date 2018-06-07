@@ -31,8 +31,8 @@ class EnderecosDAO
     {
         if($bean instanceof EnderecosBean) {
             $query = "insert into enderecos (id_pessoa, id_cidade, rua, 
-                bairro, numero, cep, complemento, is_ativo)
-                values (?, ?, ?, ?, ?, ?, ?, ?)";
+                bairro, numero, cep, complemento)
+                values (?, ?, ?, ?, ?, ?, ?)";
 
             $params = array(
                 $bean->getIdPessoa(),
@@ -41,8 +41,7 @@ class EnderecosDAO
                 $bean->getBairro(),
                 $bean->getNumero(),
                 $bean->getCep(),
-                $bean->getComplemento(),
-                $bean->getisAtivo()
+                $bean->getComplemento()
             );
 
             $result = MySqlDAO::executeQuery($query, $params);

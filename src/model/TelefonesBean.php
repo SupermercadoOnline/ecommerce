@@ -73,7 +73,7 @@ class TelefonesBean
     /**
      * @return mixed
      */
-    public function getisAtivo()
+    public function getIsAtivo()
     {
         return $this->isAtivo;
     }

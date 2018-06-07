@@ -27,16 +27,6 @@ include_once dirname(__DIR__) . '/header_html_section.php';
                     </li>
                     <li>
                         <a href="#">
-                            <b>Editar</b>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <b>Inativar</b>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
                             <b>Consultar</b>
                         </a>
                     </li>

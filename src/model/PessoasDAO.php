@@ -15,8 +15,8 @@ class PessoasDAO
         return $this->select("select * from pessoas where nome = '$nome' order by nome");
     }
 
-    public function getByPermissoes($idPermissao){
-
+    public function getByPermissoes($idPermissao)
+    {
         return $this->select(
             "select
               pessoas.* 
@@ -27,6 +27,11 @@ class PessoasDAO
               permissoes_usuario_admin.id_permissao = '$idPermissao'"
         );
 
+    }
+
+    public function getByEmail($email)
+    {
+        return $this->select("select * from pessoas where email = '$email'")[0];
     }
 
     private function select($query): array
@@ -73,7 +78,7 @@ class PessoasDAO
     {
         if($bean instanceof PessoasBean) {
             $query = "update pessoas set nome = ?, razao_social = ?,
-                cpf = ?, cnpj = ?, email = ?, senha = ?, is_receber_alertas_promocao = ?
+                cpf = ?, cnpj = ?, email = ?, senha = ?, is_ativo = ?, is_receber_alertas_promocao = ?
                 where id = ?";
 
             $params = array(
@@ -82,6 +87,7 @@ class PessoasDAO
                 $bean->getCpf(), $bean->getCnpj(),
                 $bean->getEmail(),
                 password_hash($bean->getSenha(), PASSWORD_DEFAULT),
+                $bean->getIsAtivo(),
                 $bean->getIsReceberAlertasPromocao(),
                 $bean->getId()
             );

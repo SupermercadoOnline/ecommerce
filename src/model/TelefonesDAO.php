@@ -30,13 +30,12 @@ class TelefonesDAO
     private function insert($bean)
     {
         if($bean instanceof TelefonesBean) {
-            $query = "insert into telefones (id_pessoa, numero_telefone, is_ativo)
-                values (?, ?, ?)";
+            $query = "insert into telefones (id_pessoa, numero_telefone)
+                values (?, ?)";
 
             $params = array(
                 $bean->getIdPessoa(),
-                $bean->getNumeroTelefone(),
-                $bean->getisAtivo(),
+                $bean->getNumeroTelefone()
             );
 
             $result = MySqlDAO::executeQuery($query, $params);
