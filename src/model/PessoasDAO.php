@@ -109,7 +109,7 @@ class PessoasDAO
             }
 
         }
-            return false;
+        return false;
     }
 
     public function delete($bean)
