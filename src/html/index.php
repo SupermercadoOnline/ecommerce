@@ -1,8 +1,7 @@
 <?php
-include_once '../model/EstadosDAO.php';
-
-
 include_once '../view/header_html_section.php';
+
+include_once ROOT_PATH . '/controller/EstadosController.php';
 ?>
 
 <div class="container">
@@ -38,9 +37,9 @@ include_once '../view/header_html_section.php';
                     <tbody>
 
                     <?php
-                    $estadosDAO = new EstadosDAO();
+                    $estadosDAO = new EstadosController();
                     foreach ($estadosDAO->getAll() as $estadoBean){
-                        if($estadoBean instanceof EstadosBean){
+                        if($estadoBean instanceof Estados){
                             ?>
 
                             <tr>

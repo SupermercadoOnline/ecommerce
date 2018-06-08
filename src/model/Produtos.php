@@ -1,6 +1,6 @@
 <?php
 
-class ProdutosBean{
+class Produtos{
 
 	private $id;
 	private $nome;

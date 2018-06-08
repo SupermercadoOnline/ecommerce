@@ -1,8 +1,8 @@
 <?php
-include_once 'MySqlDAO.php';
-include_once 'EstadosBean.php';
+include_once ROOT_PATH . '/model/MySqlDAO.php';
+include_once ROOT_PATH . '/model/Estados.php';
 
-class EstadosDAO
+class EstadosController
 {
 
     public function getAll(){
@@ -14,7 +14,7 @@ class EstadosDAO
         $listaEstados = array();
         $selectEstados = MySqlDAO::getResult($query);
         while($row = $selectEstados->fetch_array())
-            $listaEstados[] = new EstadosBean($row['id'], $row['nome'], $row['sigla']);
+            $listaEstados[] = new Estados($row['id'], $row['nome'], $row['sigla']);
 
         return $listaEstados;
     }

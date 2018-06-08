@@ -1,7 +1,7 @@
 <?php
 
 
-class EstoqueProdutosBean
+class EstoqueProdutos
 {
 
     private $idProduto;
@@ -9,7 +9,7 @@ class EstoqueProdutosBean
     private $dataMovimento;
 
     /**
-     * EstoqueProdutosBean constructor.
+     * EstoqueProdutos constructor.
      * @param $idProduto
      * @param $quantidade
      * @param $dataMovimento

@@ -1,20 +1,21 @@
 <?php
 session_start();
 
-include_once '../model/PessoasDAO.php';
-include_once '../model/TipoPessoaDAO.php';
 include_once '../configs.php';
 
+include_once ROOT_PATH . '/controller/PessoasController.php';
+include_once ROOT_PATH . '/controller/TipoPessoaController.php';
+
 if($_POST["acessar"]) {
-    $pessoas = new PessoasDAO();
+    $pessoas = new PessoasController();
     $pessoa = $pessoas->getByEmail($_POST["email"]);
 
-    if($pessoa instanceof PessoasBean) {
+    if($pessoa instanceof Pessoas) {
         if(password_verify($_POST["senha"], $pessoa->getSenha())) {
             $_SESSION['login']['id_pessoa'] = $pessoa->getId();
             $_SESSION['login']['nome_pessoa'] = $pessoa->getNome();
 
-            $tipoPessoa = new TipoPessoaDAO();
+            $tipoPessoa = new TipoPessoaController();
             $tipo = $tipoPessoa->getByPessoa($pessoa->getId());
 
             if($tipo->getId() == 1) {

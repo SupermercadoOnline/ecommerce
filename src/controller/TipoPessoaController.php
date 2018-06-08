@@ -1,9 +1,9 @@
 <?php
-include_once 'MySqlDAO.php';
-include_once 'TipoPessoaBean.php';
-include_once 'PessoasBean.php';
+include_once ROOT_PATH . '/model/MySqlDAO.php';
+include_once ROOT_PATH . '/model/TipoPessoa.php';
+include_once ROOT_PATH . '/model/Pessoas.php';
 
-class TipoPessoaDAO
+class TipoPessoaController
 {
     public function getAll()
     {
@@ -25,19 +25,19 @@ class TipoPessoaDAO
         $lista = array();
         $result = MySqlDAO::getResult($query);
         while($row = $result->fetch_array()) {
-            $lista[] = new TipoPessoaBean($row['id'], $row['nome']);
+            $lista[] = new TipoPessoa($row['id'], $row['nome']);
         }
 
         return $lista;
     }
 
-    public function salvar($pessoaBean, $id_tipo)
+    public function salvar($bean, $id_tipo)
     {
-        if ($pessoaBean instanceof PessoasBean) {
+        if ($bean instanceof Pessoas) {
             $query = "INSERT INTO tipo_pessoa (id_pessoa, id_tipo) VALUES (?, ?)";
 
             $params = array(
-                $pessoaBean->getId(),
+                $bean->getId(),
                 $id_tipo
             );
 

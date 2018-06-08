@@ -1,12 +1,12 @@
 <?php
 
-class PermissoesUsuarioBean
+class TipoPessoa
 {
     private $id;
     private $nome;
 
     /**
-     * PermissoesUsuarioBean constructor.
+     * TipoPessoa constructor.
      * @param $id
      * @param $nome
      */

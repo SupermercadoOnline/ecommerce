@@ -1,24 +1,19 @@
 <?php
 
-
-class EstadosBean
+class PermissoesUsuario
 {
-
     private $id;
     private $nome;
-    private $sigla;
 
     /**
-     * EstadosBean constructor.
+     * PermissoesUsuario constructor.
      * @param $id
      * @param $nome
-     * @param $sigla
      */
-    public function __construct($id, $nome, $sigla)
+    public function __construct($id, $nome)
     {
         $this->id = $id;
         $this->nome = $nome;
-        $this->sigla = $sigla;
     }
 
     /**
@@ -52,21 +47,4 @@ class EstadosBean
     {
         $this->nome = $nome;
     }
-
-    /**
-     * @return mixed
-     */
-    public function getSigla()
-    {
-        return $this->sigla;
-    }
-
-    /**
-     * @param mixed $sigla
-     */
-    public function setSigla($sigla): void
-    {
-        $this->sigla = $sigla;
-    }
-
 }

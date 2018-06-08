@@ -1,9 +1,9 @@
 <?php
-include_once 'MySqlDAO.php';
-include_once 'ProdutosBean.php';
+include_once ROOT_PATH . '/model/MySqlDAO.php';
+include_once ROOT_PATH . '/model/Produtos.php';
 
-class ProdutosDAO{
-
+class ProdutosController
+{
     public function getAll(){
         return $this->select('SELECT * FROM produtos ORDER BY nome');
     }
@@ -27,7 +27,7 @@ class ProdutosDAO{
         $listaProdutos = array();
         $selectProdutos = MySqlDAO::getResult($query);
         while($row = $selectProdutos->fetch_array())
-            $listaProdutos[] = new ProdutosBean($row['id'], $row['nome'], $row['id_categoria'], $row['preco'],
+            $listaProdutos[] = new Produtos($row['id'], $row['nome'], $row['id_categoria'], $row['preco'],
                 $row['fabricante'], $row['descricao'], $row['estoque_minimo'], $row['is_ativo']);
 
         return $listaProdutos;
@@ -35,7 +35,7 @@ class ProdutosDAO{
 
     private function insert($produtosBean){
 
-        if($produtosBean instanceof ProdutosBean){
+        if($produtosBean instanceof Produtos){
             
             $query = "INSERT INTO produtos (nome, id_categoria, preco, fabricante, descricao, estoque_minimo) VALUES (?, ?, ?, ?, ?, ?)";
             $parametros = array(
@@ -60,7 +60,7 @@ class ProdutosDAO{
 
     private function update($produtosBean){
 
-        if($produtosBean instanceof ProdutosBean){
+        if($produtosBean instanceof Produtos){
 
             $query = "UPDATE produtos SET nome=?, id_categoria=?, preco=?, fabricante=?, descricao=?, estoque_minimo=?, is_ativo=? WHERE id=?";
             $parametros = array(
@@ -83,7 +83,7 @@ class ProdutosDAO{
 
     public function salvar($produtosBean){
 
-        if($produtosBean instanceof ProdutosBean){
+        if($produtosBean instanceof Produtos){
 
             if(empty($this->getProdutoPorId($produtosBean->getId())))
                 if($this->insert($produtosBean))
@@ -99,7 +99,7 @@ class ProdutosDAO{
 
     public function delete($produtosBean){
 
-        if($produtosBean instanceof ProdutosBean){
+        if($produtosBean instanceof Produtos){
 
             $produtosBean->setIsAtivo(false);
             return $this->update($produtosBean);
@@ -111,7 +111,7 @@ class ProdutosDAO{
 
     public function ativar($produtosBean){
 
-        if($produtosBean instanceof ProdutosBean){
+        if($produtosBean instanceof Produtos){
 
             $produtosBean->setIsAtivo(true);
             return $this->update($produtosBean);

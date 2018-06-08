@@ -1,14 +1,14 @@
 <?php
 include_once 'header.php';
-include_once '../../model/CategoriasProdutosDAO.php';
-include_once '../../model/ProdutosBean.php';
-include_once '../../model/ProdutosDAO.php';
+include_once ROOT_PATH . '/controller/CategoriasProdutosController.php';
+include_once ROOT_PATH . '/model/Produtos.php';
+include_once ROOT_PATH . '/controller/ProdutosController.php';
 
 if($_POST["cadastrar"]){
-    $produto = new ProdutosBean(null, $_POST["nome"], $_POST["categoria"], $_POST["preco"],
+    $produto = new Produtos(null, $_POST["nome"], $_POST["categoria"], $_POST["preco"],
     $_POST["fabricante"], $_POST["descricao"], $_POST["estoque_minimo"], null);
 
-    $produtoDao = new ProdutosDAO();
+    $produtoDao = new ProdutosController();
 
     if($produtoDao->salvar($produto)){
         ?>
@@ -70,10 +70,10 @@ if($_POST["cadastrar"]){
 
                     <select name="categoria" class="form-control input-lg selectpicker" title="Selecione">
                         <?php
-                        $categoriasDAO = new CategoriasProdutosDAO();
+                        $categoriasDAO = new CategoriasProdutosController();
 
                         foreach ($categoriasDAO->getAll() as $categoriaBean){
-                            if($categoriaBean instanceof CategoriasProdutosBean){
+                            if($categoriaBean instanceof CategoriasProdutos){
                                 ?>
 
                                 <option value='<?php $categoriaBean->getId() ?>'>

@@ -1,15 +1,15 @@
 <?php
 include_once 'header.php';
-include_once '../../model/CategoriasProdutosDAO.php';
-include_once '../../model/ProdutosBean.php';
-include_once '../../model/ProdutosDAO.php';
+include_once ROOT_PATH . '/controller/CategoriasProdutosController.php';
+include_once ROOT_PATH . '/model/Produtos.php';
+include_once ROOT_PATH . '/controller/ProdutosController.php';
 
 if($_GET["ativar"]){
     $id = $_GET["ativar"];
-    $produtoDao = new ProdutosDAO();
+    $produtoDao = new ProdutosController();
     $produto = $produtoDao->getProdutoPorId($id);
 
-    if($produto instanceof ProdutosBean){
+    if($produto instanceof Produtos){
         if($produtoDao->ativar($produto)){
             ?>
 
@@ -73,12 +73,12 @@ if($_GET["ativar"]){
 
                             <tbody>
                             <?php
-                            $produtosDao = new ProdutosDAO();
-                            $categoriasDao = new CategoriasProdutosDAO();
+                            $produtosDao = new ProdutosController();
+                            $categoriasDao = new CategoriasProdutosController();
 
                             foreach ($produtosDao->retornePorStatus(false) as $produtoBean) {
                                 $categoriaBean = $categoriasDao->getCategoriaPorId($produtoBean->getIdCatergoria());
-                                if ($produtoBean instanceof ProdutosBean && $categoriaBean instanceof CategoriasProdutosBean) {
+                                if ($produtoBean instanceof Produtos && $categoriaBean instanceof CategoriasProdutos) {
 
                                     if($produtoBean->getIsAtivo()){
                                         $status = "Ativo";

@@ -1,8 +1,8 @@
 <?php
-include_once 'MySqlDAO.php';
-include_once 'EnderecosBean.php';
+include_once ROOT_PATH . '/model/MySqlDAO.php';
+include_once ROOT_PATH . '/model/Enderecos.php';
 
-class EnderecosDAO
+class EnderecosController
 {
     public function getById($id)
     {
@@ -19,7 +19,7 @@ class EnderecosDAO
         $lista = array();
         $result = MySqlDAO::getResult($query);
         while($row = $result->fetch_array()) {
-            $lista[] = new EnderecosBean($row['id'], $row['id_pessoa'],
+            $lista[] = new Enderecos($row['id'], $row['id_pessoa'],
                 $row['id_cidade'], $row['rua'], $row['bairro'], $row['numero'], $row['cep'],
                 $row['complemento'], $row['is_ativo']);
         }
@@ -29,7 +29,7 @@ class EnderecosDAO
 
     private function insert($bean)
     {
-        if($bean instanceof EnderecosBean) {
+        if($bean instanceof Enderecos) {
             $query = "insert into enderecos (id_pessoa, id_cidade, rua, 
                 bairro, numero, cep, complemento)
                 values (?, ?, ?, ?, ?, ?, ?)";
@@ -56,7 +56,7 @@ class EnderecosDAO
 
     private function update($bean)
     {
-        if($bean instanceof EnderecosBean) {
+        if($bean instanceof Enderecos) {
             $query = "update enderecos set id_cidade = ?, rua = ?, 
                 bairro = ?, numero = ?, cep = ?, complemento = ?, is_ativo = ? where id = ?";
 
@@ -80,7 +80,7 @@ class EnderecosDAO
 
     public function salvar($bean)
     {
-        if($bean instanceof EnderecosBean) {
+        if($bean instanceof Enderecos) {
             if($this->getById($bean->getId()) != null) {
                 return $this->update($bean);
             } else {
@@ -93,7 +93,7 @@ class EnderecosDAO
 
     public function delete($bean)
     {
-        if($bean instanceof EnderecosBean) {
+        if($bean instanceof Enderecos) {
 
             $bean->setIsAtivo(false);
             return $this->update($bean);

@@ -1,14 +1,15 @@
 <?php
-include_once "../../model/CategoriasProdutosBean.php";
-include_once "../../model/CategoriasProdutosDAO.php";
 include_once "header.php";
+
+include_once ROOT_PATH . "/model/CategoriasProdutos.php";
+include_once ROOT_PATH . "/controller/CategoriasProdutosController.php";
 
 if($_GET["desativar"]){
     $id = $_GET["desativar"];
-    $categoriaDAO = new CategoriasProdutosDAO();
+    $categoriaDAO = new CategoriasProdutosController();
     $categoria = $categoriaDAO->getProdutoPorId($id);
 
-    if($categoria instanceof CategoriasProdutosBean){
+    if($categoria instanceof CategoriasProdutos){
         if($categoriaDAO->delete($categoria)){
             ?>
 

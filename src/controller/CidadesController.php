@@ -1,8 +1,8 @@
 <?php
-include_once 'MySqlDAO.php';
-include_once 'CidadesBean.php';
+include_once ROOT_PATH . '/model/MySqlDAO.php';
+include_once ROOT_PATH . '/model/Cidades.php';
 
-class CidadesDAO
+class CidadesController
 {
     public function getAll()
     {
@@ -19,7 +19,7 @@ class CidadesDAO
         $lista = array();
         $result = MySqlDAO::getResult($query);
         while($row = $result->fetch_array()) {
-            $lista[] = new CidadesBean($row['id'], $row['id_estado'],
+            $lista[] = new Cidades($row['id'], $row['id_estado'],
                 $row['nome']);
         }
 

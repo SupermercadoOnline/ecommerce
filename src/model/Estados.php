@@ -1,19 +1,24 @@
 <?php
 
-class TipoPessoaBean
+
+class Estados
 {
+
     private $id;
     private $nome;
+    private $sigla;
 
     /**
-     * TipoPessoaBean constructor.
+     * Estados constructor.
      * @param $id
      * @param $nome
+     * @param $sigla
      */
-    public function __construct($id, $nome)
+    public function __construct($id, $nome, $sigla)
     {
         $this->id = $id;
         $this->nome = $nome;
+        $this->sigla = $sigla;
     }
 
     /**
@@ -47,4 +52,21 @@ class TipoPessoaBean
     {
         $this->nome = $nome;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getSigla()
+    {
+        return $this->sigla;
+    }
+
+    /**
+     * @param mixed $sigla
+     */
+    public function setSigla($sigla): void
+    {
+        $this->sigla = $sigla;
+    }
+
 }

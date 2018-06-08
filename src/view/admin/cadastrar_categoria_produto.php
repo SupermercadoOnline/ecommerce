@@ -1,14 +1,14 @@
 <?php
-
-include_once '../../model/CategoriasProdutosDAO.php';
-include_once '../../model/CategoriasProdutosBean.php';
 include_once 'header.php';
+
+include_once ROOT_PATH . '/controller/CategoriasProdutosController.php';
+include_once ROOT_PATH . '/model/CategoriasProdutos.php';
 
 if($_POST["Cadastrar"]){
 
-    $categoriaProdutos = new CategoriasProdutosBean(null, $_POST["nome"], null);
+    $categoriaProdutos = new CategoriasProdutos(null, $_POST["nome"], null);
 
-    $categoriaProdutosDAO = new CategoriasProdutosDAO();
+    $categoriaProdutosDAO = new CategoriasProdutosController();
 
     if($categoriaProdutosDAO->salvar($categoriaProdutos)){
         ?>

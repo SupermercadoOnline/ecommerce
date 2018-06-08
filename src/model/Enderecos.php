@@ -1,6 +1,6 @@
 <?php
 
-class EnderecosBean
+class Enderecos
 {
     private $id;
     private $idPessoa;
@@ -13,7 +13,7 @@ class EnderecosBean
     private $isAtivo;
 
     /**
-     * EnderecosBean constructor.
+     * Enderecos constructor.
      * @param $id
      * @param $idPessoa
      * @param $idCidade

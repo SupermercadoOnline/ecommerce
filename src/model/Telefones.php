@@ -1,6 +1,6 @@
 <?php
 
-class TelefonesBean
+class Telefones
 {
     private $id;
     private $idPessoa;
@@ -8,7 +8,7 @@ class TelefonesBean
     private $isAtivo;
 
     /**
-     * TelefonesBean constructor.
+     * Telefones constructor.
      * @param $id
      * @param $idPessoa
      * @param $numeroTelefone

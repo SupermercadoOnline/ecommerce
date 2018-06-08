@@ -1,13 +1,13 @@
 <?php
 
-class CidadesBean
+class Cidades
 {
     private $id;
     private $idEstado;
     private $nome;
 
     /**
-     * CidadesBean constructor.
+     * Cidades constructor.
      * @param $id
      * @param $idEstado
      * @param $nome

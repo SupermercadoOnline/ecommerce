@@ -1,16 +1,16 @@
 <?php
 include_once 'header.php';
-include_once '../../model/PessoasDAO.php';
-include_once '../../model/TipoPessoaDAO.php';
-include_once '../../model/PermissoesUsuarioDAO.php';
-include_once '../../model/EstadosDAO.php';
-include_once '../../model/CidadesDAO.php';
-include_once '../../model/TelefonesDAO.php';
-include_once '../../model/EnderecosDAO.php';
+include_once ROOT_PATH . '/controller/PessoasController.php';
+include_once ROOT_PATH . '/controller/TipoPessoaController.php';
+include_once ROOT_PATH . '/controller/PermissoesUsuarioController.php';
+include_once ROOT_PATH . '/controller/EstadosController.php';
+include_once ROOT_PATH . '/controller/CidadesController.php';
+include_once ROOT_PATH . '/controller/TelefonesController.php';
+include_once ROOT_PATH . '/controller/EnderecosController.php';
 
-$permissoesUsuarioDAO = new PermissoesUsuarioDAO();
+$permissoesUsuarioDAO = new PermissoesUsuarioController();
 if($_POST["cadastrar"]) {
-    $pessoa = new PessoasBean(null,
+    $pessoa = new Pessoas(null,
         $_POST["nome"],
         null,
         $_POST["cpf"],
@@ -19,30 +19,30 @@ if($_POST["cadastrar"]) {
         $_POST["senha"],
         null,
         0);
-    $pessoasDAO = new PessoasDAO();
+    $pessoasDAO = new PessoasController();
     $pessoa = $pessoasDAO->salvar($pessoa);
 
-    if ($pessoa instanceof PessoasBean) {
-        $tipoPessoaDAO = new TipoPessoaDAO();
+    if ($pessoa instanceof Pessoas) {
+        $tipoPessoaDAO = new TipoPessoaController();
         $tipoPessoaDAO->salvar($pessoa, 1);
 
-        $permissoes = array_merge($_POST["permissoesAdmin"], $_POST["permissoesCategoria"],
-            $_POST["permissoesClientes"], $_POST["permissoesVendas"], $_POST["permissoesProdutos"], $_POST["permissoesPromo"]);
+        $permissoes = array_merge((array)$_POST["permissoesAdmin"], (array)$_POST["permissoesCategoria"],
+            (array)$_POST["permissoesClientes"], (array)$_POST["permissoesVendas"], (array)$_POST["permissoesProdutos"], (array)$_POST["permissoesPromo"]);
 
         foreach ($permissoes as $permissao) {
             $permissoesUsuarioDAO->salvar($pessoa, $permissao);
         }
 
-        $telefonesDAO = new TelefonesDAO();
-        $telefone = new TelefonesBean(null,
+        $telefonesDAO = new TelefonesController();
+        $telefone = new Telefones(null,
             $pessoa->getId(),
             $_POST["numeroTelefone"],
             null);
 
         $telefonesDAO->salvar($telefone);
 
-        $enderecosDAO = new EnderecosDAO();
-        $endereco = new EnderecosBean(null,
+        $enderecosDAO = new EnderecosController();
+        $endereco = new Enderecos(null,
             $pessoa->getId(),
             $_POST["cidade"],
             $_POST["rua"],
@@ -108,7 +108,7 @@ if($_POST["cadastrar"]) {
                         <label for="estado">Estado: </label>
                         <select id="estado" name="estado" class="form-control input-lg">
                             <?php
-                            $estados = new EstadosDAO();
+                            $estados = new EstadosController();
                             foreach ($estados->getAll() as $estado) {
                                 echo "<option value='" . $estado->getId() . "'> " . $estado->getNome() . "</option>";
                             }
@@ -128,7 +128,7 @@ if($_POST["cadastrar"]) {
                         <label for="cidade">Cidade: </label>
                         <select id="cidade" name="cidade" class="form-control input-lg">
                             <?php
-                            $cidades = new CidadesDAO();
+                            $cidades = new CidadesController();
                             foreach ($cidades->getAll() as $cidade) {
                                 echo "<option value='" . $cidade->getId() . "'> " . $cidade->getNome() . "</option>";
                             }

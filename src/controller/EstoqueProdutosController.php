@@ -1,24 +1,24 @@
 <?php
-include_once 'MySqlDAO.php';
-include_once 'EstoqueProdutosBean.php';
-include_once 'ProdutosDAO.php';
-include_once 'PessoasDAO.php';
-include_once dirname(__DIR__) . '/functions.php';
+include_once ROOT_PATH . '/model/MySqlDAO.php';
+include_once ROOT_PATH . '/model/EstoqueProdutos.php';
+include_once 'ProdutosController.php';
+include_once 'PessoasController.php';
+include_once ROOT_PATH . '/functions.php';
 
-class EstoqueProdutosDAO
+class EstoqueProdutosController
 {
 
     private $produtosDAO;
 
     public function __construct()
     {
-        $this->produtosDAO = new ProdutosDAO();
+        $this->produtosDAO = new ProdutosController();
     }
 
 
     public function entradaProduto($produtosBean, $quantidade, $dataBrMovimento = null){
 
-        if($produtosBean instanceof ProdutosBean && $quantidade > 0){
+        if($produtosBean instanceof Produtos && $quantidade > 0){
 
             $dataPhpMovimento = empty($dataBrMovimento) ? get_string_datetime_atual() : data_br_to_data_php($dataBrMovimento);
             return $this->insertMovimento($produtosBean, $quantidade, $dataPhpMovimento);
@@ -31,7 +31,7 @@ class EstoqueProdutosDAO
 
     public function saidaProduto($produtosBean, $quantidade, $dataBrMovimento = null){
 
-        if($produtosBean instanceof ProdutosBean && $quantidade > 0){
+        if($produtosBean instanceof Produtos && $quantidade > 0){
 
             if($this->getQuantidadeEmEstoque($produtosBean) >= $quantidade){
 
@@ -51,7 +51,7 @@ class EstoqueProdutosDAO
 
     }
 
-    private function enviarEmailEstoqueCritico(ProdutosBean $produtosBean){
+    private function enviarEmailEstoqueCritico(Produtos $produtosBean){
 
         $mensagem_estoque_critico =
             '<html lang="pt-br">
@@ -65,9 +65,9 @@ class EstoqueProdutosDAO
             </html>';
 
         $idPermissaoEditarEstoque = 9;
-        $pessoasDAO = new PessoasDAO();
+        $pessoasDAO = new PessoasController();
         foreach($pessoasDAO->getByPermissoes($idPermissaoEditarEstoque) as $pessoasBean){
-            if($pessoasBean instanceof PessoasBean)
+            if($pessoasBean instanceof Pessoas)
                 envia_email($pessoasBean->getEmail(), 'Estoque crítico', $mensagem_estoque_critico);
         }
 
@@ -77,7 +77,7 @@ class EstoqueProdutosDAO
 
         $quantidadeEstoque = 0;
         
-        if($produtosBean instanceof ProdutosBean){
+        if($produtosBean instanceof Produtos){
 
             $query = "SELECT sum(quantidade) FROM estoque_produtos WHERE id_produto = ?";
             $parametros = array($produtosBean->getId());
@@ -92,7 +92,7 @@ class EstoqueProdutosDAO
 
     private function insertMovimento($produtosBean, $quantidade, $dataPhpMovimento){
 
-        if($produtosBean instanceof ProdutosBean){
+        if($produtosBean instanceof Produtos){
 
             $query = "INSERT INTO estoque_produtos (id_produto, quantidade, data_movimento) VALUES (?, ?, ?)";
             $parametros = array(

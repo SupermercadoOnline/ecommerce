@@ -1,9 +1,8 @@
 <?php
-include_once 'MySqlDAO.php';
-include_once 'TelefonesBean.php';
-include_once 'PessoasBean.php';
+include_once ROOT_PATH . '/model/MySqlDAO.php';
+include_once ROOT_PATH . '/model/Telefones.php';
 
-class TelefonesDAO
+class TelefonesController
 {
     public function getById($id)
     {
@@ -20,7 +19,7 @@ class TelefonesDAO
         $lista = array();
         $result = MySqlDAO::getResult($query);
         while($row = $result->fetch_array()) {
-            $lista[] = new TelefonesBean($row['id'], $row['id_pessoa'],
+            $lista[] = new Telefones($row['id'], $row['id_pessoa'],
                 $row['numero_telefone'], $row['is_ativo']);
         }
 
@@ -29,7 +28,7 @@ class TelefonesDAO
 
     private function insert($bean)
     {
-        if($bean instanceof TelefonesBean) {
+        if($bean instanceof Telefones) {
             $query = "insert into telefones (id_pessoa, numero_telefone)
                 values (?, ?)";
 
@@ -50,7 +49,7 @@ class TelefonesDAO
 
     private function update($bean)
     {
-        if($bean instanceof TelefonesBean) {
+        if($bean instanceof Telefones) {
             $query = "update telefones set numero_telefone = ?, is_ativo = ? where id = ?";
 
             $params = array(
@@ -68,7 +67,7 @@ class TelefonesDAO
 
     public function salvar($bean)
     {
-        if($bean instanceof TelefonesBean) {
+        if($bean instanceof Telefones) {
             if($this->getById($bean->getId()) != null) {
                 return $this->update($bean);
             } else {
@@ -81,7 +80,7 @@ class TelefonesDAO
 
     public function delete($bean)
     {
-        if($bean instanceof TelefonesBean) {
+        if($bean instanceof Telefones) {
 
             $bean->setIsAtivo(false);
             return $this->update($bean);

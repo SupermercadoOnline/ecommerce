@@ -1,8 +1,8 @@
 <?php
-include_once 'MySqlDAO.php';
-include_once 'PessoasBean.php';
+include_once ROOT_PATH .  '/model/MySqlDAO.php';
+include_once ROOT_PATH . '/model/Pessoas.php';
 
-class PessoasDAO
+class PessoasController
 {
 
     public function getById($id)
@@ -39,7 +39,7 @@ class PessoasDAO
         $lista = array();
         $result = MySqlDAO::getResult($query);
         while($row = $result->fetch_array()) {
-            $lista[] = new PessoasBean($row['id'], $row['nome'],
+            $lista[] = new Pessoas($row['id'], $row['nome'],
                 $row['razao_social'], $row['cpf'], $row['cnpj'], $row['email'], $row['senha'],
                 $row['is_ativo'], $row['is_receber_alertas_promocao']);
         }
@@ -49,7 +49,7 @@ class PessoasDAO
 
     private function insert($bean)
     {
-        if($bean instanceof PessoasBean) {
+        if($bean instanceof Pessoas) {
             $query = "insert into pessoas (nome, razao_social, cpf, 
                 cnpj, email, senha, is_receber_alertas_promocao)
                 values (?, ?, ?, ?, ?, ?, ?)";
@@ -76,7 +76,7 @@ class PessoasDAO
 
     private function update($bean)
     {
-        if($bean instanceof PessoasBean) {
+        if($bean instanceof Pessoas) {
             $query = "update pessoas set nome = ?, razao_social = ?,
                 cpf = ?, cnpj = ?, email = ?, senha = ?, is_ativo = ?, is_receber_alertas_promocao = ?
                 where id = ?";
@@ -101,7 +101,7 @@ class PessoasDAO
 
     public function salvar($bean)
     {
-        if($bean instanceof PessoasBean) {
+        if($bean instanceof Pessoas) {
             if($this->getById($bean->getId()) != null) {
                 return $this->update($bean);
             } else {
@@ -114,7 +114,7 @@ class PessoasDAO
 
     public function delete($bean)
     {
-        if($bean instanceof PessoasBean) {
+        if($bean instanceof Pessoas) {
 
             $bean->setIsAtivo(false);
             return $this->update($bean);

@@ -1,14 +1,14 @@
 <?php
 include_once 'header.php';
-include_once '../../model/CategoriasProdutosDAO.php';
-include_once '../../model/ProdutosBean.php';
-include_once '../../model/ProdutosDAO.php';
+include_once ROOT_PATH . '/controller/CategoriasProdutosController.php';
+include_once ROOT_PATH . '/model/Produtos.php';
+include_once ROOT_PATH . '/controller/ProdutosController.php';
 
 if($_POST["alterar"]){
-    $produto = new ProdutosBean($_POST["id"], $_POST["nome"], $_POST["categoria"], $_POST["preco"],
+    $produto = new Produtos($_POST["id"], $_POST["nome"], $_POST["categoria"], $_POST["preco"],
         $_POST["fabricante"], $_POST["descricao"], $_POST["estoque_minimo"], true);
 
-    $produtoDao = new ProdutosDAO();
+    $produtoDao = new ProdutosController();
 
     if($produtoDao->salvar($produto)){
         ?>
@@ -56,8 +56,8 @@ if($_POST["alterar"]){
                 <?php
                     if($_GET["editar"]) {
                         $id = $_GET["editar"];
-                        $produtoDao = new ProdutosDAO();
-                        $categoriaDao = new CategoriasProdutosDAO();
+                        $produtoDao = new ProdutosController();
+                        $categoriaDao = new CategoriasProdutosController();
                         $produto = $produtoDao->getProdutoPorId($id);
                         $categorias = $categoriaDao->getAll();
 
@@ -82,10 +82,10 @@ if($_POST["alterar"]){
 
                                 <select name="categoria" class="form-control input-lg">
                                     <?php
-                                    $categoriasDAO = new CategoriasProdutosDAO();
+                                    $categoriasDAO = new CategoriasProdutosController();
 
                                     foreach ($categoriasDAO->getAll() as $categoriaBean) {
-                                        if ($categoriaBean instanceof CategoriasProdutosBean) {
+                                        if ($categoriaBean instanceof CategoriasProdutos) {
 
                                             $selected = $produto->getIdCategoria() == $categoriaBean->getId() ? 'selected' : null;
                                             echo "<option value='".$categoriaBean->getId()."'>".$categoriaBean->getNome()."</option";
