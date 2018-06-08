@@ -10,6 +10,11 @@ class PermissoesUsuarioDAO
         return $this->select("select * from permissoes_possiveis_usuario_admin order by nome");
     }
 
+    public function getByNomePermissoes($nome)
+    {
+        return $this->select("select * from permissoes_possiveis_usuario_admin where nome like '$nome%' order by nome");
+    }
+
     private function select($query): array
     {
         $lista = array();
