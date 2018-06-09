@@ -34,6 +34,11 @@ class PessoasController
         return $this->select("select * from pessoas where email = '$email'")[0];
     }
 
+    public function getAll()
+    {
+        return $this->select("select * from pessoas order by nome");
+    }
+
     private function select($query): array
     {
         $lista = array();
@@ -112,7 +117,7 @@ class PessoasController
         return false;
     }
 
-    public function delete($bean)
+    public function inativar($bean)
     {
         if($bean instanceof Pessoas) {
 
@@ -121,5 +126,16 @@ class PessoasController
 
         }
             return false;
+    }
+
+    public function ativar($bean)
+    {
+        if($bean instanceof Pessoas) {
+
+            $bean->setIsAtivo(true);
+            return $this->update($bean);
+
+        }
+        return false;
     }
 }
