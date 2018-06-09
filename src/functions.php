@@ -1,5 +1,19 @@
 <?php
 include_once __DIR__ . '/configs.php';
+include_once ROOT_PATH . '/controller/PermissoesUsuarioController.php';
+
+function possuiPermissao($id_pessoa, $id_permissao) {
+
+    $permissoesController = new PermissoesUsuarioController();
+    $permissoes = $permissoesController->getByPessoa($id_pessoa);
+
+    $result = false;
+    foreach ($permissoes as $permissao) {
+        if($permissao->getId() == $id_permissao) $result = true;
+    }
+
+    return $result;
+}
 
 function get_somente_numeros_string(string $string){
     return preg_replace('/[^0-9]/', '', $string);

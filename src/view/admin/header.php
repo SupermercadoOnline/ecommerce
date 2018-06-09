@@ -1,10 +1,9 @@
 <?php
 session_start();
-include_once dirname(__DIR__) . '/header_html_section.php';
-include_once ROOT_PATH . '/controller/PermissoesUsuarioController.php';
 
-$permissoesController = new PermissoesUsuarioController();
-$permissoes = $permissoesController->getByPessoa($_SESSION['login']['id_pessoa']);
+include_once dirname(__DIR__) . '/header_html_section.php';
+include_once ROOT_PATH . '/functions.php';
+
 ?>
 
 <body style="padding-top: 70px !important; background-color: whitesmoke !important;">
@@ -26,32 +25,25 @@ $permissoes = $permissoesController->getByPessoa($_SESSION['login']['id_pessoa']
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownUsuarios">
                     <?php
-                    $permissaoCadastrar = 19;
-                    foreach ($permissoes as $permissao) {
-                        if($permissao->getId() == $permissaoCadastrar) {
-                            ?>
-                            <li>
-                                <a href="<?php echo URL_HOST?>/admin/form_cadastrar_usuario.php">
-                                    <b>Novo</b>
-                                </a>
-                            </li>
-                            <?php
-                           break;
-                        }
+                    if (possuiPermissao($_SESSION['login']['id_pessoa'],19)) {
+                        ?>
+                        <li>
+                            <a href="<?php echo URL_HOST?>/admin/form_cadastrar_usuario.php">
+                                <b>Novo</b>
+                            </a>
+                        </li>
+                        <?php
                     }
                     ?>
                     <?php
-                    $permissaoVisualizar = 18;
-                    foreach ($permissoes as $permissao) {
-                        if ($permissao->getId() == $permissaoVisualizar) {
-                            ?>
-                            <li>
-                                <a href="<?php echo URL_HOST ?>/admin/form_visualizar_usuario.php">
-                                    <b>Visualizar</b>
-                                </a>
-                            </li>
-                            <?php
-                        }
+                    if (possuiPermissao($_SESSION['login']['id_pessoa'],18)) {
+                        ?>
+                        <li>
+                            <a href="<?php echo URL_HOST ?>/admin/form_visualizar_usuario.php">
+                                <b>Visualizar</b>
+                            </a>
+                        </li>
+                        <?php
                     }
                     ?>
                 </ul>
