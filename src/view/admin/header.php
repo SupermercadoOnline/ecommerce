@@ -4,6 +4,8 @@ session_start();
 include_once dirname(__DIR__) . '/header_html_section.php';
 include_once ROOT_PATH . '/functions.php';
 
+$id_pessoa = $_SESSION['login']['id_pessoa'];
+
 ?>
 
 <body style="padding-top: 70px !important; background-color: whitesmoke !important;">
@@ -25,7 +27,7 @@ include_once ROOT_PATH . '/functions.php';
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownUsuarios">
                     <?php
-                    if (possuiPermissao($_SESSION['login']['id_pessoa'],19)) {
+                    if (possuiPermissao($id_pessoa,19)) {
                         ?>
                         <li>
                             <a href="<?php echo URL_HOST?>/admin/form_cadastrar_usuario.php">
@@ -34,9 +36,8 @@ include_once ROOT_PATH . '/functions.php';
                         </li>
                         <?php
                     }
-                    ?>
-                    <?php
-                    if (possuiPermissao($_SESSION['login']['id_pessoa'],18)) {
+
+                    if (possuiPermissao($id_pessoa,18)) {
                         ?>
                         <li>
                             <a href="<?php echo URL_HOST ?>/admin/form_visualizar_usuario.php">
@@ -56,21 +57,37 @@ include_once ROOT_PATH . '/functions.php';
                     </b>
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownProdutos">
-                    <li>
-                        <a href="<?php echo URL_HOST ?>/admin/form_cadastrar_produto.php">
-                            <b>Novo</b>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="<?php echo URL_HOST?>/admin/form_visualizar_produto.php" class="dropdown-item">
-                            <b>Visualizar</b>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="<?php echo URL_HOST?>/admin/form_cadastrar_categoria_produto.php">
-                            <b>Cadastrar categorias</b>
-                        </a>
-                    </li>
+                    <?php
+                    if(possuiPermissao($id_pessoa, 5)) {
+                        ?>
+                        <li>
+                            <a href="<?php echo URL_HOST ?>/admin/form_cadastrar_produto.php">
+                                <b>Novo</b>
+                            </a>
+                        </li>
+                        <?php
+                    }
+
+                    if(possuiPermissao($id_pessoa, 6)) {
+                        ?>
+                        <li>
+                            <a href="<?php echo URL_HOST ?>/admin/form_visualizar_produto.php" class="dropdown-item">
+                                <b>Visualizar</b>
+                            </a>
+                        </li>
+                        <?php
+                    }
+
+                    if(possuiPermissao($id_pessoa, 1)) {
+                        ?>
+                        <li>
+                            <a href="<?php echo URL_HOST ?>/admin/form_cadastrar_categoria_produto.php">
+                                <b>Cadastrar categorias</b>
+                            </a>
+                        </li>
+                        <?php
+                    }
+                    ?>
                 </ul>
             </li>
         </ul>
