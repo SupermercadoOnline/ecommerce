@@ -11,7 +11,7 @@ class EnderecosController
 
     public function getByPessoa($id)
     {
-        return $this->select("select * from enderecos where id_pessoa = '$id' order by rua");
+        return $this->select("select * from enderecos where id_pessoa = '$id'")[0];
     }
 
     private function select($query): array

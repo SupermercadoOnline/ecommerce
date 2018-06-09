@@ -9,6 +9,11 @@ class EstadosController
         return $this->select('SELECT * FROM estados ORDER BY nome');
     }
 
+    public function getById($id)
+    {
+        return $this->select("SELECT * FROM estados WHERE id = '$id'")[0];
+    }
+
     protected function select($query):array
     {
         $listaEstados = array();
@@ -18,26 +23,4 @@ class EstadosController
 
         return $listaEstados;
     }
-
-
-    protected function insert($bean)
-    {
-        // TODO: Implement insert() method.
-    }
-
-    protected function update($bean)
-    {
-        // TODO: Implement update() method.
-    }
-
-    public function salvar($bean)
-    {
-        // TODO: Implement salvar() method.
-    }
-
-    public function delete($bean)
-    {
-        // TODO: Implement delete() method.
-    }
-
 }
