@@ -15,6 +15,14 @@ class PermissoesUsuarioController
         return $this->select("select * from permissoes_possiveis_usuario_admin where nome like '$nome%' order by nome");
     }
 
+    public function getByPessoa($id)
+    {
+        return $this->select("select *
+        from permissoes_possiveis_usuario_admin 
+        inner join permissoes_usuario_admin on permissoes_possiveis_usuario_admin.id = permissoes_usuario_admin.id_permissao
+        where permissoes_usuario_admin.id_pessoa = '$id'");
+    }
+
     private function select($query): array
     {
         $lista = array();
