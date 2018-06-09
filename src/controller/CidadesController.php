@@ -9,6 +9,11 @@ class CidadesController
         return $this->select("select * from cidades order by nome");
     }
 
+    public function getById($id)
+    {
+        return $this->select("select * from cidades where id = '$id'")[0];
+    }
+
     public function getByEstado($id)
     {
         return $this->select("select * from cidades where id_estado = '$id' order by nome");
