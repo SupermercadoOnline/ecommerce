@@ -1,61 +1,66 @@
 <?php
-include_once 'header.php';
-include_once ROOT_PATH . '/controller/PessoasController.php';
-include_once ROOT_PATH . '/controller/TipoPessoaController.php';
-include_once ROOT_PATH . '/controller/PermissoesUsuarioController.php';
-include_once ROOT_PATH . '/controller/EstadosController.php';
-include_once ROOT_PATH . '/controller/CidadesController.php';
-include_once ROOT_PATH . '/controller/TelefonesController.php';
-include_once ROOT_PATH . '/controller/EnderecosController.php';
+session_start();
+include_once '../../functions.php';
 
-$permissoesUsuarioDAO = new PermissoesUsuarioController();
-if($_POST["cadastrar"]) {
-    $pessoa = new Pessoas(null,
-        $_POST["nome"],
-        null,
-        $_POST["cpf"],
-        null,
-        $_POST["email"],
-        $_POST["senha"],
-        null,
-        0);
-    $pessoasDAO = new PessoasController();
-    $pessoa = $pessoasDAO->salvar($pessoa);
+if(possuiPermissao($_SESSION['login']['id_pessoa'], 19)) {
 
-    if ($pessoa instanceof Pessoas) {
-        $tipoPessoaDAO = new TipoPessoaController();
-        $tipoPessoaDAO->salvar($pessoa, 1);
+    include_once 'header.php';
+    include_once ROOT_PATH . '/controller/PessoasController.php';
+    include_once ROOT_PATH . '/controller/TipoPessoaController.php';
+    include_once ROOT_PATH . '/controller/PermissoesUsuarioController.php';
+    include_once ROOT_PATH . '/controller/EstadosController.php';
+    include_once ROOT_PATH . '/controller/CidadesController.php';
+    include_once ROOT_PATH . '/controller/TelefonesController.php';
+    include_once ROOT_PATH . '/controller/EnderecosController.php';
 
-        $permissoes = array_merge((array)$_POST["permissoesAdmin"], (array)$_POST["permissoesCategoria"],
-            (array)$_POST["permissoesClientes"], (array)$_POST["permissoesVendas"], (array)$_POST["permissoesProdutos"], (array)$_POST["permissoesPromo"]);
+    $permissoesUsuarioDAO = new PermissoesUsuarioController();
+    if ($_POST["cadastrar"]) {
+        $pessoa = new Pessoas(null,
+            $_POST["nome"],
+            null,
+            $_POST["cpf"],
+            null,
+            $_POST["email"],
+            $_POST["senha"],
+            null,
+            0);
+        $pessoasDAO = new PessoasController();
+        $pessoa = $pessoasDAO->salvar($pessoa);
 
-        foreach ($permissoes as $permissao) {
-            $permissoesUsuarioDAO->salvar($pessoa, $permissao);
+        if ($pessoa instanceof Pessoas) {
+            $tipoPessoaDAO = new TipoPessoaController();
+            $tipoPessoaDAO->salvar($pessoa, 1);
+
+            $permissoes = array_merge((array)$_POST["permissoesAdmin"], (array)$_POST["permissoesCategoria"],
+                (array)$_POST["permissoesClientes"], (array)$_POST["permissoesVendas"], (array)$_POST["permissoesProdutos"], (array)$_POST["permissoesPromo"]);
+
+            foreach ($permissoes as $permissao) {
+                $permissoesUsuarioDAO->salvar($pessoa, $permissao);
+            }
+
+            $telefonesDAO = new TelefonesController();
+            $telefone = new Telefones(null,
+                $pessoa->getId(),
+                $_POST["numeroTelefone"],
+                null);
+
+            $telefonesDAO->salvar($telefone);
+
+            $enderecosDAO = new EnderecosController();
+            $endereco = new Enderecos(null,
+                $pessoa->getId(),
+                $_POST["cidade"],
+                $_POST["rua"],
+                $_POST["bairro"],
+                $_POST["numero"],
+                $_POST["cep"],
+                $_POST["complemento"],
+                null);
+
+            $enderecosDAO->salvar($endereco);
         }
-
-        $telefonesDAO = new TelefonesController();
-        $telefone = new Telefones(null,
-            $pessoa->getId(),
-            $_POST["numeroTelefone"],
-            null);
-
-        $telefonesDAO->salvar($telefone);
-
-        $enderecosDAO = new EnderecosController();
-        $endereco = new Enderecos(null,
-            $pessoa->getId(),
-            $_POST["cidade"],
-            $_POST["rua"],
-            $_POST["bairro"],
-            $_POST["numero"],
-            $_POST["cep"],
-            $_POST["complemento"],
-            null);
-
-        $enderecosDAO->salvar($endereco);
     }
-}
-?>
+    ?>
 
     <div class="panel panel-primary">
 
@@ -235,6 +240,10 @@ if($_POST["cadastrar"]) {
 
     </div>
 
-<?php
-include_once 'footer.php';
+    <?php
+
+    include_once 'footer.php';
+} else {
+    echo 'Você não possui permissão para acessar essa funcionalidade.';
+}
 

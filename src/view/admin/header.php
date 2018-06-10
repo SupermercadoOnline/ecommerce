@@ -5,7 +5,6 @@ include_once dirname(__DIR__) . '/header_html_section.php';
 include_once ROOT_PATH . '/functions.php';
 
 $id_pessoa = $_SESSION['login']['id_pessoa'];
-
 ?>
 
 <body style="padding-top: 70px !important; background-color: whitesmoke !important;">
