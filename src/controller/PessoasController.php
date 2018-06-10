@@ -83,7 +83,7 @@ class PessoasController
     {
         if($bean instanceof Pessoas) {
             $query = "update pessoas set nome = ?, razao_social = ?,
-                cpf = ?, cnpj = ?, email = ?, senha = ?, is_ativo = ?, is_receber_alertas_promocao = ?
+                cpf = ?, cnpj = ?, email = ?, senha = ?, is_receber_alertas_promocao = ?
                 where id = ?";
 
             $params = array(
@@ -92,14 +92,11 @@ class PessoasController
                 $bean->getCpf(), $bean->getCnpj(),
                 $bean->getEmail(),
                 password_hash($bean->getSenha(), PASSWORD_DEFAULT),
-                $bean->getIsAtivo(),
                 $bean->getIsReceberAlertasPromocao(),
                 $bean->getId()
             );
 
-            if(MySqlDAO::executeQuery($query, $params)) {
-                return true;
-            }
+            return MySqlDAO::executeQuery($query, $params);
         }
         return false;
     }
@@ -107,7 +104,7 @@ class PessoasController
     public function salvar($bean)
     {
         if($bean instanceof Pessoas) {
-            if($this->getById($bean->getId()) != null) {
+            if(!empty($this->getById($bean->getId()))) {
                 return $this->update($bean);
             } else {
                 return $this->insert($bean);
@@ -120,21 +117,23 @@ class PessoasController
     public function inativar($bean)
     {
         if($bean instanceof Pessoas) {
-
             $bean->setIsAtivo(false);
-            return $this->update($bean);
 
+            $query = "UPDATE pessoas SET is_ativo = ? WHERE id = ?";
+
+            return MySqlDAO::executeQuery($query, array($bean->getIsAtivo(), $bean->getId()));
         }
-            return false;
+        return false;
     }
 
     public function ativar($bean)
     {
         if($bean instanceof Pessoas) {
-
             $bean->setIsAtivo(true);
-            return $this->update($bean);
 
+            $query = "UPDATE pessoas SET is_ativo = ? WHERE id = ?";
+
+            return MySqlDAO::executeQuery($query, array($bean->getIsAtivo(), $bean->getId()));
         }
         return false;
     }
