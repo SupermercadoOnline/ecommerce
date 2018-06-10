@@ -12,7 +12,7 @@ class PessoasController
 
     public function getByNome($nome)
     {
-        return $this->select("select * from pessoas where nome = '$nome' order by nome");
+        return $this->select("select * from pessoas where nome like '$nome%' order by nome");
     }
 
     public function getByPermissoes($idPermissao)

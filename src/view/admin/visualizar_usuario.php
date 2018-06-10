@@ -50,7 +50,7 @@ if(possuiPermissao($_SESSION['login']['id_pessoa'], 18)) {
     <div class="row">
         <div class="col-lg-offset-4 col-lg-4">
             <div class="row">
-                <input type="text" name="pesquisar" id="pesquisar" onchange="consultar('#tableUsuarios', 'pessoas', this.value)" class="form-control input-lg">
+                <input type="text" name="pesquisar" id="pesquisar" onchange="consultar('#tablePessoas', 'pessoas','getTablePessoas', this.value)" class="form-control input-lg">
                 <br/>
             </div>
         </div>
@@ -72,7 +72,7 @@ if(possuiPermissao($_SESSION['login']['id_pessoa'], 18)) {
 
                     <div class="table-responsive">
 
-                        <table class="table table-bordered table-hover table-striped" id="tableUsuarios">
+                        <table class="table table-bordered table-hover table-striped" id="tablePessoas">
                             <thead>
                             <tr>
                                 <th>Nome</th>
@@ -111,7 +111,7 @@ if(possuiPermissao($_SESSION['login']['id_pessoa'], 18)) {
                                         ?>
                                     </td>
                                     <td><a href="" data-toggle="modal" data-target="#modalPermissoes"
-                                           onclick="consultar('#permissoesDetails', 'permissoes', <?php echo $pessoa->getId() ?>)">Visualizar</a>
+                                           onclick="consultar('#permissoesDetails', 'permissoes','getListPermissoes', <?php echo $pessoa->getId() ?>)">Visualizar</a>
                                     </td>
                                     <td><?php echo $tipoPessoa->getNome() ?></td>
                                     <td>
@@ -148,13 +148,13 @@ if(possuiPermissao($_SESSION['login']['id_pessoa'], 18)) {
     </div>
 
     <script>
-        function consultar(idDiv, controller, search) {
+        function consultar(element, controller, method, data) {
             $.ajax({
                 type: "POST",
                 url: "../call_webservice.php?request=get",
-                data: "controller=" + controller + "&search=" + search,
-                success: function (data) {
-                    $(idDiv).html(data);
+                data: "controller=" + controller + "&method=" + method + "&data=" + data,
+                success: function (response) {
+                    $(element).html(response);
                 }
             });
         }
