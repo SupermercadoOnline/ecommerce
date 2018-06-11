@@ -7,7 +7,7 @@ include_once ROOT_PATH . '/controller/ProdutosController.php';
 if($_GET["desativar"]){
     $id = $_GET["desativar"];
     $produtoDao = new ProdutosController();
-    $produto = $produtoDao->getProdutoPorId($id);
+    $produto = $produtoDao->getById($id);
 
     if($produto instanceof Produtos){
         if($produtoDao->delete($produto)){
