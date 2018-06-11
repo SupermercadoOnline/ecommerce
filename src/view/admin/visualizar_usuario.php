@@ -1,8 +1,10 @@
 <?php
 session_start();
+
 include_once '../../functions.php';
 
-if(possuiPermissao($_SESSION['login']['id_pessoa'], 18)) {
+$idPessoa = $_SESSION['login']['id_pessoa'];
+if(possuiPermissao($idPessoa, 18)) {
 
     include_once 'header.php';
     include_once ROOT_PATH . '/controller/PessoasController.php';
@@ -116,17 +118,24 @@ if(possuiPermissao($_SESSION['login']['id_pessoa'], 18)) {
                                     <td><?php echo $tipoPessoa->getNome() ?></td>
                                     <td>
                                         <?php
-                                        if (!$pessoa->getIsAtivo()) {
+                                        if(possuiPermissao($idPessoa, 24)) {
+                                            if (!$pessoa->getIsAtivo()) {
+                                                ?>
+                                                <a href="<?php echo URL_HOST ?>/admin/form_visualizar_usuario.php?ativar=<?php echo $pessoa->getId() ?>">Ativar</a>
+                                                <?php
+                                            } else {
+                                                ?>
+                                                <a href="<?php echo URL_HOST ?>/admin/form_visualizar_usuario.php?inativar=<?php echo $pessoa->getId() ?>">Inativar</a>
+                                                <?php
+                                            }
+                                        }
+
+                                        if(possuiPermissao($idPessoa, 20)) {
                                             ?>
-                                            <a href="<?php echo URL_HOST ?>/admin/form_visualizar_usuario.php?ativar=<?php echo $pessoa->getId() ?>">Ativar</a>
-                                            <?php
-                                        } else {
-                                            ?>
-                                            <a href="<?php echo URL_HOST ?>/admin/form_visualizar_usuario.php?inativar=<?php echo $pessoa->getId() ?>">Inativar</a>
+                                            <a href="<?php echo URL_HOST ?>/admin/form_editar_usuario.php?editar=<?php echo $pessoa->getId() ?>">Editar</a>
                                             <?php
                                         }
                                         ?>
-                                        <a href="<?php echo URL_HOST ?>/admin/form_editar_usuario.php?editar=<?php echo $pessoa->getId() ?>">Editar</a>
                                     </td>
                                 </tr>
 
