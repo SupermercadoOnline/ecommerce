@@ -21,7 +21,7 @@ class CategoriasProdutosController
         return $listaCategorias;
     }
 
-    public function getProdutoPorId($id){
+    public function getById($id){
         $categoriaBean = null;
         $listaCategoria = $this->select("select * from categoria_produtos where id = '$id'");
 
