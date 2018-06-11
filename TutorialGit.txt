@@ -1,0 +1,4 @@
+1 - Antes de fazer qualquer procedimento no código, vá até o SourceTree e clique em ''Obter''.
+2 - Depois clique em ''puxar''. 
+3 - Se você tiver alterações no seu ramo local (em funcionamento e sem ERROS), você vai entrar no develop e combina-los.
+4 - Depois clique em enviar e marque o rastreamento do master e develop.
