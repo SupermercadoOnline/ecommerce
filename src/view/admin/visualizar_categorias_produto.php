@@ -7,7 +7,7 @@ include_once ROOT_PATH . "/controller/CategoriasProdutosController.php";
 if($_GET["desativar"]){
     $id = $_GET["desativar"];
     $categoriaDAO = new CategoriasProdutosController();
-    $categoria = $categoriaDAO->getProdutoPorId($id);
+    $categoria = $categoriaDAO->getById($id);
 
     if($categoria instanceof CategoriasProdutos){
         if($categoriaDAO->delete($categoria)){
