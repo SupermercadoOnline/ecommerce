@@ -76,8 +76,8 @@ if($_POST["cadastrar"]){
                             if($categoriaBean instanceof CategoriasProdutos){
                                 ?>
 
-                                <option value='<?php $categoriaBean->getId() ?>'>
-                                    <?php $categoriaBean->getNome()?>
+                                <option value='<?php echo $categoriaBean->getId() ?>'>
+                                    <?php echo $categoriaBean->getNome()?>
                                 </option>
 
                                 <?php
