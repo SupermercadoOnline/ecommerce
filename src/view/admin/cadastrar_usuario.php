@@ -13,7 +13,7 @@ if(possuiPermissao($_SESSION['login']['id_pessoa'], 19)) {
     include_once ROOT_PATH . '/controller/TelefonesController.php';
     include_once ROOT_PATH . '/controller/EnderecosController.php';
 
-    $permissoesUsuarioDAO = new PermissoesUsuarioController();
+    $permissoesController = new PermissoesUsuarioController();
     if ($_POST["salvar"]) {
         $pessoa = new Pessoas(null,
             $_POST["nome"],
@@ -24,29 +24,29 @@ if(possuiPermissao($_SESSION['login']['id_pessoa'], 19)) {
             $_POST["senha"],
             null,
             0);
-        $pessoasDAO = new PessoasController();
-        $pessoa = $pessoasDAO->salvar($pessoa);
+        $pessoasController = new PessoasController();
+        $pessoa = $pessoasController->salvar($pessoa);
 
         if ($pessoa instanceof Pessoas) {
-            $tipoPessoaDAO = new TipoPessoaController();
-            $tipoPessoaDAO->salvar($pessoa, 1);
+            $tipoPessoaController = new TipoPessoaController();
+            $tipoPessoaController->salvar($pessoa, 1);
 
             $permissoes = array_merge((array)$_POST["permissoesAdmin"], (array)$_POST["permissoesCategoria"],
                 (array)$_POST["permissoesClientes"], (array)$_POST["permissoesVendas"], (array)$_POST["permissoesProdutos"], (array)$_POST["permissoesPromo"]);
 
             foreach ($permissoes as $permissao) {
-                $permissoesUsuarioDAO->salvar($pessoa, $permissao);
+                $permissoesController->salvar($pessoa, $permissao);
             }
 
-            $telefonesDAO = new TelefonesController();
+            $telefonesController = new TelefonesController();
             $telefone = new Telefones(null,
                 $pessoa->getId(),
                 $_POST["numeroTelefone"],
                 null);
 
-            $telefonesDAO->salvar($telefone);
+            $telefonesController->salvar($telefone);
 
-            $enderecosDAO = new EnderecosController();
+            $enderecosController = new EnderecosController();
             $endereco = new Enderecos(null,
                 $pessoa->getId(),
                 $_POST["cidade"],
@@ -57,7 +57,7 @@ if(possuiPermissao($_SESSION['login']['id_pessoa'], 19)) {
                 $_POST["complemento"],
                 null);
 
-            $enderecosDAO->salvar($endereco);
+            $enderecosController->salvar($endereco);
         }
     }
     ?>
@@ -113,8 +113,8 @@ if(possuiPermissao($_SESSION['login']['id_pessoa'], 19)) {
                         <label for="estado">Estado: </label>
                         <select id="estado" name="estado" class="form-control input-lg">
                             <?php
-                            $estados = new EstadosController();
-                            foreach ($estados->getAll() as $estado) {
+                            $estadosController = new EstadosController();
+                            foreach ($estadosController->getAll() as $estado) {
                                 echo "<option value='" . $estado->getId() . "'> " . $estado->getNome() . "</option>";
                             }
                             ?>
@@ -133,8 +133,8 @@ if(possuiPermissao($_SESSION['login']['id_pessoa'], 19)) {
                         <label for="cidade">Cidade: </label>
                         <select id="cidade" name="cidade" class="form-control input-lg">
                             <?php
-                            $cidades = new CidadesController();
-                            foreach ($cidades->getAll() as $cidade) {
+                            $cidadesController = new CidadesController();
+                            foreach ($cidadesController->getAll() as $cidade) {
                                 echo "<option value='" . $cidade->getId() . "'> " . $cidade->getNome() . "</option>";
                             }
                             ?>
@@ -167,7 +167,7 @@ if(possuiPermissao($_SESSION['login']['id_pessoa'], 19)) {
 
                         <label for="permissoesAdmin[]">Administradores: </label><br/>
                         <?php
-                        $permissoes = $permissoesUsuarioDAO->getByNomePermissoes('administradores');
+                        $permissoes = $permissoesController->getByNomePermissoes('administradores');
                         foreach ($permissoes as $permissao) {
                             echo "<input id='permissoesAdmin' name='permissoesAdmin[]' type='checkbox' 
                             class='checkbox-inline input-lg' value='" . $permissao->getId() . "'> " . ucfirst(str_replace('administradores__', "", $permissao->getNome())) . "<br/>";
@@ -176,7 +176,7 @@ if(possuiPermissao($_SESSION['login']['id_pessoa'], 19)) {
 
                         <label for="permissoesCategoria[]">Categoria de produtos: </label><br/>
                         <?php
-                        $permissoes = $permissoesUsuarioDAO->getByNomePermissoes('categoria');
+                        $permissoes = $permissoesController->getByNomePermissoes('categoria');
                         foreach ($permissoes as $permissao) {
                             echo "<input id='permissoesCategoria' name='permissoesCategoria[]' type='checkbox' 
                             class='checkbox-inline input-lg' value='" . $permissao->getId() . "'> " . ucfirst(str_replace('categoria_produtos__', "", $permissao->getNome())) . "<br/>";
@@ -189,7 +189,7 @@ if(possuiPermissao($_SESSION['login']['id_pessoa'], 19)) {
 
                         <label for="permissoesClientes[]">Clientes: </label><br/>
                         <?php
-                        $permissoes = $permissoesUsuarioDAO->getByNomePermissoes('clientes');
+                        $permissoes = $permissoesController->getByNomePermissoes('clientes');
                         foreach ($permissoes as $permissao) {
                             echo "<input id='permissoesClientes' name='permissoesClientes[]' type='checkbox' 
                             class='checkbox-inline input-lg' value='" . $permissao->getId() . "'> " . ucfirst(str_replace('clientes__', "", $permissao->getNome())) . "<br/>";
@@ -198,7 +198,7 @@ if(possuiPermissao($_SESSION['login']['id_pessoa'], 19)) {
 
                         <label for="permissoesVendas[]">Vendas: </label><br/>
                         <?php
-                        $permissoes = $permissoesUsuarioDAO->getByNomePermissoes('vendas');
+                        $permissoes = $permissoesController->getByNomePermissoes('vendas');
                         foreach ($permissoes as $permissao) {
                             echo "<input id='permissoesVendas' name='permissoesVendas[]' type='checkbox' 
                             class='checkbox-inline input-lg' value='" . $permissao->getId() . "'> " . ucfirst(str_replace('vendas__', "", $permissao->getNome())) . "<br/>";
@@ -211,7 +211,7 @@ if(possuiPermissao($_SESSION['login']['id_pessoa'], 19)) {
 
                         <label for="permissoesProdutos[]">Produtos: </label><br/>
                         <?php
-                        $permissoes = $permissoesUsuarioDAO->getByNomePermissoes('produtos');
+                        $permissoes = $permissoesController->getByNomePermissoes('produtos');
                         foreach ($permissoes as $permissao) {
                             echo "<input id='permissoesProdutos' name='permissoesProdutos[]' type='checkbox' 
                             class='checkbox-inline input-lg' value='" . $permissao->getId() . "'> " . ucfirst(str_replace('produtos__', "", $permissao->getNome())) . "<br/>";
@@ -220,7 +220,7 @@ if(possuiPermissao($_SESSION['login']['id_pessoa'], 19)) {
 
                         <label for="permissoesPromo[]" style="padding-top: 50px">Promoções: </label><br/>
                         <?php
-                        $permissoes = $permissoesUsuarioDAO->getByNomePermissoes('promocoes');
+                        $permissoes = $permissoesController->getByNomePermissoes('promocoes');
                         foreach ($permissoes as $permissao) {
                             echo "<input id='permissoesPromo' name='permissoesPromo[]' type='checkbox' 
                             class='checkbox-inline input-lg' value='" . $permissao->getId() . "'> " . ucfirst(str_replace('promocoes__', "", $permissao->getNome())) . "<br/>";

@@ -34,21 +34,25 @@ class PermissoesUsuarioController
         return $lista;
     }
 
-    public function salvar($pessoaBean, $id_permissao)
+    public function salvar($pessoa, $idPermissao)
     {
-        if ($pessoaBean instanceof Pessoas) {
+        if ($pessoa instanceof Pessoas) {
             $query = "INSERT INTO permissoes_usuario_admin (id_pessoa, id_permissao) VALUES (?, ?)";
 
             $params = array(
-                $pessoaBean->getId(),
-                $id_permissao
+                $pessoa->getId(),
+                $idPermissao
             );
 
-            if (MySqlDAO::executeQuery($query, $params)) {
-                return true;
-            }
-
+            return MySqlDAO::executeQuery($query, $params);
         }
         return false;
+    }
+
+    public function delete($idPessoa)
+    {
+        $query = "delete from permissoes_usuario_admin where id_pessoa = ?";
+
+        return MySqlDAO::executeQuery($query, array($idPessoa));
     }
 }
