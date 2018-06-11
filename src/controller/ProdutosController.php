@@ -12,7 +12,7 @@ class ProdutosController
         return $this->select("SELECT * FROM produtos WHERE is_ativo = '$status'");
     }
 
-    public function getProdutoPorId($id){
+    public function getById($id){
 
         $produtoBean = null;
         $listaProdutos = $this->select("SELECT * FROM produtos WHERE id = '$id'");
@@ -85,7 +85,7 @@ class ProdutosController
 
         if($produtosBean instanceof Produtos){
 
-            if(empty($this->getProdutoPorId($produtosBean->getId())))
+            if(empty($this->getById($produtosBean->getId())))
                 if($this->insert($produtosBean))
                     return true;
             else

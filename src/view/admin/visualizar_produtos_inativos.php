@@ -7,7 +7,7 @@ include_once ROOT_PATH . '/controller/ProdutosController.php';
 if($_GET["ativar"]){
     $id = $_GET["ativar"];
     $produtoDao = new ProdutosController();
-    $produto = $produtoDao->getProdutoPorId($id);
+    $produto = $produtoDao->getById($id);
 
     if($produto instanceof Produtos){
         if($produtoDao->ativar($produto)){

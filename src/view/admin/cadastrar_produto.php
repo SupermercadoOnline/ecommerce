@@ -50,7 +50,7 @@ if($_POST["cadastrar"]){
 
     <div class="panel-body">
 
-        <form action="<?php echo URL_HOST ?>/cadastrar_produto.php" method="post">
+        <form action="<?php echo URL_HOST ?>/admin/form_cadastrar_produto.php" method="post">
 
             <div class="row">
 
@@ -76,8 +76,8 @@ if($_POST["cadastrar"]){
                             if($categoriaBean instanceof CategoriasProdutos){
                                 ?>
 
-                                <option value='<?php $categoriaBean->getId() ?>'>
-                                    <?php $categoriaBean->getNome()?>
+                                <option value='<?php echo $categoriaBean->getId() ?>'>
+                                    <?php echo $categoriaBean->getNome()?>
                                 </option>
 
                                 <?php
