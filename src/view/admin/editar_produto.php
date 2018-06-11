@@ -58,7 +58,7 @@ if($_POST["alterar"]){
                         $id = $_GET["editar"];
                         $produtoDao = new ProdutosController();
                         $categoriaDao = new CategoriasProdutosController();
-                        $produto = $produtoDao->getProdutoPorId($id);
+                        $produto = $produtoDao->getById($id);
                         $categorias = $categoriaDao->getAll();
 
 
