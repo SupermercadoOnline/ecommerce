@@ -14,7 +14,7 @@ if(possuiPermissao($_SESSION['login']['id_pessoa'], 19)) {
     include_once ROOT_PATH . '/controller/EnderecosController.php';
 
     $permissoesUsuarioDAO = new PermissoesUsuarioController();
-    if ($_POST["cadastrar"]) {
+    if ($_POST["salvar"]) {
         $pessoa = new Pessoas(null,
             $_POST["nome"],
             null,
@@ -232,7 +232,7 @@ if(possuiPermissao($_SESSION['login']['id_pessoa'], 19)) {
                 </div>
 
                 <hr/>
-                <input type="submit" class="btn btn-default btn-lg" name="cadastrar" value="Cadastrar">
+                <input type="submit" class="btn btn-default btn-lg" name="salvar" value="Salvar">
 
             </form>
 
