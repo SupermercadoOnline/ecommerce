@@ -89,7 +89,8 @@ class PessoasController
             $params = array(
                 $bean->getNome(),
                 $bean->getRazaoSocial(),
-                $bean->getCpf(), $bean->getCnpj(),
+                $bean->getCpf(),
+                $bean->getCnpj(),
                 $bean->getEmail(),
                 $bean->getIsAtivo(),
                 $bean->getIsReceberAlertasPromocao(),

@@ -111,7 +111,7 @@ class Promocoes
     /**
      * @return mixed
      */
-    public function getisAtiva()
+    public function getIsAtiva()
     {
         return $this->isAtiva;
     }
