@@ -2,7 +2,7 @@
 include_once ROOT_PATH .  '/model/MySqlDAO.php';
 include_once ROOT_PATH . '/model/FaixasDesconto.php';
 
-class PromocoesController
+class FaixasDescontoController
 {
 
     public function getById($id)
