@@ -1,7 +1,2 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: lucas
- * Date: 11/06/2018
- * Time: 23:27
- */
+include_once '../../view/admin/editar_categorias_produto.php';
