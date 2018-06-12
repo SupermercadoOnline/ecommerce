@@ -173,5 +173,5 @@ if(possuiPermissao($idPessoa, 18)) {
 
     include_once 'footer.php';
 } else {
-    echo 'Você não possui permissão para acessar essa funcionalidade.';
+    echo 'Um erro aconteceu, por favor revise suas credenciais.';
 }

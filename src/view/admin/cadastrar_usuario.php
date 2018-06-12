@@ -244,6 +244,6 @@ if(possuiPermissao($_SESSION['login']['id_pessoa'], 19)) {
 
     include_once 'footer.php';
 } else {
-    echo 'Você não possui permissão para acessar essa funcionalidade.';
+    echo 'Um erro aconteceu, por favor revise suas credenciais.';
 }
 
