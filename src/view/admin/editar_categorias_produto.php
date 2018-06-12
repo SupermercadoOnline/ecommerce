@@ -50,7 +50,7 @@ if($_POST["alterar"]) {
 
         <div class="panel-body">
 
-            <form action="<?php echo URL_HOST ?>/editar_categorias_produto.php" method="post">
+            <form action="<?php echo URL_HOST ?>/admin/form_editar_categorias_produto.php" method="post">
 
                 <?php
                 if($_GET["editar"]) {
