@@ -91,7 +91,7 @@ if($_GET["desativar"]){
                                         <td><?php echo $status ?> </td>
                                         <td>
                                             <a href="visualizar_categorias_produto.php?desativar=<?php $categoriasBean->getId() ?>">Desativar</a>
-                                            <a href="editar_categorias_produto.php?editar=<?php $categoriasBean->getId() ?>">Editar</a>
+                                            <a href="/admin/form_editar_categorias_produto.php?editar=<?php $categoriasBean->getId() ?>">Editar</a>
                                         </td>
                                     </tr>
 
