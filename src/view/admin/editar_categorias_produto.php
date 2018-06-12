@@ -36,3 +36,58 @@ if($_POST["alterar"]){
         <?php
     }
 }
+?>
+   <div class="panel panel-primary">
+
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <b>Edição da categoria</b>
+            </h3>
+        </div>
+
+        <div class="panel-body">
+
+            <form action="<?php echo URL_HOST ?>/editar_categorias_produto.php" method="post">
+
+                <?php
+                    if($_GET["editar"]) {
+                        $id = $_GET["editar"];
+
+                        $categoriasController = new CategoriasProdutosController();
+
+                        $categorias = $categoriasController->getById();
+
+
+                        ?>
+
+                        <div class="row">
+
+                            <div class="col-lg-4">
+                                <label for="nome">Nome:</label>
+                                <input id="nome" name="nome" type="text" value="<?php $categorias->getNome() ?>" class="form-control input-lg">
+                            </div>
+
+
+                            <input id="id" name="id" type="hidden" value="<?php $categorias->getId() ?>">
+                        </div>
+
+                        <?php
+                    }
+                        ?>
+
+                <div class="row">
+                    <br/>
+                    <div class="col-lg-3">
+                        <input name="alterar" type="submit" value="Alterar" class="form-control input-lg">
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+<?php
+include_once 'footer.php';
