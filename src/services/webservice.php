@@ -1,5 +1,8 @@
 <?php
+session_start();
+
 include_once '../configs.php';
+include_once ROOT_PATH . '/functions.php';
 include_once ROOT_PATH . '/controller/PermissoesUsuarioController.php';
 include_once ROOT_PATH . '/controller/PessoasController.php';
 include_once ROOT_PATH . '/controller/TipoPessoaController.php';
@@ -63,9 +66,17 @@ switch($_GET['request']){
                             $permissoes = $permissoesController->getByPessoa($pessoa->getId());
 
                             $status = ($pessoa->getIsAtivo()) ? 'Ativo' : 'Inativo';
-                            $linkAlteraStatus = (!$pessoa->getIsAtivo())
-                                ? '<a href="' . URL_HOST . '/admin/form_visualizar_usuario.php?ativar=' . $pessoa->getId() . '">Ativar</a>'
-                                : '<a href="' . URL_HOST . '/admin/form_visualizar_usuario.php?inativar=' . $pessoa->getId() . '">Inativar</a>';
+
+                            if(possuiPermissao($_SESSION['login']['id_pessoa'], 24)) {
+                                $linkAlteraStatus = (!$pessoa->getIsAtivo())
+                                    ? '<a href="' . URL_HOST . '/admin/form_visualizar_usuario.php?ativar=' . $pessoa->getId() . '">Ativar</a>'
+                                    : '<a href="' . URL_HOST . '/admin/form_visualizar_usuario.php?inativar=' . $pessoa->getId() . '">Inativar</a>';
+                            }
+
+                            if(possuiPermissao($_SESSION['login']['id_pessoa'], 20)) {
+                                $linkEditar = '<a href="' . URL_HOST. '/admin/form_editar_usuario.php?editar=' . $pessoa->getId() . '">Editar</a>';
+                            }
+
                             $output .= '<tr>
                                     <td>' . $pessoa->getNome() . '</td>
                                     <td>' . $pessoa->getCPF() . '</td>
@@ -81,9 +92,8 @@ switch($_GET['request']){
                                            onclick="consultar(\'#permissoesDetails\', \'permissoes\', \'getListPermissoes\',' . $pessoa->getId() . ')">Visualizar</a>
                                     </td>
                                     <td>' . $tipoPessoa->getNome() . '</td>
-                                    <td>' .
-                                $linkAlteraStatus . '
-                                        <a href="' . URL_HOST. '/admin/form_editar_usuario.php?editar=' . $pessoa->getId() . '">Editar</a>
+                                    <td>' . $linkAlteraStatus . '
+                                        ' . $linkEditar . '
                                     </td>
                                 </tr>';
 

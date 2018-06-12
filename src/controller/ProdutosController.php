@@ -81,17 +81,16 @@ class ProdutosController
         return false;
     }
 
-    public function salvar($produtosBean){
+    public function salvar($bean){
 
-        if($produtosBean instanceof Produtos){
+        if($bean instanceof Produtos){
 
-            if(empty($this->getById($produtosBean->getId())))
-                if($this->insert($produtosBean))
-                    return true;
-            else
-                if($this->update($produtosBean))
-                    return true;
+            if(empty($this->getById($bean->getId()))){
+                return $this->update($bean);
 
+            } else {
+                return $this->insert($bean);
+            }
         }
 
         return false;

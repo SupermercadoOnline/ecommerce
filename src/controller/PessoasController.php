@@ -83,7 +83,7 @@ class PessoasController
     {
         if($bean instanceof Pessoas) {
             $query = "update pessoas set nome = ?, razao_social = ?,
-                cpf = ?, cnpj = ?, email = ?, senha = ?, is_receber_alertas_promocao = ?
+                cpf = ?, cnpj = ?, email = ?, is_ativo = ?, is_receber_alertas_promocao = ?
                 where id = ?";
 
             $params = array(
@@ -91,7 +91,7 @@ class PessoasController
                 $bean->getRazaoSocial(),
                 $bean->getCpf(), $bean->getCnpj(),
                 $bean->getEmail(),
-                password_hash($bean->getSenha(), PASSWORD_DEFAULT),
+                $bean->getIsAtivo(),
                 $bean->getIsReceberAlertasPromocao(),
                 $bean->getId()
             );
@@ -119,9 +119,7 @@ class PessoasController
         if($bean instanceof Pessoas) {
             $bean->setIsAtivo(false);
 
-            $query = "UPDATE pessoas SET is_ativo = ? WHERE id = ?";
-
-            return MySqlDAO::executeQuery($query, array($bean->getIsAtivo(), $bean->getId()));
+            return $this->update($bean);
         }
         return false;
     }
@@ -131,9 +129,7 @@ class PessoasController
         if($bean instanceof Pessoas) {
             $bean->setIsAtivo(true);
 
-            $query = "UPDATE pessoas SET is_ativo = ? WHERE id = ?";
-
-            return MySqlDAO::executeQuery($query, array($bean->getIsAtivo(), $bean->getId()));
+            return $this->update($bean);
         }
         return false;
     }

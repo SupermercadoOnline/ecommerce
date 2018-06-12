@@ -8,6 +8,9 @@
             <p class="text-center">
                 <b>Supermercado Online</b>
             </p>
+            <p class="text-right" style="margin-top: -30px;">
+                <b>Bem vindo: </b><?php echo $_SESSION['login']['nome_pessoa'] ?>
+            </p>
 
         </div>
 

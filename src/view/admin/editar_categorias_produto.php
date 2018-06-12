@@ -35,6 +35,7 @@ if($_POST["alterar"]) {
 
         <?php
     }
+<<<<<<< HEAD
 
 }
 ?>
@@ -45,11 +46,21 @@ if($_POST["alterar"]) {
         <div class="panel-heading">
             <h3 class="panel-title">
                 <b>Edição do produto</b>
+=======
+}
+?>
+   <div class="panel panel-primary">
+
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <b>Edição da categoria</b>
+>>>>>>> develop
             </h3>
         </div>
 
         <div class="panel-body">
 
+<<<<<<< HEAD
             <form action="<?php echo URL_HOST ?>/editar_produto.php" method="post">
 
                 <?php
@@ -121,6 +132,35 @@ if($_POST["alterar"]) {
                     <?php
                 }
                 ?>
+=======
+            <form action="<?php echo URL_HOST ?>/editar_categorias_produto.php" method="post">
+
+                <?php
+                    if($_GET["editar"]) {
+                        $id = $_GET["editar"];
+
+                        $categoriasController = new CategoriasProdutosController();
+
+                        $categorias = $categoriasController->getById();
+
+
+                        ?>
+
+                        <div class="row">
+
+                            <div class="col-lg-4">
+                                <label for="nome">Nome:</label>
+                                <input id="nome" name="nome" type="text" value="<?php $categorias->getNome() ?>" class="form-control input-lg">
+                            </div>
+
+
+                            <input id="id" name="id" type="hidden" value="<?php $categorias->getId() ?>">
+                        </div>
+
+                        <?php
+                    }
+                        ?>
+>>>>>>> develop
 
                 <div class="row">
                     <br/>
@@ -137,6 +177,10 @@ if($_POST["alterar"]) {
     </div>
 
 <?php
+<<<<<<< HEAD
 include_once 'footer.php';
 
 
+=======
+include_once 'footer.php';
+>>>>>>> develop
