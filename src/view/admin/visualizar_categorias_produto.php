@@ -39,3 +39,74 @@ if($_GET["desativar"]){
         }
     }
 }
+
+?>
+
+    <div class="panel panel-primary">
+
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <b>Lista de categorias</b>
+            </h3>
+        </div>
+
+        <div class="panel-body">
+
+            <div class="row">
+
+                <div class="col-lg-12">
+                    <label for="exibir">Exibir cadastros</label>
+                    <a href="não clique">Inativos</a>
+
+                    <div class="table-responsive">
+
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Status</th>
+                                <th>Opções</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            <?php
+
+                            $categoriasController = new CategoriasProdutosController();
+
+                            foreach ($categoriasController->retornePorStatus(true) as $categoriasBean) {
+
+                                if ($categoriasBean instanceof CategoriasProdutos) {
+
+                                    if($categoriasBean->getIsAtivo()){
+                                        $status = "Ativo";
+
+                                    } else {
+                                        $status = "Inativo";
+                                    }
+
+                                    ?>
+                                    <tr>
+                                        <td><?php echo $categoriasBean->getNome() ?> </td>
+                                        <td><?php echo $status ?> </td>
+                                        <td>
+                                            <a href="visualizar_categorias_produto.php?desativar=<?php $categoriasBean->getId() ?>">Desativar</a>
+                                            <a href="editar_categorias_produto.php?editar=<?php $categoriasBean->getId() ?>">Editar</a>
+                                        </td>
+                                    </tr>
+
+                                    <?php
+                                }
+                            }
+                            ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<?php
+include_once 'footer.php';

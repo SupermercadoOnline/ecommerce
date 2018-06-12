@@ -9,7 +9,9 @@ class CategoriasProdutosController
     public function getAll(){
         return $this->select('SELECT * FROM categoria_produtos ORDER BY id');
     }
-
+    public function retornePorStatus($status){
+        return $this->select("SELECT * FROM categoria_produtos WHERE is_ativo = '$status'");
+    }
 
     protected function select($query):array
     {
