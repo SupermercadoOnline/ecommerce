@@ -4,7 +4,7 @@ session_start();
 include_once '../../functions.php';
 
 $idPessoa = $_SESSION['login']['id_pessoa'];
-if(possuiPermissao($idPessoa, 18)) {
+if(possui_permissao($idPessoa, 18)) {
 
     include_once 'header.php';
     include_once ROOT_PATH . '/controller/PessoasController.php';
@@ -118,7 +118,7 @@ if(possuiPermissao($idPessoa, 18)) {
                                     <td><?php echo $tipoPessoa->getNome() ?></td>
                                     <td>
                                         <?php
-                                        if(possuiPermissao($idPessoa, 24)) {
+                                        if(possui_permissao($idPessoa, 24)) {
                                             if (!$pessoa->getIsAtivo()) {
                                                 ?>
                                                 <a href="<?php echo URL_HOST ?>/admin/form_visualizar_usuario.php?ativar=<?php echo $pessoa->getId() ?>">Ativar</a>
@@ -130,7 +130,7 @@ if(possuiPermissao($idPessoa, 18)) {
                                             }
                                         }
 
-                                        if(possuiPermissao($idPessoa, 20)) {
+                                        if(possui_permissao($idPessoa, 20)) {
                                             ?>
                                             <a href="<?php echo URL_HOST ?>/admin/form_editar_usuario.php?editar=<?php echo $pessoa->getId() ?>">Editar</a>
                                             <?php

@@ -26,7 +26,7 @@ $id_pessoa = $_SESSION['login']['id_pessoa'];
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownUsuarios">
                     <?php
-                    if (possuiPermissao($id_pessoa,19)) {
+                    if (possui_permissao($id_pessoa,19)) {
                         ?>
                         <li>
                             <a href="<?php echo URL_HOST?>/admin/form_cadastrar_usuario.php">
@@ -36,7 +36,7 @@ $id_pessoa = $_SESSION['login']['id_pessoa'];
                         <?php
                     }
 
-                    if (possuiPermissao($id_pessoa,18)) {
+                    if (possui_permissao($id_pessoa,18)) {
                         ?>
                         <li>
                             <a href="<?php echo URL_HOST ?>/admin/form_visualizar_usuario.php">
@@ -57,7 +57,7 @@ $id_pessoa = $_SESSION['login']['id_pessoa'];
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownProdutos">
                     <?php
-                    if(possuiPermissao($id_pessoa, 5)) {
+                    if(possui_permissao($id_pessoa, 5)) {
                         ?>
                         <li>
                             <a href="<?php echo URL_HOST ?>/admin/form_cadastrar_produto.php">
@@ -67,7 +67,7 @@ $id_pessoa = $_SESSION['login']['id_pessoa'];
                         <?php
                     }
 
-                    if(possuiPermissao($id_pessoa, 6)) {
+                    if(possui_permissao($id_pessoa, 6)) {
                         ?>
                         <li>
                             <a href="<?php echo URL_HOST ?>/admin/form_visualizar_produto.php" class="dropdown-item">
@@ -77,7 +77,7 @@ $id_pessoa = $_SESSION['login']['id_pessoa'];
                         <?php
                     }
 
-                    if(possuiPermissao($id_pessoa, 1)) {
+                    if(possui_permissao($id_pessoa, 1)) {
                         ?>
                         <li>
                             <a href="<?php echo URL_HOST ?>/admin/form_cadastrar_categoria_produto.php">

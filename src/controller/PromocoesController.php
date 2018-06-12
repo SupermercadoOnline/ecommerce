@@ -1,6 +1,7 @@
 <?php
 include_once ROOT_PATH .  '/model/MySqlDAO.php';
 include_once ROOT_PATH . '/model/Promocoes.php';
+include_once ROOT_PATH . '/functions.php';
 
 class PromocoesController
 {
@@ -21,7 +22,10 @@ class PromocoesController
         $result = MySqlDAO::getResult($query);
         while($row = $result->fetch_array()) {
             $lista[] = new Promocoes($row['id'], $row['descricao'],
-                $row['data_inicio'], $row['data_fim'], $row['data_cadastro'], $row['is_ativa']);
+                data_php_to_data_br((string) $row['data_inicio']),
+                data_php_to_data_br((string) $row['data_fim']),
+                data_php_to_data_br((string) $row['data_cadastro']),
+                $row['is_ativa']);
         }
 
         return $lista;
@@ -35,9 +39,9 @@ class PromocoesController
 
             $params = array(
                 $model->getDescricao(),
-                $model->getDataInicio(),
-                $model->getDataFim(),
-                $model->getDataCadastro()
+                data_br_to_data_php((string) $model->getDataInicio()),
+                data_br_to_data_php((string) $model->getDataFim()),
+                data_br_to_data_php((string) $model->getDataCadastro())
             );
 
             $result = MySqlDAO::executeQuery($query, $params);
@@ -59,8 +63,8 @@ class PromocoesController
 
             $params = array(
                 $model->getDescricao(),
-                $model->getDataInicio(),
-                $model->getDataFim(),
+                data_br_to_data_php((string) $model->getDataInicio()),
+                data_br_to_data_php((string) $model->getDataFim()),
                 $model->getIsAtiva(),
                 $model->getId()
             );

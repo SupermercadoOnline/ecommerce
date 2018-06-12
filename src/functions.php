@@ -2,7 +2,7 @@
 include_once __DIR__ . '/configs.php';
 include_once ROOT_PATH . '/controller/PermissoesUsuarioController.php';
 
-function possuiPermissao($id_pessoa, $id_permissao) {
+function possui_permissao($id_pessoa, $id_permissao) {
 
     $permissoesController = new PermissoesUsuarioController();
     $permissoes = $permissoesController->getByPessoa($id_pessoa);

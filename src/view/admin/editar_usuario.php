@@ -3,7 +3,7 @@ session_start();
 include_once '../../functions.php';
 
 $idPessoa = $_SESSION['login']['id_pessoa'];
-if(possuiPermissao($idPessoa, 20)) {
+if(possui_permissao($idPessoa, 20)) {
 
     include_once 'header.php';
     include_once ROOT_PATH . '/controller/PessoasController.php';
@@ -32,7 +32,7 @@ if(possuiPermissao($idPessoa, 20)) {
             0);
         $pessoasController->salvar($pessoa);
 
-        if(possuiPermissao($idPessoa, 22)) {
+        if(possui_permissao($idPessoa, 22)) {
             $telefone = new Telefones($_POST['idTelefone'],
                 $pessoa->getId(),
                 $_POST['numeroTelefone'],
@@ -40,7 +40,7 @@ if(possuiPermissao($idPessoa, 20)) {
             $telefonesController->salvar($telefone);
         }
 
-        if(possuiPermissao($idPessoa, 21)) {
+        if(possui_permissao($idPessoa, 21)) {
             $endereco = new Enderecos($_POST['idEndereco'],
                 $pessoa->getId(),
                 $_POST['cidade'],
@@ -53,7 +53,7 @@ if(possuiPermissao($idPessoa, 20)) {
             $enderecosController->salvar($endereco);
         }
 
-        if(possuiPermissao($idPessoa, 23)) {
+        if(possui_permissao($idPessoa, 23)) {
             $permissoes = array_merge((array)$_POST["permissoesAdmin"], (array)$_POST["permissoesCategoria"],
                 (array)$_POST["permissoesClientes"], (array)$_POST["permissoesVendas"], (array)$_POST["permissoesProdutos"], (array)$_POST["permissoesPromo"]);
 
@@ -110,7 +110,7 @@ if(possuiPermissao($idPessoa, 20)) {
 
                     <div class="col-lg-4">
                         <?php
-                        if(possuiPermissao($idPessoa, 22)) {
+                        if(possui_permissao($idPessoa, 22)) {
                             ?>
                             <input type="hidden" name="idTelefone" id="idTelefone" value="<?php echo $telefone->getId() ?>">
                             <input type="hidden" name="telefoneIsAtivo" id="telefoneIsAtivo" value="<?php echo $telefone->getIsAtivo() ?>">
@@ -126,7 +126,7 @@ if(possuiPermissao($idPessoa, 20)) {
                 </div>
 
                 <?php
-                if(possuiPermissao($idPessoa, 21)) {
+                if(possui_permissao($idPessoa, 21)) {
                     ?>
                     <hr/>
 
@@ -192,7 +192,7 @@ if(possuiPermissao($idPessoa, 20)) {
                     <?php
                 }
 
-                if(possuiPermissao($idPessoa, 23)) {
+                if(possui_permissao($idPessoa, 23)) {
                     ?>
                     <hr/>
 

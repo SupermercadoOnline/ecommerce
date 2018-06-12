@@ -2,7 +2,7 @@
 session_start();
 include_once '../../functions.php';
 
-if(possuiPermissao($_SESSION['login']['id_pessoa'], 19)) {
+if(possui_permissao($_SESSION['login']['id_pessoa'], 19)) {
 
     include_once 'header.php';
     include_once ROOT_PATH . '/controller/PessoasController.php';

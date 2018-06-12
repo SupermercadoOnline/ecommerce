@@ -67,13 +67,13 @@ switch($_GET['request']){
 
                             $status = ($pessoa->getIsAtivo()) ? 'Ativo' : 'Inativo';
 
-                            if(possuiPermissao($_SESSION['login']['id_pessoa'], 24)) {
+                            if(possui_permissao($_SESSION['login']['id_pessoa'], 24)) {
                                 $linkAlteraStatus = (!$pessoa->getIsAtivo())
                                     ? '<a href="' . URL_HOST . '/admin/form_visualizar_usuario.php?ativar=' . $pessoa->getId() . '">Ativar</a>'
                                     : '<a href="' . URL_HOST . '/admin/form_visualizar_usuario.php?inativar=' . $pessoa->getId() . '">Inativar</a>';
                             }
 
-                            if(possuiPermissao($_SESSION['login']['id_pessoa'], 20)) {
+                            if(possui_permissao($_SESSION['login']['id_pessoa'], 20)) {
                                 $linkEditar = '<a href="' . URL_HOST. '/admin/form_editar_usuario.php?editar=' . $pessoa->getId() . '">Editar</a>';
                             }
 
