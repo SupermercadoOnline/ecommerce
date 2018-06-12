@@ -56,7 +56,7 @@ if($_POST["alterar"]) {
                 if($_GET["editar"]) {
                     $id = $_GET["editar"];
                     $categoriasController = new CategoriasProdutosController();
-                    $categorias = $categoriasController->getAll($id);
+                    $categorias = $categoriasController->getById($id);
 
 
                     ?>
