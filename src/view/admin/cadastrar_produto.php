@@ -98,7 +98,7 @@ if($_POST["cadastrar"]){
                 <br/>
                 <div class="col-lg-4">
                     <label for="descricao">Descrição</label>
-                    <input id="descricao" name="fabricante" type="text" class="form-control input-lg">
+                    <input id="descricao" name="descricao" type="text" class="form-control input-lg">
                 </div>
 
                 <div class="col-lg-2">
