@@ -15,9 +15,11 @@ class ProdutosController
     public function getById($id){
 
         $produtoBean = null;
-        $listaProdutos = $this->select("SELECT * FROM produtos WHERE id = '$id'");
-        if(!empty($listaProdutos))
-            $produtoBean = $listaProdutos[0];
+        if(!empty($id)){
+            $listaProdutos = $this->select("SELECT * FROM produtos WHERE id = '$id'");
+            if(!empty($listaProdutos))
+                $produtoBean = $listaProdutos[0];
+        }
 
         return $produtoBean;
 
