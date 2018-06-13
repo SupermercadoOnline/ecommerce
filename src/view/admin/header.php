@@ -13,9 +13,11 @@ $id_pessoa = $_SESSION['login']['id_pessoa'];
 
     <div class="container">
 
-        <a href="#" class="navbar-brand">
-            <img src="<?php echo URL_IMG_DIR ?>/logo.png" width="200" height="100" style="margin-top: -40px;margin-left: -25px" alt="Brand">
+        <a href="#" class="navbar-brand" style="margin-top: -20px">
+            <h3>Supermercado na</h3>
+            <img src="<?php echo URL_IMG_DIR ?>/logo3.png" style="margin-top: -55px; margin-left: 170px" alt="Brand" align="right">
         </a>
+
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" id="navbarDropdownUsuarios" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -6,7 +6,7 @@
         <div class="col-lg-12">
 
             <p class="text-center">
-                <b>Supermercado Online</b>
+                <b>Supermercado na Web</b>
             </p>
             
             <div class="container">
