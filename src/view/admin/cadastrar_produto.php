@@ -1,6 +1,6 @@
 <?php
 include_once 'header.php';
-include_once ROOT_PATH . '/controller/CategoriasProdutosController.php';
+include_once ROOT_PATH . '/controller/CategoriaProdutosController.php';
 include_once ROOT_PATH . '/model/Produtos.php';
 include_once ROOT_PATH . '/controller/ProdutosController.php';
 
@@ -70,7 +70,7 @@ if($_POST["cadastrar"]){
 
                     <select name="categoria" class="form-control input-lg selectpicker" title="Selecione">
                         <?php
-                        $categoriasDAO = new CategoriasProdutosController();
+                        $categoriasDAO = new CategoriaProdutosController();
 
                         foreach ($categoriasDAO->getAll() as $categoriaBean){
                             if($categoriaBean instanceof CategoriasProdutos){

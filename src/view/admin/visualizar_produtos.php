@@ -1,6 +1,6 @@
 <?php
 include_once 'header.php';
-include_once ROOT_PATH . '/controller/CategoriasProdutosController.php';
+include_once ROOT_PATH . '/controller/CategoriaProdutosController.php';
 include_once ROOT_PATH . '/model/Produtos.php';
 include_once ROOT_PATH . '/controller/ProdutosController.php';
 
@@ -74,7 +74,7 @@ if($_GET["desativar"]){
                                 <tbody>
                                 <?php
                                 $produtosDao = new ProdutosController();
-                                $categoriasDao = new CategoriasProdutosController();
+                                $categoriasDao = new CategoriaProdutosController();
 
                                 foreach ($produtosDao->retornePorStatus(true) as $produtoBean) {
                                     $categoriaBean = $categoriasDao->getCategoriaPorId($produtoBean->getIdCatergoria());

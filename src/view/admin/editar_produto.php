@@ -1,6 +1,6 @@
 <?php
 include_once 'header.php';
-include_once ROOT_PATH . '/controller/CategoriasProdutosController.php';
+include_once ROOT_PATH . '/controller/CategoriaProdutosController.php';
 include_once ROOT_PATH . '/model/Produtos.php';
 include_once ROOT_PATH . '/controller/ProdutosController.php';
 
@@ -57,7 +57,7 @@ if($_POST["alterar"]){
                     if($_GET["editar"]) {
                         $id = $_GET["editar"];
                         $produtoDao = new ProdutosController();
-                        $categoriaDao = new CategoriasProdutosController();
+                        $categoriaDao = new CategoriaProdutosController();
                         $produto = $produtoDao->getById($id);
                         $categorias = $categoriaDao->getAll();
 
@@ -82,7 +82,7 @@ if($_POST["alterar"]){
 
                                 <select name="categoria" class="form-control input-lg">
                                     <?php
-                                    $categoriasDAO = new CategoriasProdutosController();
+                                    $categoriasDAO = new CategoriaProdutosController();
 
                                     foreach ($categoriasDAO->getAll() as $categoriaBean) {
                                         if ($categoriaBean instanceof CategoriasProdutos) {

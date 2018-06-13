@@ -2,7 +2,7 @@
 include_once "header.php";
 
 include_once ROOT_PATH . "/model/CategoriasProdutos.php";
-include_once ROOT_PATH . "/controller/CategoriasProdutosController.php";
+include_once ROOT_PATH . "/controller/CategoriaProdutosController.php";
 if(isset($_GET["retorno_edicao"])) {
     if (empty($_GET["retorno_edicao"])) {
         ?>
@@ -33,7 +33,7 @@ if(isset($_GET["retorno_edicao"])) {
 
 if($_GET["desativar"]){
     $id = $_GET["desativar"];
-    $categoriaDAO = new CategoriasProdutosController();
+    $categoriaDAO = new CategoriaProdutosController();
     $categoria = $categoriaDAO->getById($id);
 
     if($categoria instanceof CategoriasProdutos){
@@ -82,8 +82,8 @@ if($_GET["desativar"]){
             <div class="row">
 
                 <div class="col-lg-12">
-                    <label for="exibir">Exibir cadastros</label>
-                    <a href="não clique">Inativos</a>
+                    <label for="exibir">Exibir cadastros: </label>
+                    <a href="<?php echo URL_HOST?>/admin/visualizar_categorias_produtos_inativos.php">Inativos</a>
 
                     <div class="table-responsive">
 
@@ -99,7 +99,7 @@ if($_GET["desativar"]){
                             <tbody>
                             <?php
 
-                            $categoriasController = new CategoriasProdutosController();
+                            $categoriasController = new CategoriaProdutosController();
 
                             foreach ($categoriasController->retornePorStatus(true) as $categoriasBean) {
 

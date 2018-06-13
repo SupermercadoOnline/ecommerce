@@ -1,10 +1,10 @@
 <?php
 include_once '../../configs.php';
-include_once ROOT_PATH . '/controller/CategoriasProdutosController.php';
+include_once ROOT_PATH . '/controller/CategoriaProdutosController.php';
 include_once ROOT_PATH . '/model/CategoriasProdutos.php';
 include_once "header.php";
 
-$categoriasController = new CategoriasProdutosController();
+$categoriasController = new CategoriaProdutosController();
 
 
 
