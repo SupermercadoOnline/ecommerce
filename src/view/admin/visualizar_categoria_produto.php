@@ -83,7 +83,7 @@ if($_GET["desativar"]){
 
                 <div class="col-lg-12">
                     <label for="exibir">Exibir cadastros: </label>
-                    <a href="<?php echo URL_HOST?>/admin/visualizar_categorias_produtos_inativos.php">Inativos</a>
+                    <a href="<?php echo URL_HOST?>/admin/visualizar_categoria_produtos_inativos.php">Inativos</a>
 
                     <div class="table-responsive">
 
@@ -117,7 +117,7 @@ if($_GET["desativar"]){
                                         <td><?php echo $categoriasBean->getNome() ?> </td>
                                         <td><?php echo $status ?> </td>
                                         <td>
-                                            <a  class="btn btn-danger" href="visualizar_categoria_produto.php?desativar=<?php $categoriasBean->getId() ?>">Desativar</a>
+                                            <a  class="btn btn-danger" href="/admin/visualizar_categoria_produtos.php?desativar=<?php echo $categoriasBean->getId() ?>">Desativar</a>
                                             <a  class ="btn btn-primary" href="/admin/form_editar_categorias_produto.php?editar=<?php echo $categoriasBean->getId() ?>">Editar</a>
                                         </td>
                                     </tr>
