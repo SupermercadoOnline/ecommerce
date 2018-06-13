@@ -57,7 +57,7 @@ if($_GET["ativar"]){
 
                 <div class="col-lg-12">
                     <label for="exibir">Exibir cadastros: </label>
-                    <a href="<?php echo URL_HOST?>/admin/visualizar_categorias_produtos.php">Ativos </a>
+                    <a href="<?php echo URL_HOST?>/admin/visualizar_categoria_produtos.php">Ativos </a>
 
                     <div class="table-responsive">
 
