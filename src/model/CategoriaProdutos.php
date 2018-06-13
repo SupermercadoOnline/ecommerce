@@ -63,7 +63,7 @@ class CategoriaProdutos
     public function setIsAtivo($isAtivo): void
     {
 
-        $this->$isAtivo = $isAtivo;
+        $this->isAtivo = $isAtivo;
 
     }
 
