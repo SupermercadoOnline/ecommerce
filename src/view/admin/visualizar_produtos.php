@@ -77,7 +77,7 @@ if($_GET["desativar"]){
                                 $categoriasDao = new CategoriaProdutosController();
 
                                 foreach ($produtosDao->retornePorStatus(true) as $produtoBean) {
-                                    $categoriaBean = $categoriasDao->getCategoriaPorId($produtoBean->getIdCatergoria());
+                                    $categoriaBean = $categoriasDao->getById($produtoBean->getIdCategoria());
                                     if ($produtoBean instanceof Produtos && $categoriaBean instanceof CategoriaProdutos) {
 
                                         if($produtoBean->getIsAtivo()){
@@ -90,7 +90,7 @@ if($_GET["desativar"]){
                                         ?>
                                         <tr>
                                             <td><?php echo $produtoBean->getNome() ?> </td>
-                                            <td><?php echo $produtoBean->getPreco() ?> </td>
+                                            <td>R$ <?php echo aplicar_mascara_reais($produtoBean->getPreco()) ?> </td>
                                             <td><?php echo $categoriaBean->getNome() ?> </td>
                                             <td><?php echo $status ?> </td>
                                             <td>
