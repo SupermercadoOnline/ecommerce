@@ -88,10 +88,9 @@ class ProdutosController
         if($bean instanceof Produtos){
 
             if(empty($this->getById($bean->getId()))){
-                return $this->update($bean);
-
-            } else {
                 return $this->insert($bean);
+            } else {
+                return $this->update($bean);
             }
         }
 
