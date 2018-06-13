@@ -42,7 +42,7 @@ class ProdutosController
             $query = "INSERT INTO produtos (nome, id_categoria, preco, fabricante, descricao, estoque_minimo) VALUES (?, ?, ?, ?, ?, ?)";
             $parametros = array(
                 $produtosBean->getNome(),
-                $produtosBean->getIdCatergoria(),
+                $produtosBean->getIdCategoria(),
                 $produtosBean->getPreco(),
                 $produtosBean->getFabricante(),
                 $produtosBean->getDescricao(),
@@ -67,7 +67,7 @@ class ProdutosController
             $query = "UPDATE produtos SET nome=?, id_categoria=?, preco=?, fabricante=?, descricao=?, estoque_minimo=?, is_ativo=? WHERE id=?";
             $parametros = array(
                 $produtosBean->getNome(),
-                $produtosBean->getIdCatergoria(),
+                $produtosBean->getIdCategoria(),
                 $produtosBean->getPreco(),
                 $produtosBean->getFabricante(),
                 $produtosBean->getDescricao(),
