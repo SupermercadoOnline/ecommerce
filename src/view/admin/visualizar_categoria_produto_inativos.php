@@ -1,49 +1,23 @@
 <?php
-include_once "header.php";
+include_once "../../configs.php";
+include_once ROOT_PATH . '/controller/CategoriaProdutosController.php';
+include_once ROOT_PATH . '/model/CategoriaProdutos.php';
+include_once 'header.php';
 
-include_once ROOT_PATH . "/model/CategoriasProdutos.php";
-include_once ROOT_PATH . "/controller/CategoriaProdutosController.php";
-if(isset($_GET["retorno_edicao"])) {
-    if (empty($_GET["retorno_edicao"])) {
-        ?>
-        <div class="row">
-            <div class="alert alert-success">
-                Não foi possivel alterar esta categoria!
-                <button class="close" data-dismiss="alert">X</button>
-            </div>
-        </div>
+$categoriasController = new CategoriaProdutosController();
+if($_GET["ativar"]){
+    $id = $_GET["ativar"];
 
-        <?php
-    } else {
-        ?>
+    $categorias = $categoriasController->getById($id);
 
-        <div class="row">
-            <div class="alert alert-success">
-                Categoria alterada com sucesso!
-                <button class="close" data-dismiss="alert">X</button>
-            </div>
-        </div>
-
-        <?php
-
-    }
-}
-
-
-
-if($_GET["desativar"]){
-    $id = $_GET["desativar"];
-    $categoriaDAO = new CategoriaProdutosController();
-    $categoria = $categoriaDAO->getById($id);
-
-    if($categoria instanceof CategoriasProdutos){
-        if($categoriaDAO->delete($categoria)){
+    if($categorias instanceof CategoriaProdutos){
+        if($categoriasController->ativar($categorias)){
             ?>
 
             <div class="panel-body">
                 <div class="row">
                     <div class="alert alert-success col-lg-4">
-                        Categoria inativado com sucesso!
+                        Categoria ativada com sucesso!
                         <button class="close" data-dismiss="alert">X</button>
                     </div>
                 </div>
@@ -56,7 +30,7 @@ if($_GET["desativar"]){
             <div class="panel-body">
                 <div class="row">
                     <div class="alert alert-danger col-lg-4">
-                        Não foi possível inativar a categoria!
+                        Não foi possivel ativar essa categoria!
                         <button class="close" data-dismiss="alert">X</button>
                     </div>
                 </div>
@@ -83,7 +57,7 @@ if($_GET["desativar"]){
 
                 <div class="col-lg-12">
                     <label for="exibir">Exibir cadastros: </label>
-                    <a href="<?php echo URL_HOST?>/admin/visualizar_categorias_produtos_inativos.php">Inativos</a>
+                    <a href="<?php echo URL_HOST?>/admin/visualizar_categorias_produtos.php">Ativos </a>
 
                     <div class="table-responsive">
 
@@ -99,13 +73,12 @@ if($_GET["desativar"]){
                             <tbody>
                             <?php
 
-                            $categoriasController = new CategoriaProdutosController();
 
-                            foreach ($categoriasController->retornePorStatus(true) as $categoriasBean) {
+                            foreach ($categoriasController->retornePorStatus(false) as $categorias) {
 
-                                if ($categoriasBean instanceof CategoriasProdutos) {
+                                if ($categorias instanceof CategoriaProdutos) {
 
-                                    if($categoriasBean->getIsAtivo()){
+                                    if($categorias->getIsAtivo()){
                                         $status = "Ativo";
 
                                     } else {
@@ -114,11 +87,10 @@ if($_GET["desativar"]){
 
                                     ?>
                                     <tr>
-                                        <td><?php echo $categoriasBean->getNome() ?> </td>
+                                        <td><?php echo $categorias->getNome() ?> </td>
                                         <td><?php echo $status ?> </td>
                                         <td>
-                                            <a  class="btn btn-danger" href="visualizar_categorias_produto.php?desativar=<?php $categoriasBean->getId() ?>">Desativar</a>
-                                            <a  class ="btn btn-primary" href="/admin/form_editar_categorias_produto.php?editar=<?php echo $categoriasBean->getId() ?>">Editar</a>
+                                            <a href="visualizar_produtos_inativos.php?ativar=<?php $categorias->getId() ?>">Ativar</a>
                                         </td>
                                     </tr>
 

@@ -85,7 +85,7 @@ if($_POST["alterar"]){
                                     $categoriasDAO = new CategoriaProdutosController();
 
                                     foreach ($categoriasDAO->getAll() as $categoriaBean) {
-                                        if ($categoriaBean instanceof CategoriasProdutos) {
+                                        if ($categoriaBean instanceof CategoriaProdutos) {
 
                                             $selected = $produto->getIdCategoria() == $categoriaBean->getId() ? 'selected' : null;
                                             echo "<option value='".$categoriaBean->getId()."'>".$categoriaBean->getNome()."</option";

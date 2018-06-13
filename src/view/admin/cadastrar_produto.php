@@ -73,7 +73,7 @@ if($_POST["cadastrar"]){
                         $categoriasDAO = new CategoriaProdutosController();
 
                         foreach ($categoriasDAO->getAll() as $categoriaBean){
-                            if($categoriaBean instanceof CategoriasProdutos){
+                            if($categoriaBean instanceof CategoriaProdutos){
                                 ?>
 
                                 <option value='<?php echo $categoriaBean->getId() ?>'>

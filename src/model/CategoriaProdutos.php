@@ -6,7 +6,7 @@
  * Time: 10:51
  */
 
-class CategoriasProdutos
+class CategoriaProdutos
 {
     private $id;
     private $nome;

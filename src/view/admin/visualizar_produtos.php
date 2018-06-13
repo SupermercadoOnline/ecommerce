@@ -78,7 +78,7 @@ if($_GET["desativar"]){
 
                                 foreach ($produtosDao->retornePorStatus(true) as $produtoBean) {
                                     $categoriaBean = $categoriasDao->getCategoriaPorId($produtoBean->getIdCatergoria());
-                                    if ($produtoBean instanceof Produtos && $categoriaBean instanceof CategoriasProdutos) {
+                                    if ($produtoBean instanceof Produtos && $categoriaBean instanceof CategoriaProdutos) {
 
                                         if($produtoBean->getIsAtivo()){
                                             $status = "Ativo";
