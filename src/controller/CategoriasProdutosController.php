@@ -1,4 +1,5 @@
 <?php
+include_once dirname(__DIR__)."/configs.php";
 include_once ROOT_PATH . '/model/MySqlDAO.php';
 include_once ROOT_PATH . '/model/CategoriasProdutos.php';
 
@@ -32,10 +33,8 @@ class CategoriasProdutosController
 
             return $categoriaBean;
         }
-
-
-
     }
+
 
     protected function insert($categoriasBean)
     {
@@ -58,17 +57,16 @@ class CategoriasProdutosController
 
     }
 
-    protected function update($categoriasBean)
-    {
+    protected function update($categoriasBean){
 
 
         if($categoriasBean instanceof CategoriasProdutos){
 
-            $query = "UPDATE categoria_produtos SET id=?, nome=?, is_ativo=? WHERE id=?";
+            $query = "UPDATE categoria_produtos SET nome=?, is_ativo=? WHERE id=?";
             $parametros = array(
                 $categoriasBean->getNome(),
-                $categoriasBean->getId(),
                 $categoriasBean->getIsAtivo(),
+                $categoriasBean->getId()
 
             );
 

@@ -1,43 +1,21 @@
 <?php
-include_once "header.php";
+include_once '../../configs.php';
 include_once ROOT_PATH . '/controller/CategoriasProdutosController.php';
 include_once ROOT_PATH . '/model/CategoriasProdutos.php';
+include_once "header.php";
 
-if($_POST["alterar"]) {
-    $categorias = new CategoriasProdutos($_POST["id"], $_POST["nome"], true);
+$categoriasController = new CategoriasProdutosController();
 
-    $categoriasController = new CategoriasProdutosController();
 
-    if ($categoriasController->salvar($categorias)) {
-        ?>
 
-        <div class="panel-body">
-            <div class="row">
-                <div class="alert alert-success col-lg-4">
-                    Categoria alterada com sucesso!
-                    <button class="close" data-dismiss="alert">X</button>
-                </div>
-            </div>
-        </div>
-
-        <?php
-    } else {
-        ?>
-
-        <div class="panel-body">
-            <div class="row">
-                <div class="alert alert-danger col-lg-4">
-                    Não foi possível alterar esta categoria!
-                    <button class="close" data-dismiss="alert">X</button>
-                </div>
-            </div>
-        </div>
-
-        <?php
-    }
+if(!empty($_GET["editar"])){
+    $id = $_GET["editar"];
+    $categoriasBEAN = $categoriasController->getById($id);
 
 
 }
+
+
 ?>
 
     <div class="panel panel-primary">
@@ -50,38 +28,21 @@ if($_POST["alterar"]) {
 
         <div class="panel-body">
 
-            <form action="<?php echo URL_HOST ?>/editar_categorias_produto.php" method="post">
+            <form action="<?php echo URL_HOST ?>/admin/editar_categorias_produto.php" method="post">
 
-                <?php
-                if($_GET["editar"]) {
-                    $id = $_GET["editar"];
-                    $categoriasController = new CategoriasProdutosController();
-                    $categorias = $categoriasController->getAll($id);
+                <input type="hidden" name="id" value="<?php echo $categoriasBEAN->getId()?>">
 
-
-                    ?>
-
-                    <div class="row">
-
-                        <div class="col-lg-4">
-                            <label for="nome">Nome:</label>
-                            <input id="nome" name="nome" type="text" value="<?php $categorias->getNome() ?>" class="form-control input-lg">
-                        </div>
-
-
-                    </div>
-
-
-                    <?php
-                }
-                ?>
 
                 <div class="row">
-                    <br/>
-                    <div class="col-lg-3">
-                        <input name="alterar" type="submit" value="Alterar" class="form-control input-lg">
+                    <div class="col-lg-offset-4 col-lg-4">
+                        <label for="nome">Nome:</label>
+                        <input id="nome" name="nome" type="text" value="<?php echo $categoriasBEAN->getNome() ?>" class="form-control input-lg">
                     </div>
+                </div>
 
+                <div class="row">
+                    <br>
+                    <input name="alterar" type="submit" value="Alterar" class="btn btn-primary btn-lg center-block">
                 </div>
 
             </form>
