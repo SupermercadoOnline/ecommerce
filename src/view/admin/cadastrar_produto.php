@@ -13,12 +13,10 @@ if($_POST["cadastrar"]){
     if($produtoDao->salvar($produto)){
         ?>
 
-        <div class="panel-body">
-            <div class="row">
-                <div class="alert alert-success col-lg-4">
-                    Produto cadastrado com sucesso!
-                    <button class="close" data-dismiss="alert">X</button>
-                </div>
+        <div class="row">
+            <div class="alert alert-success">
+                Produto cadastrado com sucesso!
+                <button class="close" data-dismiss="alert">X</button>
             </div>
         </div>
 
@@ -26,12 +24,10 @@ if($_POST["cadastrar"]){
     } else {
         ?>
 
-        <div class="panel-body">
-            <div class="row">
-                <div class="alert alert-danger col-lg-4">
-                    Não foi possível cadastrar este produto!
-                    <button class="close" data-dismiss="alert">X</button>
-                </div>
+        <div class="row">
+            <div class="alert alert-danger">
+                Não foi possível cadastrar este produto!
+                <button class="close" data-dismiss="alert">X</button>
             </div>
         </div>
 
@@ -68,24 +64,26 @@ if($_POST["cadastrar"]){
 
                     <label for="categoria">Categoria</label>
 
-                    <select name="categoria" class="form-control input-lg selectpicker" title="Selecione">
-                        <?php
-                        $categoriasDAO = new CategoriaProdutosController();
+                    <div class="form-group-lg">
+                        <select name="categoria" class="form-control selectpicker" title="Selecione">
+                            <?php
+                            $categoriasDAO = new CategoriaProdutosController();
 
-                        foreach ($categoriasDAO->getAll() as $categoriaBean){
-                            if($categoriaBean instanceof CategoriaProdutos){
-                                ?>
+                            foreach ($categoriasDAO->getAll() as $categoriaBean){
+                                if($categoriaBean instanceof CategoriaProdutos){
+                                    ?>
 
-                                <option value='<?php echo $categoriaBean->getId() ?>'>
-                                    <?php echo $categoriaBean->getNome()?>
-                                </option>
+                                    <option value='<?php echo $categoriaBean->getId() ?>'>
+                                        <?php echo $categoriaBean->getNome()?>
+                                    </option>
 
-                                <?php
+                                    <?php
 
+                                }
                             }
-                        }
-                        ?>
-                    </select>
+                            ?>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="col-lg-3">
@@ -111,10 +109,7 @@ if($_POST["cadastrar"]){
 
             <div class="row">
                 <br/>
-                <div class="col-lg-3">
-                    <input name="cadastrar" type="submit" value="Cadastrar" class="form-control input-lg">
-                </div>
-
+                <input name="cadastrar" type="submit" value="Cadastrar" class="btn btn-primary btn-lg center-block">
             </div>
 
         </form>
