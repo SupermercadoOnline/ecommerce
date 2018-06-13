@@ -27,13 +27,13 @@ class CategoriaProdutosController
 
     public function getById($id){
         $categoriaBean = null;
-        $listaCategoria = $this->select("select * from categoria_produtos where id = '$id'");
-
-        if(!empty($listaCategoria)){
-            $categoriaBean = $listaCategoria[0];
-
-            return $categoriaBean;
+        if(!empty($id)){
+            $listaCategoria = $this->select("select * from categoria_produtos where id = '$id'");
+            if(!empty($listaCategoria)){
+                $categoriaBean = $listaCategoria[0];
+            }
         }
+        return $categoriaBean;
     }
 
 
