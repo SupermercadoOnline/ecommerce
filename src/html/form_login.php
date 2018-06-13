@@ -1,2 +1,2 @@
 <?php
-include_once '../view/login/login.php';
+include_once '../view/login.php';

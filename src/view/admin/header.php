@@ -39,7 +39,7 @@ $id_pessoa = $_SESSION['login']['id_pessoa'];
                     if (possui_permissao($id_pessoa,18)) {
                         ?>
                         <li>
-                            <a href="<?php echo URL_HOST ?>/admin/form_visualizar_usuario.php">
+                            <a href="<?php echo URL_HOST ?>/admin/visualizar_usuario.php">
                                 <b>Visualizar</b>
                             </a>
                         </li>

@@ -325,7 +325,7 @@ if(possui_permissao($idPessoa, 20)) {
                 ?>
 
                 <hr/>
-                <input type="submit" class="btn btn-default btn-lg" name="salvar" value="Salvar">
+                <input type="submit" class="btn btn-default btn-lg center-block" name="salvar" value="Salvar">
 
             </form>
 

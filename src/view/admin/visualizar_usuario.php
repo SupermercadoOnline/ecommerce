@@ -121,11 +121,11 @@ if(possui_permissao($idPessoa, 18)) {
                                         if(possui_permissao($idPessoa, 24)) {
                                             if (!$pessoa->getIsAtivo()) {
                                                 ?>
-                                                <a href="<?php echo URL_HOST ?>/admin/form_visualizar_usuario.php?ativar=<?php echo $pessoa->getId() ?>">Ativar</a>
+                                                <a href="<?php echo URL_HOST ?>/admin/visualizar_usuario.php?ativar=<?php echo $pessoa->getId() ?>">Ativar</a>
                                                 <?php
                                             } else {
                                                 ?>
-                                                <a href="<?php echo URL_HOST ?>/admin/form_visualizar_usuario.php?inativar=<?php echo $pessoa->getId() ?>">Inativar</a>
+                                                <a href="<?php echo URL_HOST ?>/admin/visualizar_usuario.php?inativar=<?php echo $pessoa->getId() ?>">Inativar</a>
                                                 <?php
                                             }
                                         }
