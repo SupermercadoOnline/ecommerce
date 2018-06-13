@@ -95,14 +95,12 @@ class CategoriaProdutosController
 
     }
 
-    public function delete($categoriasBean)
-    {
+    public function delete($categorias){
 
+        if($categorias instanceof CategoriaProdutos){
 
-        if($categoriasBean instanceof CategoriaProdutos){
-
-            $categoriasBean->setIsAtivo(false);
-            return $this->update($categoriasBean);
+            $categorias->setIsAtivo(false);
+            return $this->update($categorias);
         }
 
         return false;
