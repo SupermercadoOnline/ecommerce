@@ -4,8 +4,8 @@ include_once ROOT_PATH . '/controller/CategoriaProdutosController.php';
 include_once ROOT_PATH . '/model/Produtos.php';
 include_once ROOT_PATH . '/controller/ProdutosController.php';
 
-if($_POST["cadastrar"]){
-    $produto = new Produtos(null, $_POST["nome"], $_POST["categoria"], $_POST["preco"],
+if(!empty($_POST["cadastrar"])){
+    $produto = new Produtos(null, $_POST["nome"], $_POST["categoria"], remover_mascara_reais($_POST["preco"]),
     $_POST["fabricante"], $_POST["descricao"], $_POST["estoque_minimo"], null);
 
     $produtoDao = new ProdutosController();
@@ -57,7 +57,7 @@ if($_POST["cadastrar"]){
 
                 <div class="col-lg-2">
                     <label for="preco">Preço</label>
-                    <input id="preco" name="preco" type="text" class="form-control input-lg">
+                    <input id="preco" name="preco" type="text" class="form-control input-lg mascara-reais">
                 </div>
 
                 <div class="col-lg-3">
