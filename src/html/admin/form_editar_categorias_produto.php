@@ -1,2 +1,2 @@
 <?php
-include_once '../../view/admin/editar_categorias_produto.php';
+include_once '../../view/admin/editar_categoria_produto.php';

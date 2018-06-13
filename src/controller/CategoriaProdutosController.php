@@ -1,15 +1,16 @@
 <?php
 include_once dirname(__DIR__)."/configs.php";
 include_once ROOT_PATH . '/model/MySqlDAO.php';
-include_once ROOT_PATH . '/model/CategoriasProdutos.php';
+include_once ROOT_PATH . '/model/CategoriaProdutos.php';
 
-class CategoriasProdutosController
+class CategoriaProdutosController
 {
 
 
     public function getAll(){
         return $this->select('SELECT * FROM categoria_produtos ORDER BY id');
     }
+
     public function retornePorStatus($status){
         return $this->select("SELECT * FROM categoria_produtos WHERE is_ativo = '$status'");
     }
@@ -19,7 +20,7 @@ class CategoriasProdutosController
         $listaCategorias = array();
         $selectListas = MySqlDAO::getResult($query);
         while($row = $selectListas->fetch_array())
-            $listaCategorias[] = new CategoriasProdutos($row['id'], $row['nome'], $row['is_ativo']);
+            $listaCategorias[] = new CategoriaProdutos($row['id'], $row['nome'], $row['is_ativo']);
 
         return $listaCategorias;
     }
@@ -60,7 +61,7 @@ class CategoriasProdutosController
     protected function update($categoriasBean){
 
 
-        if($categoriasBean instanceof CategoriasProdutos){
+        if($categoriasBean instanceof CategoriaProdutos){
 
             $query = "UPDATE categoria_produtos SET nome=?, is_ativo=? WHERE id=?";
             $parametros = array(
@@ -80,7 +81,7 @@ class CategoriasProdutosController
 
     public function salvar($categoriasBean)
     {
-        if($categoriasBean instanceof CategoriasProdutos){
+        if($categoriasBean instanceof CategoriaProdutos){
 
             if(empty($categoriasBean->getId()))
                 if($this->insert($categoriasBean))
@@ -98,7 +99,7 @@ class CategoriasProdutosController
     {
 
 
-        if($categoriasBean instanceof CategoriasProdutos){
+        if($categoriasBean instanceof CategoriaProdutos){
 
             $categoriasBean->setIsAtivo(false);
             return $this->update($categoriasBean);
