@@ -3,6 +3,33 @@ include_once "header.php";
 
 include_once ROOT_PATH . "/model/CategoriasProdutos.php";
 include_once ROOT_PATH . "/controller/CategoriasProdutosController.php";
+if(isset($_GET["retorno_edicao"])) {
+    if (empty($_GET["retorno_edicao"])) {
+        ?>
+        <div class="row">
+            <div class="alert alert-success">
+                Não foi possivel alterar esta categoria!
+                <button class="close" data-dismiss="alert">X</button>
+            </div>
+        </div>
+
+        <?php
+    } else {
+        ?>
+
+        <div class="row">
+            <div class="alert alert-success">
+                Categoria alterada com sucesso!
+                <button class="close" data-dismiss="alert">X</button>
+            </div>
+        </div>
+
+        <?php
+
+    }
+}
+
+
 
 if($_GET["desativar"]){
     $id = $_GET["desativar"];
@@ -90,8 +117,8 @@ if($_GET["desativar"]){
                                         <td><?php echo $categoriasBean->getNome() ?> </td>
                                         <td><?php echo $status ?> </td>
                                         <td>
-                                            <a href="visualizar_categorias_produto.php?desativar=<?php $categoriasBean->getId() ?>">Desativar</a>
-                                            <a href="/admin/form_editar_categorias_produto.php?editar=<?php echo $categoriasBean->getId() ?>">Editar</a>
+                                            <a  class="btn btn-danger" href="visualizar_categorias_produto.php?desativar=<?php $categoriasBean->getId() ?>">Desativar</a>
+                                            <a  class ="btn btn-primary" href="/admin/form_editar_categorias_produto.php?editar=<?php echo $categoriasBean->getId() ?>">Editar</a>
                                         </td>
                                     </tr>
 
