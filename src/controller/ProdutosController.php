@@ -1,4 +1,5 @@
 <?php
+include_once dirname(__DIR__)."/configs.php";
 include_once ROOT_PATH . '/model/MySqlDAO.php';
 include_once ROOT_PATH . '/model/Produtos.php';
 
