@@ -2,63 +2,14 @@
 session_start();
 include_once '../../functions.php';
 
-if(possui_permissao($_SESSION['login']['id_pessoa'], 19)) {
+if(possui_permissao($_SESSION['login']['id_pessoa'], 26)) {
 
     include_once 'header.php';
-    include_once ROOT_PATH . '/controller/PessoasController.php';
-    include_once ROOT_PATH . '/controller/TipoPessoaController.php';
-    include_once ROOT_PATH . '/controller/PermissoesUsuarioController.php';
-    include_once ROOT_PATH . '/controller/EstadosController.php';
-    include_once ROOT_PATH . '/controller/CidadesController.php';
-    include_once ROOT_PATH . '/controller/TelefonesController.php';
-    include_once ROOT_PATH . '/controller/EnderecosController.php';
+    include_once ROOT_PATH . '/controller/PromocoesController.php';
 
     $permissoesController = new PermissoesUsuarioController();
     if ($_POST["salvar"]) {
-        $pessoa = new Pessoas(null,
-            $_POST["nome"],
-            null,
-            $_POST["cpf"],
-            null,
-            $_POST["email"],
-            $_POST["senha"],
-            null,
-            0);
-        $pessoasController = new PessoasController();
-        $pessoa = $pessoasController->salvar($pessoa);
 
-        if ($pessoa instanceof Pessoas) {
-            $tipoPessoaController = new TipoPessoaController();
-            $tipoPessoaController->salvar($pessoa, 1);
-
-            $permissoes = array_merge((array)$_POST["permissoesAdmin"], (array)$_POST["permissoesCategoria"],
-                (array)$_POST["permissoesClientes"], (array)$_POST["permissoesVendas"], (array)$_POST["permissoesProdutos"], (array)$_POST["permissoesPromo"]);
-
-            foreach ($permissoes as $permissao) {
-                $permissoesController->salvar($pessoa, $permissao);
-            }
-
-            $telefonesController = new TelefonesController();
-            $telefone = new Telefones(null,
-                $pessoa->getId(),
-                $_POST["numeroTelefone"],
-                null);
-
-            $telefonesController->salvar($telefone);
-
-            $enderecosController = new EnderecosController();
-            $endereco = new Enderecos(null,
-                $pessoa->getId(),
-                $_POST["cidade"],
-                $_POST["rua"],
-                $_POST["bairro"],
-                $_POST["numero"],
-                $_POST["cep"],
-                $_POST["complemento"],
-                null);
-
-            $enderecosController->salvar($endereco);
-        }
     }
     ?>
 
@@ -66,13 +17,13 @@ if(possui_permissao($_SESSION['login']['id_pessoa'], 19)) {
 
         <div class="panel-heading">
             <h3 class="panel-title">
-                <b>Novo usuário</b>
+                <b>Nova promoção</b>
             </h3>
         </div>
 
         <div class="panel-body">
 
-            <form action="<?php echo URL_HOST ?>/admin/form_cadastrar_usuario.php" method="post">
+            <form action="<?php echo URL_HOST ?>/admin/form_cadastrar_promocoes.php" method="post">
 
                 <div class="row">
 

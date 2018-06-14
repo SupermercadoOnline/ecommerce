@@ -1,6 +1,6 @@
 <?php
 include_once 'header.php';
-include_once ROOT_PATH . '/controller/CategoriasProdutosController.php';
+include_once ROOT_PATH . '/controller/CategoriaProdutosController.php';
 include_once ROOT_PATH . '/model/Produtos.php';
 include_once ROOT_PATH . '/controller/ProdutosController.php';
 
@@ -74,11 +74,11 @@ if($_GET["desativar"]){
                                 <tbody>
                                 <?php
                                 $produtosDao = new ProdutosController();
-                                $categoriasDao = new CategoriasProdutosController();
+                                $categoriasDao = new CategoriaProdutosController();
 
                                 foreach ($produtosDao->retornePorStatus(true) as $produtoBean) {
-                                    $categoriaBean = $categoriasDao->getCategoriaPorId($produtoBean->getIdCatergoria());
-                                    if ($produtoBean instanceof Produtos && $categoriaBean instanceof CategoriasProdutos) {
+                                    $categoriaBean = $categoriasDao->getById($produtoBean->getIdCategoria());
+                                    if ($produtoBean instanceof Produtos && $categoriaBean instanceof CategoriaProdutos) {
 
                                         if($produtoBean->getIsAtivo()){
                                             $status = "Ativo";
@@ -90,7 +90,7 @@ if($_GET["desativar"]){
                                         ?>
                                         <tr>
                                             <td><?php echo $produtoBean->getNome() ?> </td>
-                                            <td><?php echo $produtoBean->getPreco() ?> </td>
+                                            <td>R$ <?php echo aplicar_mascara_reais($produtoBean->getPreco()) ?> </td>
                                             <td><?php echo $categoriaBean->getNome() ?> </td>
                                             <td><?php echo $status ?> </td>
                                             <td>

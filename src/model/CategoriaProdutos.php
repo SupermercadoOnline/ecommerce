@@ -6,7 +6,7 @@
  * Time: 10:51
  */
 
-class CategoriasProdutos
+class CategoriaProdutos
 {
     private $id;
     private $nome;
@@ -63,7 +63,7 @@ class CategoriasProdutos
     public function setIsAtivo($isAtivo): void
     {
 
-        $this->$isAtivo = $isAtivo;
+        $this->isAtivo = $isAtivo;
 
     }
 

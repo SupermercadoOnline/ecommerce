@@ -1,8 +1,9 @@
 <?php
+include_once dirname(__DIR__)."/configs.php";
 include_once ROOT_PATH . '/model/MySqlDAO.php';
-include_once ROOT_PATH . '/model/CategoriasProdutos.php';
+include_once ROOT_PATH . '/model/CategoriaProdutos.php';
 
-class CategoriasProdutosController
+class CategoriaProdutosController
 {
 
 
@@ -10,30 +11,31 @@ class CategoriasProdutosController
         return $this->select('SELECT * FROM categoria_produtos ORDER BY id');
     }
 
+    public function retornePorStatus($status){
+        return $this->select("SELECT * FROM categoria_produtos WHERE is_ativo = '$status'");
+    }
 
     protected function select($query):array
     {
         $listaCategorias = array();
         $selectListas = MySqlDAO::getResult($query);
         while($row = $selectListas->fetch_array())
-            $listaCategorias[] = new CategoriasProdutos($row['id'], $row['nome'], $row['is_ativo']);
+            $listaCategorias[] = new CategoriaProdutos($row['id'], $row['nome'], $row['is_ativo']);
 
         return $listaCategorias;
     }
 
     public function getById($id){
         $categoriaBean = null;
-        $listaCategoria = $this->select("select * from categoria_produtos where id = '$id'");
-
-        if(!empty($listaCategoria)){
-            $categoriaBean = $listaCategoria[0];
-
-            return $categoriaBean;
+        if(!empty($id)){
+            $listaCategoria = $this->select("select * from categoria_produtos where id = '$id'");
+            if(!empty($listaCategoria)){
+                $categoriaBean = $listaCategoria[0];
+            }
         }
-
-
-
+        return $categoriaBean;
     }
+
 
     protected function insert($categoriasBean)
     {
@@ -56,17 +58,16 @@ class CategoriasProdutosController
 
     }
 
-    protected function update($categoriasBean)
-    {
+    protected function update($categoriasBean){
 
 
-        if($categoriasBean instanceof CategoriasProdutos){
+        if($categoriasBean instanceof CategoriaProdutos){
 
-            $query = "UPDATE categoria_produtos SET id=?, nome=?, is_ativo=? WHERE id=?";
+            $query = "UPDATE categoria_produtos SET nome=?, is_ativo=? WHERE id=?";
             $parametros = array(
                 $categoriasBean->getNome(),
-                $categoriasBean->getId(),
                 $categoriasBean->getIsAtivo(),
+                $categoriasBean->getId()
 
             );
 
@@ -80,7 +81,7 @@ class CategoriasProdutosController
 
     public function salvar($categoriasBean)
     {
-        if($categoriasBean instanceof CategoriasProdutos){
+        if($categoriasBean instanceof CategoriaProdutos){
 
             if(empty($categoriasBean->getId()))
                 if($this->insert($categoriasBean))
@@ -94,14 +95,12 @@ class CategoriasProdutosController
 
     }
 
-    public function delete($categoriasBean)
-    {
+    public function delete($categorias){
 
+        if($categorias instanceof CategoriaProdutos){
 
-        if($categoriasBean instanceof CategoriasProdutos){
-
-            $categoriasBean->setIsAtivo(false);
-            return $this->update($categoriasBean);
+            $categorias->setIsAtivo(false);
+            return $this->update($categorias);
         }
 
         return false;

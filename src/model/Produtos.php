@@ -4,17 +4,17 @@ class Produtos{
 
 	private $id;
 	private $nome;
-	private $idCatergoria;
+	private $idCategoria;
 	private $preco;
 	private $fabricante;
 	private $descricao;
 	private $estoqueMinimo;
 	private $isAtivo;
 	
-	public function __construct($id, $nome, $idCatergoria, $preco, $fabricante, $descricao, $estoqueMinimo, $isAtivo){
+	public function __construct($id, $nome, $idCategoria, $preco, $fabricante, $descricao, $estoqueMinimo, $isAtivo){
 		$this->id = $id;
 		$this->nome = $nome;
-		$this->idCatergoria = $idCatergoria;
+		$this->idCategoria = $idCategoria;
 		$this->preco = $preco;
 		$this->fabricante = $fabricante;
 		$this->descricao = $descricao;
@@ -39,11 +39,11 @@ class Produtos{
 	}
 
 	public function setIdCategoria($idCategoria): void{
-	    $this->idCatergoria = $idCategoria;
+	    $this->idCategoria = $idCategoria;
     }
 
-    public function getIdCatergoria(){
-        return $this->idCatergoria;
+    public function getIdCategoria(){
+        return $this->idCategoria;
     }
 
     public function setPreco($preco){

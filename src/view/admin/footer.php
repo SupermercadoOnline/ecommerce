@@ -6,8 +6,14 @@
         <div class="col-lg-12">
 
             <p class="text-center">
-                <b>Supermercado Online</b>
+                <b>Supermercado na Web</b>
             </p>
+            
+            <div class="container">
+                <p class="text-right" style="margin-top: -30px;">
+                    <b>Usuário autenticado como: </b><?php echo $_SESSION['login']['nome_pessoa'] ?>
+                </p>
+            </div>
 
         </div>
 

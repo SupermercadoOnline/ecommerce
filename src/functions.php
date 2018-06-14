@@ -2,7 +2,7 @@
 include_once __DIR__ . '/configs.php';
 include_once ROOT_PATH . '/controller/PermissoesUsuarioController.php';
 
-function possuiPermissao($id_pessoa, $id_permissao) {
+function possui_permissao($id_pessoa, $id_permissao) {
 
     $permissoesController = new PermissoesUsuarioController();
     $permissoes = $permissoesController->getByPessoa($id_pessoa);
@@ -124,4 +124,17 @@ function envia_email($email_destino, $assunto, $mensagem_html, $anexos = array()
 
     return false;
 
+}
+
+function aplicar_mascara_reais($valor){
+    return number_format($valor, 2, ',', '.');
+}
+function remover_mascara_reais($valor){
+    if(filter_var($valor, FILTER_VALIDATE_FLOAT))
+        return $valor;
+
+    $valor = str_replace('.', '', $valor);
+    $valor = str_replace(',', '.', $valor);
+
+    return (float)number_format($valor, 2, '.', '');
 }

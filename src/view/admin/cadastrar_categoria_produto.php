@@ -1,14 +1,14 @@
 <?php
 include_once 'header.php';
 
-include_once ROOT_PATH . '/controller/CategoriasProdutosController.php';
-include_once ROOT_PATH . '/model/CategoriasProdutos.php';
+include_once ROOT_PATH . '/controller/CategoriaProdutosController.php';
+include_once ROOT_PATH . '/model/CategoriaProdutos.php';
 
 if($_POST["Cadastrar"]){
 
-    $categoriaProdutos = new CategoriasProdutos(null, $_POST["nome"], null);
+    $categoriaProdutos = new CategoriaProdutos(null, $_POST["nome"], null);
 
-    $categoriaProdutosDAO = new CategoriasProdutosController();
+    $categoriaProdutosDAO = new CategoriaProdutosController();
 
     if($categoriaProdutosDAO->salvar($categoriaProdutos)){
         ?>

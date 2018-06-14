@@ -1,11 +1,11 @@
 <?php
 include_once 'header.php';
-include_once ROOT_PATH . '/controller/CategoriasProdutosController.php';
+include_once ROOT_PATH . '/controller/CategoriaProdutosController.php';
 include_once ROOT_PATH . '/model/Produtos.php';
 include_once ROOT_PATH . '/controller/ProdutosController.php';
 
-if($_POST["cadastrar"]){
-    $produto = new Produtos(null, $_POST["nome"], $_POST["categoria"], $_POST["preco"],
+if(!empty($_POST["cadastrar"])){
+    $produto = new Produtos(null, $_POST["nome"], $_POST["categoria"], remover_mascara_reais($_POST["preco"]),
     $_POST["fabricante"], $_POST["descricao"], $_POST["estoque_minimo"], null);
 
     $produtoDao = new ProdutosController();
@@ -13,12 +13,10 @@ if($_POST["cadastrar"]){
     if($produtoDao->salvar($produto)){
         ?>
 
-        <div class="panel-body">
-            <div class="row">
-                <div class="alert alert-success col-lg-4">
-                    Produto cadastrado com sucesso!
-                    <button class="close" data-dismiss="alert">X</button>
-                </div>
+        <div class="row">
+            <div class="alert alert-success">
+                Produto cadastrado com sucesso!
+                <button class="close" data-dismiss="alert">X</button>
             </div>
         </div>
 
@@ -26,12 +24,10 @@ if($_POST["cadastrar"]){
     } else {
         ?>
 
-        <div class="panel-body">
-            <div class="row">
-                <div class="alert alert-danger col-lg-4">
-                    Não foi possível cadastrar este produto!
-                    <button class="close" data-dismiss="alert">X</button>
-                </div>
+        <div class="row">
+            <div class="alert alert-danger">
+                Não foi possível cadastrar este produto!
+                <button class="close" data-dismiss="alert">X</button>
             </div>
         </div>
 
@@ -61,31 +57,33 @@ if($_POST["cadastrar"]){
 
                 <div class="col-lg-2">
                     <label for="preco">Preço</label>
-                    <input id="preco" name="preco" type="text" class="form-control input-lg">
+                    <input id="preco" name="preco" type="text" class="form-control input-lg mascara-reais">
                 </div>
 
                 <div class="col-lg-3">
 
                     <label for="categoria">Categoria</label>
 
-                    <select name="categoria" class="form-control input-lg selectpicker" title="Selecione">
-                        <?php
-                        $categoriasDAO = new CategoriasProdutosController();
+                    <div class="form-group-lg">
+                        <select name="categoria" class="form-control selectpicker" title="Selecione">
+                            <?php
+                            $categoriasDAO = new CategoriaProdutosController();
 
-                        foreach ($categoriasDAO->getAll() as $categoriaBean){
-                            if($categoriaBean instanceof CategoriasProdutos){
-                                ?>
+                            foreach ($categoriasDAO->getAll() as $categoriaBean){
+                                if($categoriaBean instanceof CategoriaProdutos){
+                                    ?>
 
-                                <option value='<?php echo $categoriaBean->getId() ?>'>
-                                    <?php echo $categoriaBean->getNome()?>
-                                </option>
+                                    <option value='<?php echo $categoriaBean->getId() ?>'>
+                                        <?php echo $categoriaBean->getNome()?>
+                                    </option>
 
-                                <?php
+                                    <?php
 
+                                }
                             }
-                        }
-                        ?>
-                    </select>
+                            ?>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="col-lg-3">
@@ -100,7 +98,7 @@ if($_POST["cadastrar"]){
                 <br/>
                 <div class="col-lg-4">
                     <label for="descricao">Descrição</label>
-                    <input id="descricao" name="fabricante" type="text" class="form-control input-lg">
+                    <input id="descricao" name="descricao" type="text" class="form-control input-lg">
                 </div>
 
                 <div class="col-lg-2">
@@ -111,10 +109,7 @@ if($_POST["cadastrar"]){
 
             <div class="row">
                 <br/>
-                <div class="col-lg-3">
-                    <input name="cadastrar" type="submit" value="Cadastrar" class="form-control input-lg">
-                </div>
-
+                <input name="cadastrar" type="submit" value="Cadastrar" class="btn btn-primary btn-lg center-block">
             </div>
 
         </form>
