@@ -90,7 +90,7 @@ if($_GET["ativar"]){
                                         <td><?php echo $categorias->getNome() ?> </td>
                                         <td><?php echo $status ?> </td>
                                         <td>
-                                            <a href="visualizar_produtos_inativos.php?ativar=<?php $categorias->getId() ?>">Ativar</a>
+                                            <a class ="btn btn-primary" href="visualizar_categoria_produtos_inativos.php?ativar=<?php echo $categorias->getId() ?>">Ativar</a>
                                         </td>
                                     </tr>
 
