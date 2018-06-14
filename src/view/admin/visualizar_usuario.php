@@ -52,7 +52,8 @@ if(possui_permissao($idPessoa, 18)) {
     <div class="row">
         <div class="col-lg-offset-4 col-lg-4">
             <div class="row">
-                <input type="text" name="pesquisar" id="pesquisar" onchange="consultar('#tablePessoas', 'pessoas','getTablePessoas', this.value)" class="form-control input-lg">
+                <input type="text" name="pesquisar" id="pesquisar" placeholder="Pesquisar"
+                       onchange="consultar('#tablePessoas', 'pessoas','getTablePessoas', this.value)" class="form-control input-lg">
                 <br/>
             </div>
         </div>

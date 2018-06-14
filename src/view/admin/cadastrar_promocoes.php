@@ -6,10 +6,40 @@ if(possui_permissao($_SESSION['login']['id_pessoa'], 26)) {
 
     include_once 'header.php';
     include_once ROOT_PATH . '/controller/PromocoesController.php';
+    include_once ROOT_PATH . '/controller/ProdutosController.php';
+    include_once ROOT_PATH . '/controller/FaixasDescontoController.php';
+    include_once ROOT_PATH . '/controller/ProdutosPromocaoController.php';
 
-    $permissoesController = new PermissoesUsuarioController();
+    $promocoesController = new PromocoesController();
+    $faixasDescontoController = new FaixasDescontoController();
+    $produtosPromocaoController = new ProdutosPromocaoController();
     if ($_POST["salvar"]) {
+        $promocao = new Promocoes(null,
+            $_POST['descricao'],
+            $_POST['dataInicio'],
+            $_POST['dataFim'],
+            get_string_datetime_atual(),
+            null);
 
+        $promocao = $promocoesController->salvar($promocao);
+
+        foreach ($_POST['atePrecoProduto'] as $atePrecoProduto) {
+            foreach ($_POST['percentualDesconto'] as $percentualDesconto) {
+
+                $faixasDescontoController->salvar(new FaixasDesconto(null,
+                    $promocao->getId(),
+                    $atePrecoProduto,
+                    $percentualDesconto));
+
+                $key = array_search($percentualDesconto, $_POST['percentualDesconto']);
+                unset($_POST['percentualDesconto'][$key]);
+                break;
+            }
+        }
+
+        foreach ($_POST['produtosSelecionados'] as $produtoSelecionado) {
+            $produtosPromocaoController->salvar($promocao, $produtoSelecionado);
+        }
     }
     ?>
 
@@ -23,34 +53,38 @@ if(possui_permissao($_SESSION['login']['id_pessoa'], 26)) {
 
         <div class="panel-body">
 
-            <form action="<?php echo URL_HOST ?>/admin/form_cadastrar_promocoes.php" method="post">
+            <form action="<?php echo URL_HOST ?>/admin/form_cadastrar_promocoes.php" method="post" id="formPromocoes">
 
                 <div class="row">
 
                     <div class="col-lg-4">
 
-                        <label for="nome">Nome:</label>
-                        <input id="nome" name="nome" type="text" class="form-control input-lg">
-
-                        <label for="email">Email: </label>
-                        <input id="email" name="email" type="email" class="form-control input-lg">
+                        <label for="descricao">Descrição:</label>
+                        <textarea rows="3" id="descricao" name="descricao" type="text" class="form-control input-lg"></textarea>
 
                     </div>
 
                     <div class="col-lg-4">
 
-                        <label for="cpf">CPF: </label>
-                        <input id="cpf" name="cpf" type="text" class="form-control input-lg">
-
-                        <label for="senha">Senha: </label>
-                        <input id="senha" name="senha" type="password" class="form-control input-lg">
+                        <label for="dataInicio">Data de início: </label>
+                        <div class="input-group date data_formato" data-date-format="dd/mm/yyyy HH:ii:ss">
+                            <input class="form-control" type="text" name="dataInicio">
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-th"></span>
+                            </span>
+                        </div>
 
                     </div>
 
                     <div class="col-lg-4">
 
-                        <label for="numeroTelefone">Número de telefone: </label>
-                        <input id="numeroTelefone" name="numeroTelefone" type="text" class="form-control input-lg">
+                        <label for="dataFim">Data de encerramento: </label>
+                        <div class="input-group date data_formato" data-date-format="dd/mm/yyyy HH:ii:ss">
+                            <input class="form-control" type="text" name="dataFim">
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-th"></span>
+                            </span>
+                        </div>
 
                     </div>
 
@@ -59,51 +93,32 @@ if(possui_permissao($_SESSION['login']['id_pessoa'], 26)) {
                 <hr/>
 
                 <div class="row">
+                    <h4 style="padding-left: 15px"><b>Faixa de desconto</b></h4><br/>
+
                     <div class="col-lg-4">
 
-                        <label for="estado">Estado: </label>
-                        <select id="estado" name="estado" class="form-control input-lg">
-                            <?php
-                            $estadosController = new EstadosController();
-                            foreach ($estadosController->getAll() as $estado) {
-                                echo "<option value='" . $estado->getId() . "'> " . $estado->getNome() . "</option>";
-                            }
-                            ?>
-                        </select>
-
-                        <label for="bairro">Bairro: </label>
-                        <input id="bairro" name="bairro" type="text" class="form-control input-lg">
-
-                        <label for="complemento">Complemento: </label>
-                        <input id="complemento" name="complemento" type="text" class="form-control input-lg">
+                        <label for="atePrecoProduto[]">Preço do produto:</label>
+                        <input id="atePrecoProduto" name="atePrecoProduto[]" type="text" class="form-control input-lg">
 
                     </div>
 
                     <div class="col-lg-4">
 
-                        <label for="cidade">Cidade: </label>
-                        <select id="cidade" name="cidade" class="form-control input-lg">
-                            <?php
-                            $cidadesController = new CidadesController();
-                            foreach ($cidadesController->getAll() as $cidade) {
-                                echo "<option value='" . $cidade->getId() . "'> " . $cidade->getNome() . "</option>";
-                            }
-                            ?>
-                        </select>
-
-
-                        <label for="numero">Número da casa: </label>
-                        <input id="numero" name="numero" type="text" class="form-control input-lg">
+                        <label for="percentualDesconto[]">Percentual de desconto:</label>
+                        <input id="percentualDesconto" name="percentualDesconto[]" type="text" class="form-control input-lg">
 
                     </div>
 
+                </div>
+
+                <div id="adicionarFaixaDesconto"></div>
+
+                <div class="row">
+
                     <div class="col-lg-4">
 
-                        <label for="rua">Rua: </label>
-                        <input id="rua" name="rua" type="text" class="form-control input-lg">
-
-                        <label for="cep">CEP: </label>
-                        <input id="cep" name="cep" type="text" class="form-control input-lg">
+                        <br/>
+                        <button onclick="adicionar()" type="button" class="btn btn-lg btn-default">Adicionar</button>
 
                     </div>
 
@@ -112,72 +127,28 @@ if(possui_permissao($_SESSION['login']['id_pessoa'], 26)) {
                 <hr/>
 
                 <div class="row">
-                    <h4 style="padding-left: 15px"><strong>Permissões</strong></h4><br/>
+                    <h4 style="padding-left: 15px"><b>Produtos participantes</b></h4><br/>
 
                     <div class="col-lg-4">
-
-                        <label for="permissoesAdmin[]">Administradores: </label><br/>
-                        <?php
-                        $permissoes = $permissoesController->getByNomePermissoes('administradores');
-                        foreach ($permissoes as $permissao) {
-                            echo "<input id='permissoesAdmin' name='permissoesAdmin[]' type='checkbox' 
-                            class='checkbox-inline input-lg' value='" . $permissao->getId() . "'> " . ucfirst(str_replace('administradores__', "", $permissao->getNome())) . "<br/>";
-                        }
-                        ?>
-
-                        <label for="permissoesCategoria[]">Categoria de produtos: </label><br/>
-                        <?php
-                        $permissoes = $permissoesController->getByNomePermissoes('categoria');
-                        foreach ($permissoes as $permissao) {
-                            echo "<input id='permissoesCategoria' name='permissoesCategoria[]' type='checkbox' 
-                            class='checkbox-inline input-lg' value='" . $permissao->getId() . "'> " . ucfirst(str_replace('categoria_produtos__', "", $permissao->getNome())) . "<br/>";
-                        }
-                        ?>
+                        <label for="produtos">Produtos: </label>
+                        <select id="produtos" name="produtos" class="form-control input-lg" onchange="consultar('#listaProdutos', 'produtos', 'getListProdutos', this.value)">
+                            <?php
+                            $produtosController = new ProdutosController();
+                            foreach ($produtosController->getAll() as $produto) {
+                                echo "<option value='" . $produto->getId() . "'> " . $produto->getNome() . "</option>";
+                            }
+                            ?>
+                        </select>
 
                     </div>
 
-                    <div class="col-lg-4">
+                </div>
 
-                        <label for="permissoesClientes[]">Clientes: </label><br/>
-                        <?php
-                        $permissoes = $permissoesController->getByNomePermissoes('clientes');
-                        foreach ($permissoes as $permissao) {
-                            echo "<input id='permissoesClientes' name='permissoesClientes[]' type='checkbox' 
-                            class='checkbox-inline input-lg' value='" . $permissao->getId() . "'> " . ucfirst(str_replace('clientes__', "", $permissao->getNome())) . "<br/>";
-                        }
-                        ?>
+                <br/>
+                <div class="row">
 
-                        <label for="permissoesVendas[]">Vendas: </label><br/>
-                        <?php
-                        $permissoes = $permissoesController->getByNomePermissoes('vendas');
-                        foreach ($permissoes as $permissao) {
-                            echo "<input id='permissoesVendas' name='permissoesVendas[]' type='checkbox' 
-                            class='checkbox-inline input-lg' value='" . $permissao->getId() . "'> " . ucfirst(str_replace('vendas__', "", $permissao->getNome())) . "<br/>";
-                        }
-                        ?>
-
-                    </div>
-
-                    <div class="col-lg-4">
-
-                        <label for="permissoesProdutos[]">Produtos: </label><br/>
-                        <?php
-                        $permissoes = $permissoesController->getByNomePermissoes('produtos');
-                        foreach ($permissoes as $permissao) {
-                            echo "<input id='permissoesProdutos' name='permissoesProdutos[]' type='checkbox' 
-                            class='checkbox-inline input-lg' value='" . $permissao->getId() . "'> " . ucfirst(str_replace('produtos__', "", $permissao->getNome())) . "<br/>";
-                        }
-                        ?>
-
-                        <label for="permissoesPromo[]" style="padding-top: 50px">Promoções: </label><br/>
-                        <?php
-                        $permissoes = $permissoesController->getByNomePermissoes('promocoes');
-                        foreach ($permissoes as $permissao) {
-                            echo "<input id='permissoesPromo' name='permissoesPromo[]' type='checkbox' 
-                            class='checkbox-inline input-lg' value='" . $permissao->getId() . "'> " . ucfirst(str_replace('promocoes__', "", $permissao->getNome())) . "<br/>";
-                        }
-                        ?>
-
+                    <div class="col-lg-4" id="adicionarListaProdutos">
+                        <ul id="listaProdutos" class="list-group" style="list-style-type: none"></ul>
                     </div>
 
                 </div>
@@ -191,9 +162,64 @@ if(possui_permissao($_SESSION['login']['id_pessoa'], 26)) {
 
     </div>
 
+    <script>
+        function adicionar() {
+            $('#adicionarFaixaDesconto').append('<div class="row">\n' +
+                '\n' +
+                '                        <div class="col-lg-4">\n' +
+                '\n' +
+                '                            <label for="atePrecoProduto[]">Preço do produto:</label>\n' +
+                '                            <input id="atePrecoProduto" name="atePrecoProduto[]" type="text" class="form-control input-lg">\n' +
+                '\n' +
+                '                        </div>\n' +
+                '\n' +
+                '                        <div class="col-lg-4">\n' +
+                '\n' +
+                '                            <label for="percentualDesconto[]">Percentual de desconto:</label>\n' +
+                '                            <input id="percentualDesconto" name="percentualDesconto[]" type="text" class="form-control input-lg">\n' +
+                '\n' +
+                '                        </div>\n' +
+                '\n' +
+                '                    </div>');
+        }
+
+        var i =0;
+        function consultar(element, controller, method, data) {
+            if(i == 0) {
+                $('#adicionarListaProdutos').prepend('<label>Produtos selecionados: </label>');
+                i++;
+            }
+            $.ajax({
+                type: "POST",
+                url: "../call_webservice.php?request=get",
+                data: "controller=" + controller + "&method=" + method + "&data=" + data,
+                success: function (response) {
+                    $(element).append(response);
+                }
+            });
+        }
+    </script>
+
     <?php
 
     include_once 'footer.php';
+    ?>
+
+    <script type="text/javascript">
+        $('.data_formato').datetimepicker({
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            forceParse: 0,
+            showMeridian: 1,
+            language: 'pt-BR',
+            startDate: '+0d'
+        });
+    </script>
+
+<?php
 } else {
     echo 'Um erro aconteceu, por favor revise suas credenciais.';
 }

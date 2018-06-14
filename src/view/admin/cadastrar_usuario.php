@@ -108,6 +108,8 @@ if(possui_permissao($_SESSION['login']['id_pessoa'], 19)) {
                 <hr/>
 
                 <div class="row">
+                    <h4 style="padding-left: 15px"><b>Endereço</b></h4><br/>
+
                     <div class="col-lg-4">
 
                         <label for="estado">Estado: </label>
@@ -161,7 +163,7 @@ if(possui_permissao($_SESSION['login']['id_pessoa'], 19)) {
                 <hr/>
 
                 <div class="row">
-                    <h4 style="padding-left: 15px"><strong>Permissões</strong></h4><br/>
+                    <h4 style="padding-left: 15px"><b>Permissões</b></h4><br/>
 
                     <div class="col-lg-4">
 
