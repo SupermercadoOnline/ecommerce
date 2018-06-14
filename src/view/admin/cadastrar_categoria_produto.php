@@ -49,6 +49,7 @@ if($_POST["Cadastrar"]){
                     </div>
                 </div>
                 <div class="row">
+                    <br>
                     <input name= "Cadastrar" type="submit" class="btn btn-primary center-block" value="Salvar">
                 </div>
             </form>
