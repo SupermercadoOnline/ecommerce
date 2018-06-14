@@ -64,8 +64,8 @@ switch($_GET['request']){
 
                             $status = ($pessoa->getIsAtivo()) ? 'Ativo' : 'Inativo';
                             $linkAlteraStatus = (!$pessoa->getIsAtivo())
-                                ? '<a href="' . URL_HOST . '/admin/form_visualizar_usuario.php?ativar=' . $pessoa->getId() . '">Ativar</a>'
-                                : '<a href="' . URL_HOST . '/admin/form_visualizar_usuario.php?inativar=' . $pessoa->getId() . '">Inativar</a>';
+                                ? '<a href="' . URL_HOST . '/admin/visualizar_usuario.php?ativar=' . $pessoa->getId() . '">Ativar</a>'
+                                : '<a href="' . URL_HOST . '/admin/visualizar_usuario.php?inativar=' . $pessoa->getId() . '">Inativar</a>';
                             $output .= '<tr>
                                     <td>' . $pessoa->getNome() . '</td>
                                     <td>' . $pessoa->getCPF() . '</td>
