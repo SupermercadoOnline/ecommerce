@@ -13,7 +13,7 @@ $id_pessoa = $_SESSION['login']['id_pessoa'];
 
     <div class="container">
 
-        <a href="#" class="navbar-brand" style="margin-top: -20px">
+        <a href="#" class="navbar-brand" style="margin-top: -20px; margin-left: -15px">
             <h3>Supermercado na</h3>
             <img src="<?php echo URL_IMG_DIR ?>/logo3.png" style="margin-top: -55px; margin-left: 170px" alt="Brand" align="right">
         </a>
@@ -84,6 +84,27 @@ $id_pessoa = $_SESSION['login']['id_pessoa'];
                         <li>
                             <a href="<?php echo URL_HOST ?>/admin/form_cadastrar_categoria_produto.php">
                                 <b>Cadastrar categorias</b>
+                            </a>
+                        </li>
+                        <?php
+                    }
+                    ?>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" id="navbarDropdownUsuarios" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <b>
+                        Promoções
+                        <span class="caret"></span>
+                    </b>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdownUsuarios">
+                    <?php
+                    if (possui_permissao($id_pessoa,26)) {
+                        ?>
+                        <li>
+                            <a href="<?php echo URL_HOST?>/admin/form_cadastrar_promocoes.php">
+                                <b>Nova</b>
                             </a>
                         </li>
                         <?php

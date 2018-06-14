@@ -10,6 +10,7 @@ include_once ROOT_PATH . '/controller/TelefonesController.php';
 include_once ROOT_PATH . '/controller/EnderecosController.php';
 include_once ROOT_PATH . '/controller/CidadesController.php';
 include_once ROOT_PATH . '/controller/EstadosController.php';
+include_once ROOT_PATH . '/controller/ProdutosController.php';
 
 $permissoesController = new PermissoesUsuarioController();
 $pessoasController = new PessoasController();
@@ -18,6 +19,7 @@ $telefonesController = new TelefonesController();
 $enderecosController = new EnderecosController();
 $cidadesController = new CidadesController();
 $estadosController = new EstadosController();
+$produtosController = new ProdutosController();
 
 switch($_GET['request']){
     case 'get':
@@ -26,10 +28,10 @@ switch($_GET['request']){
                 switch ($_POST['method']) {
                     case 'getListPermissoes':
                         $result = $permissoesController->getByPessoa($_POST['data']);
-                        $output = '<ul style="list-style-type: none">';
+                        $output = '<ul class="list-group" style="list-style-type: none">';
 
                         foreach ($result as $permissao) {
-                            $output .= '<li>' . ucfirst($permissao->getNome()) . '</li>';
+                            $output .= '<li class="list-group-item">' . ucfirst($permissao->getNome()) . '</li>';
                         }
 
                         echo $output;
@@ -111,11 +113,21 @@ switch($_GET['request']){
                         break;
 
                 }
+                break;
 
+            case 'produtos':
+                switch ($_POST['method']) {
+                    case 'getListProdutos':
+                        $result = $produtosController->getById($_POST['data']);
+                        $output = '<li class="list-group-item" id="' . $result->getId() . '">' . $result->getNome() . '</li>';
+                        $output .= '<input type="hidden" name="produtosSelecionados[]" value="' . $result->getId() . '">';
+                        echo $output;
+                        break;
+
+                }
                 break;
 
         }
-
         break;
 
 }

@@ -41,7 +41,7 @@ class PromocoesController
                 $model->getDescricao(),
                 data_br_to_data_php((string) $model->getDataInicio()),
                 data_br_to_data_php((string) $model->getDataFim()),
-                data_br_to_data_php((string) $model->getDataCadastro())
+                $model->getDataCadastro()
             );
 
             $result = MySqlDAO::executeQuery($query, $params);

@@ -131,6 +131,7 @@ if(possui_permissao($idPessoa, 20)) {
                     <hr/>
 
                     <div class="row">
+                        <h4 style="padding-left: 15px"><b>Endereço</b></h4><br/>
 
                         <div class="col-lg-4">
 
