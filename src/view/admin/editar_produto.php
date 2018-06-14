@@ -50,11 +50,11 @@ include_once 'header.php';
                                     <?php
                                     $categoriasDAO = new CategoriaProdutosController();
 
-                                    foreach ($categoriasDAO->getAll() as $categoriaBean) {
+                                    foreach ($categoriasDAO->retornePorStatus(true) as $categoriaBean) {
                                         if ($categoriaBean instanceof CategoriaProdutos) {
 
-                                            $selected = $produto->getIdCategoria() == $categoriaBean->getId() ? 'selected' : null;
-                                            echo "<option value='".$categoriaBean->getId()."'>".$categoriaBean->getNome()."</option>";
+                                            $selected = ($produto->getIdCategoria() == $categoriaBean->getId()) ? 'selected' : null;
+                                            echo "<option value='".$categoriaBean->getId()."'. $selected . '>".$categoriaBean->getNome()."</option>";
 
                                         }
                                     }
