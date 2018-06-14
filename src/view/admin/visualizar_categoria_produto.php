@@ -116,7 +116,7 @@ if (!empty($_GET["desativar"])) {
                                         <td><?php echo $status ?> </td>
                                         <td>
                                             <a  class="btn btn-danger" href="/admin/visualizar_categoria_produtos.php?desativar=<?php echo $categoriasBean->getId() ?>">Desativar</a>
-                                            <a  class ="btn btn-primary" href="/admin/form_editar_categorias_produto.php?editar=<?php echo $categoriasBean->getId() ?>">Editar</a>
+                                            <a  class ="btn btn-primary" href="/admin/form_editar_categoria_produtos.php?editar=<?php echo $categoriasBean->getId() ?>">Editar</a>
                                         </td>
                                     </tr>
 
