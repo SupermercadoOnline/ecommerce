@@ -68,11 +68,10 @@ switch($_GET['request']){
                             $permissoes = $permissoesController->getByPessoa($pessoa->getId());
 
                             $status = ($pessoa->getIsAtivo()) ? 'Ativo' : 'Inativo';
-<<<<<<< HEAD
+
                             $linkAlteraStatus = (!$pessoa->getIsAtivo())
                                 ? '<a href="' . URL_HOST . '/admin/visualizar_usuario.php?ativar=' . $pessoa->getId() . '">Ativar</a>'
                                 : '<a href="' . URL_HOST . '/admin/visualizar_usuario.php?inativar=' . $pessoa->getId() . '">Inativar</a>';
-=======
 
                             if(possui_permissao($_SESSION['login']['id_pessoa'], 24)) {
                                 $linkAlteraStatus = (!$pessoa->getIsAtivo())
@@ -84,7 +83,6 @@ switch($_GET['request']){
                                 $linkEditar = '<a href="' . URL_HOST. '/admin/form_editar_usuario.php?editar=' . $pessoa->getId() . '">Editar</a>';
                             }
 
->>>>>>> develop
                             $output .= '<tr>
                                     <td>' . $pessoa->getNome() . '</td>
                                     <td>' . $pessoa->getCPF() . '</td>
