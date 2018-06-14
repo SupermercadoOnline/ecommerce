@@ -1,8 +1,9 @@
 <?php
-include_once 'header.php';
+include_once "../../configs.php";
 include_once ROOT_PATH . '/controller/CategoriaProdutosController.php';
 include_once ROOT_PATH . '/model/Produtos.php';
 include_once ROOT_PATH . '/controller/ProdutosController.php';
+include_once 'header.php';
 
 if($_GET["ativar"]){
     $id = $_GET["ativar"];
@@ -15,7 +16,7 @@ if($_GET["ativar"]){
 
             <div class="panel-body">
                 <div class="row">
-                    <div class="alert alert-success col-lg-4">
+                    <div class="alert alert-success col-lg-12">
                         Produto ativado com sucesso!
                         <button class="close" data-dismiss="alert">X</button>
                     </div>
@@ -28,7 +29,7 @@ if($_GET["ativar"]){
 
             <div class="panel-body">
                 <div class="row">
-                    <div class="alert alert-danger col-lg-4">
+                    <div class="alert alert-danger col-lg-12">
                         Não foi possível ativar o produto!
                         <button class="close" data-dismiss="alert">X</button>
                     </div>
@@ -56,10 +57,10 @@ if($_GET["ativar"]){
 
                 <div class="col-lg-12">
                     <label for="exibir">Exibir cadastros</label>
-                    <a href="visualizar_produtos.php">Ativos </a>
+                    <a class="btn btn-primary" href="visualizar_produto.php">Ativos </a>
 
                     <div class="table-responsive">
-
+                        <br>
                         <table class="table table-bordered table-hover table-striped">
                             <thead>
                             <tr>
@@ -77,7 +78,7 @@ if($_GET["ativar"]){
                             $categoriasDao = new CategoriaProdutosController();
 
                             foreach ($produtosDao->retornePorStatus(false) as $produtoBean) {
-                                $categoriaBean = $categoriasDao->getCategoriaPorId($produtoBean->getIdCatergoria());
+                                $categoriaBean = $categoriasDao->getById($produtoBean->getIdCategoria());
                                 if ($produtoBean instanceof Produtos && $categoriaBean instanceof CategoriaProdutos) {
 
                                     if($produtoBean->getIsAtivo()){
@@ -94,7 +95,7 @@ if($_GET["ativar"]){
                                 <td><?php echo $categoriaBean->getNome() ?> </td>
                                 <td><?php echo $status ?> </td>
                                 <td>
-                                    <a href="visualizar_produtos_inativos.php?ativar=<?php $produtoBean->getId() ?>">Ativar</a>
+                                    <a class="btn btn-primary" href="visualizar_produtos_inativos.php?ativar=<?php echo $produtoBean->getId() ?>">Ativar</a>
                                 </td>
                             </tr>
 
