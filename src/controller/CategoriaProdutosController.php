@@ -36,16 +36,14 @@ class CategoriaProdutosController
         return $categoriaBean;
     }
 
-
     protected function insert($categoriasBean)
     {
         $query = "INSERT INTO categoria_produtos (nome) values (?)";
         $parametros = array(
 
             $categoriasBean->getNome()
-
-
         );
+
         $result = MySqlDAO::executeQuery($query, $parametros);
         if($result != false){
 
@@ -53,13 +51,9 @@ class CategoriaProdutosController
             return $categoriasBean;
 
         }
-
-
-
     }
 
     protected function update($categoriasBean){
-
 
         if($categoriasBean instanceof CategoriaProdutos){
 
@@ -78,9 +72,8 @@ class CategoriaProdutosController
         return false;
     }
 
+    public function salvar($categoriasBean){
 
-    public function salvar($categoriasBean)
-    {
         if($categoriasBean instanceof CategoriaProdutos){
 
             if(empty($categoriasBean->getId()))
@@ -100,6 +93,18 @@ class CategoriaProdutosController
         if($categorias instanceof CategoriaProdutos){
 
             $categorias->setIsAtivo(false);
+            return $this->update($categorias);
+        }
+
+        return false;
+    }
+
+
+    public function ativar($categorias){
+
+        if($categorias instanceof CategoriaProdutos){
+
+            $categorias->setIsAtivo(true);
             return $this->update($categorias);
         }
 
