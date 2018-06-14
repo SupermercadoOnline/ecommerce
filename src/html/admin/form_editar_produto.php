@@ -1,7 +1,2 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: kesle
- * Date: 14/06/2018
- * Time: 12:25
- */
+include_once '../../view/admin/editar_produto.php';
