@@ -4,6 +4,32 @@ include_once ROOT_PATH . '/controller/CategoriaProdutosController.php';
 include_once ROOT_PATH . '/model/Produtos.php';
 include_once ROOT_PATH . '/controller/ProdutosController.php';
 
+if(isset($_GET["retorno_edicao"])) {
+    if (empty($_GET["retorno_edicao"])) {
+        ?>
+        <div class="row">
+            <div class="alert alert-success">
+                Não foi possivel alterar este produto!
+                <button class="close" data-dismiss="alert">X</button>
+            </div>
+        </div>
+
+        <?php
+    } else {
+        ?>
+
+        <div class="row">
+            <div class="alert alert-success">
+                Produto alterado com sucesso!
+                <button class="close" data-dismiss="alert">X</button>
+            </div>
+        </div>
+
+        <?php
+
+    }
+}
+
 if($_GET["desativar"]){
     $id = $_GET["desativar"];
     $produtoDao = new ProdutosController();
@@ -15,7 +41,7 @@ if($_GET["desativar"]){
 
             <div class="panel-body">
                 <div class="row">
-                    <div class="alert alert-success col-lg-4">
+                    <div class="alert alert-success col-lg-12">
                         Produto inativado com sucesso!
                         <button class="close" data-dismiss="alert">X</button>
                     </div>
@@ -28,7 +54,7 @@ if($_GET["desativar"]){
 
             <div class="panel-body">
                 <div class="row">
-                    <div class="alert alert-danger col-lg-4">
+                    <div class="alert alert-danger col-lg-12">
                         Não foi possível inativar o produto!
                         <button class="close" data-dismiss="alert">X</button>
                     </div>
@@ -56,10 +82,10 @@ if($_GET["desativar"]){
 
                     <div class="col-lg-12">
                         <label for="exibir">Exibir cadastros</label>
-                        <a href="visualizar_produtos_inativos.php">Inativos </a>
+                        <a class="btn btn-primary" href="/admin/visualizar_produtos_inativos.php">Inativos </a>
 
                         <div class="table-responsive">
-
+                            <br>
                             <table class="table table-bordered table-hover table-striped">
                                 <thead>
                                 <tr>
@@ -94,8 +120,8 @@ if($_GET["desativar"]){
                                             <td><?php echo $categoriaBean->getNome() ?> </td>
                                             <td><?php echo $status ?> </td>
                                             <td>
-                                                <a href="visualizar_produtos.php?desativar=<?php $produtoBean->getId() ?>">Desativar</a>
-                                                <a href="editar_produto.php?editar=<?php $produtoBean->getId() ?>">Editar</a>
+                                                <a class="btn btn-primary" href="/admin/form_editar_produto.php?editar=<?php echo $produtoBean->getId() ?>">Editar</a>
+                                                <a class="btn bg-danger" href="/admin/visualizar_produto.php?desativar=<?php echo $produtoBean->getId() ?>">Desativar</a>
                                             </td>
                                         </tr>
 
