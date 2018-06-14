@@ -72,7 +72,7 @@ $id_pessoa = $_SESSION['login']['id_pessoa'];
                     if(possui_permissao($id_pessoa, 6)) {
                         ?>
                         <li>
-                            <a href="<?php echo URL_HOST ?>/admin/form_visualizar_produto.php" class="dropdown-item">
+                            <a href="<?php echo URL_HOST ?>/admin/visualizar_produto.php" class="dropdown-item">
                                 <b>Visualizar</b>
                             </a>
                         </li>
