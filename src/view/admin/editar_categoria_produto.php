@@ -28,7 +28,7 @@ if(!empty($_GET["editar"])){
 
         <div class="panel-body">
 
-            <form action="<?php echo URL_HOST ?>/admin/editar_categorias_produto.php" method="post">
+            <form action="<?php echo URL_HOST ?>/admin/editar_categoria_produtos.php" method="post">
 
                 <input type="hidden" name="id" value="<?php echo $categoriasBEAN->getId()?>">
 
