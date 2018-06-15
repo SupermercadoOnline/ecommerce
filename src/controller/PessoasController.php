@@ -134,4 +134,15 @@ class PessoasController
         }
         return false;
     }
+
+
+
+    public function getByTipo($tipo){
+        return $this->select(
+            "select * from pessoas inner join tipo_pessoa on pessoas.id = tipo_pessoa.id_pessoa where id_tipo = '$tipo'"
+        );
+
+    }
+
+
 }
