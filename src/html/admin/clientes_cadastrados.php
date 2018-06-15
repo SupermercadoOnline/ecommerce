@@ -1,7 +1,2 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: lucas
- * Date: 14/06/2018
- * Time: 21:19
- */
+include_once '../../view/admin/clientes_cadastrados.php';
