@@ -14,9 +14,11 @@ if(!empty($_POST["cadastrar"])){
         ?>
 
         <div class="row">
-            <div class="alert alert-success">
-                Produto cadastrado com sucesso!
-                <button class="close" data-dismiss="alert">X</button>
+            <div class="container">
+                <div class="alert alert-success">
+                    Produto cadastrado com sucesso!
+                    <button class="close" data-dismiss="alert">&times;</button>
+                </div>
             </div>
         </div>
 
@@ -25,9 +27,11 @@ if(!empty($_POST["cadastrar"])){
         ?>
 
         <div class="row">
-            <div class="alert alert-danger">
-                Não foi possível cadastrar este produto!
-                <button class="close" data-dismiss="alert">X</button>
+            <div class="container">
+                <div class="alert alert-danger">
+                    Não foi possível cadastrar este produto!
+                    <button class="close" data-dismiss="alert">&times;</button>
+                </div>
             </div>
         </div>
 
@@ -69,7 +73,7 @@ if(!empty($_POST["cadastrar"])){
                             <?php
                             $categoriasDAO = new CategoriaProdutosController();
 
-                            foreach ($categoriasDAO->getAll() as $categoriaBean){
+                            foreach ($categoriasDAO->retornePorStatus(true) as $categoriaBean){
                                 if($categoriaBean instanceof CategoriaProdutos){
                                     ?>
 
