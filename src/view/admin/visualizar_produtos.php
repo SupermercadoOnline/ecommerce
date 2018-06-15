@@ -7,22 +7,25 @@ include_once ROOT_PATH . '/controller/ProdutosController.php';
 if(isset($_GET["retorno_edicao"])) {
     if (empty($_GET["retorno_edicao"])) {
         ?>
+        <div class="panel-body">
         <div class="row">
-            <div class="alert alert-success">
-                Não foi possivel alterar este produto!
-                <button class="close" data-dismiss="alert">X</button>
-            </div>
+                <div class="alert alert-danger">
+                    Não foi possivel alterar este produto!
+                    <button class="close" data-dismiss="alert">&times;</button>
+                </div>
+        </div>
         </div>
 
         <?php
     } else {
         ?>
-
+        <div class="panel-body">
         <div class="row">
-            <div class="alert alert-success">
-                Produto alterado com sucesso!
-                <button class="close" data-dismiss="alert">X</button>
-            </div>
+                <div class="alert alert-success">
+                    Produto alterado com sucesso!
+                    <button class="close" data-dismiss="alert">&times;</button>
+                </div>
+        </div>
         </div>
 
         <?php
@@ -41,11 +44,11 @@ if($_GET["desativar"]){
 
             <div class="panel-body">
                 <div class="row">
-                    <div class="alert alert-success col-lg-12">
-                        Produto inativado com sucesso!
-                        <button class="close" data-dismiss="alert">X</button>
+                        <div class="alert alert-success">
+                            Produto inativado com sucesso!
+                            <button class="close" data-dismiss="alert">&times;</button>
+                        </div>
                     </div>
-                </div>
             </div>
 
             <?php
@@ -53,12 +56,12 @@ if($_GET["desativar"]){
             ?>
 
             <div class="panel-body">
-                <div class="row">
-                    <div class="alert alert-danger col-lg-12">
-                        Não foi possível inativar o produto!
-                        <button class="close" data-dismiss="alert">X</button>
+                    <div class="row">
+                            <div class="alert alert-danger">
+                                Não foi possível inativar o produto!
+                                <button class="close" data-dismiss="alert">&times;</button>
+                            </div>
                     </div>
-                </div>
             </div>
 
             <?php
@@ -121,7 +124,7 @@ if($_GET["desativar"]){
                                             <td><?php echo $status ?> </td>
                                             <td>
                                                 <a class="btn btn-primary" href="/admin/form_editar_produto.php?editar=<?php echo $produtoBean->getId() ?>">Editar</a>
-                                                <a class="btn bg-danger" href="/admin/visualizar_produto.php?desativar=<?php echo $produtoBean->getId() ?>">Desativar</a>
+                                                <a class="btn btn-danger" href="/admin/visualizar_produto.php?desativar=<?php echo $produtoBean->getId() ?>">Desativar</a>
                                             </td>
                                         </tr>
 

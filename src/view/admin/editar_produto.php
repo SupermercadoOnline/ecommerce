@@ -39,27 +39,33 @@ include_once 'header.php';
 
                             <div class="col-lg-2">
                                 <label for="preco">Preço</label>
-                                <input id="preco" name="preco" type="text" value="<?php echo $produto->getPreco() ?>" class="form-control input-lg">
+                                <input id="preco" name="preco" type="text" value="<?php echo $produto->getPreco() ?>" class="form-control input-lg mascara-reais">
                             </div>
 
                             <div class="col-lg-3">
 
                                 <label for="categoria">Categoria</label>
 
-                                <select name="categoria" class="form-control input-lg">
-                                    <?php
-                                    $categoriasDAO = new CategoriaProdutosController();
+                                <div class="form-group-lg">
+                                    <select name="categoria" class="form-control selectpicker">
+                                        <?php
+                                        $categoriasDAO = new CategoriaProdutosController();
 
-                                    foreach ($categoriasDAO->getAll() as $categoriaBean) {
-                                        if ($categoriaBean instanceof CategoriaProdutos) {
+                                        foreach ($categoriasDAO->retornePorStatus(true) as $categoriaBean) {
+                                            if ($categoriaBean instanceof CategoriaProdutos) {
 
-                                            $selected = $produto->getIdCategoria() == $categoriaBean->getId() ? 'selected' : null;
-                                            echo "<option value='".$categoriaBean->getId()."'>".$categoriaBean->getNome()."</option>";
+                                                $selected = ($produto->getIdCategoria() == $categoriaBean->getId()) ? 'selected' : null;
+                                                ?>
+                                                <option value='<?php echo $categoriaBean->getId() ?>' <?php echo $selected ?> >
+                                                    <?php echo $categoriaBean->getNome()?>
+                                                </option>
 
+                                                <?php
+                                            }
                                         }
-                                    }
-                                    ?>
-                                </select>
+                                        ?>
+                                    </select>
+                                </div>
                             </div>
 
                         </div>

@@ -16,10 +16,11 @@ if($_GET["ativar"]){
 
             <div class="panel-body">
                 <div class="row">
-                    <div class="alert alert-success col-lg-12">
+                    <div class="alert alert-success">
                         Produto ativado com sucesso!
-                        <button class="close" data-dismiss="alert">X</button>
+                        <button class="close" data-dismiss="alert">&times;</button>
                     </div>
+
                 </div>
             </div>
 
@@ -29,11 +30,13 @@ if($_GET["ativar"]){
 
             <div class="panel-body">
                 <div class="row">
-                    <div class="alert alert-danger col-lg-12">
+
+                    <div class="alert alert-danger">
                         Não foi possível ativar o produto!
-                        <button class="close" data-dismiss="alert">X</button>
+                        <button class="close" data-dismiss="alert">&times;</button>
                     </div>
                 </div>
+
             </div>
 
             <?php
