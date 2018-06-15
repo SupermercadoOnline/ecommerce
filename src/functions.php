@@ -139,6 +139,19 @@ function remover_mascara_reais($valor){
     return (float)number_format($valor, 2, '.', '');
 }
 
+function aplicar_mascara_cpf_cnpj($cpf_cnpj){
+    $cpf_cnpj = get_somente_numeros_string($cpf_cnpj);
+    if(is_cpf_valido($cpf_cnpj))
+        return format_string('###.###.###-##', $cpf_cnpj);
+    elseif(is_cnpj_valido($cpf_cnpj))
+        return format_string('##.###.###/####-##', $cpf_cnpj);
+
+    return $cpf_cnpj;
+}
+function remover_mascara_cpf_cnpj($cpf_cnpj){
+    return get_somente_numeros_string($cpf_cnpj);
+}
+
 function is_cpf_valido($cpf){
 
     $cpf = (string)$cpf;
@@ -238,4 +251,19 @@ function is_cnpj_valido($cnpj){
 
     return false;
 
+}
+
+function format_string($mask, $str, $ch = '#') {
+    $c = 0;
+    $rs = '';
+    for ($i = 0; $i < strlen($mask); $i++) {
+        if ($mask[$i] == $ch) {
+            $rs .= $str[$c];
+            $c++;
+        } else {
+            $rs .= $mask[$i];
+        }
+    }
+
+    return $rs;
 }
