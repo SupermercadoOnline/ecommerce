@@ -138,3 +138,104 @@ function remover_mascara_reais($valor){
 
     return (float)number_format($valor, 2, '.', '');
 }
+
+function is_cpf_valido($cpf){
+
+    $cpf = (string)$cpf;
+    $cpf_length = strlen($cpf);
+    if($cpf_length >= 11 && $cpf_length <= 14){
+
+        $cpf = get_somente_numeros_string($cpf);
+        if(!empty($cpf)){
+
+            $d1 = 0;
+            $d2 = 0;
+            $ignore_list = array(
+                '00000000000',
+                '01234567890',
+                '11111111111',
+                '22222222222',
+                '33333333333',
+                '44444444444',
+                '55555555555',
+                '66666666666',
+                '77777777777',
+                '88888888888',
+                '99999999999'
+            );
+            if(strlen($cpf) != 11 || in_array($cpf, $ignore_list)){
+                return false;
+            } else {
+                for($i = 0; $i < 9; $i++){
+                    $d1 += $cpf[$i] * (10 - $i);
+                }
+                $r1 = $d1 % 11;
+                $d1 = ($r1 > 1) ? (11 - $r1) : 0;
+                for($i = 0; $i < 9; $i++) {
+                    $d2 += $cpf[$i] * (11 - $i);
+                }
+                $r2 = ($d2 + ($d1 * 2)) % 11;
+                $d2 = ($r2 > 1) ? (11 - $r2) : 0;
+
+                return substr($cpf, -2) == $d1 . $d2;
+            }
+
+        }
+
+    }
+
+    return false;
+
+}
+
+function is_cnpj_valido($cnpj){
+
+    $cnpj = (string)$cnpj;
+    $length_cnpj = strlen($cnpj);
+    if($length_cnpj >= 14 && $length_cnpj <= 18){
+
+        $cnpj = get_somente_numeros_string($cnpj);
+        if(!empty($cnpj)){
+
+            $ignore_list = array(
+                '00000000000000',
+                '01234567890123',
+                '11111111111111',
+                '22222222222222',
+                '33333333333333',
+                '44444444444444',
+                '55555555555555',
+                '66666666666666',
+                '77777777777777',
+                '88888888888888',
+                '99999999999999'
+            );
+
+            if (strlen($cnpj) != 14 || in_array($cnpj, $ignore_list))
+                return false;
+
+            for ($i = 0, $j = 5, $soma = 0; $i < 12; $i++)
+            {
+                $soma += $cnpj{$i} * $j;
+                $j = ($j == 2) ? 9 : $j - 1;
+            }
+
+            $resto = $soma % 11;
+            if ($cnpj{12} != ($resto < 2 ? 0 : 11 - $resto))
+                return false;
+
+            for ($i = 0, $j = 6, $soma = 0; $i < 13; $i++){
+                $soma += $cnpj{$i} * $j;
+                $j = ($j == 2) ? 9 : $j - 1;
+            }
+
+            $resto = $soma % 11;
+            return $cnpj{13} == ($resto < 2 ? 0 : 11 - $resto);
+
+        }
+
+    }
+
+    return false;
+
+}
