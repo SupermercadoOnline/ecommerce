@@ -7,11 +7,11 @@ include_once 'header.php';
 
 if($_GET["ativar"]){
     $id = $_GET["ativar"];
-    $produtoDao = new ProdutosController();
-    $produto = $produtoDao->getById($id);
+    $produtoController = new ProdutosController();
+    $produto = $produtoController->getById($id);
 
     if($produto instanceof Produtos){
-        if($produtoDao->ativar($produto)){
+        if($produtoController->ativar($produto)){
             ?>
 
             <div class="panel-body">
@@ -77,11 +77,11 @@ if($_GET["ativar"]){
 
                             <tbody>
                             <?php
-                            $produtosDao = new ProdutosController();
-                            $categoriasDao = new CategoriaProdutosController();
+                            $produtosController = new ProdutosController();
+                            $categoriasController = new CategoriaProdutosController();
 
-                            foreach ($produtosDao->retornePorStatus(false) as $produtoBean) {
-                                $categoriaBean = $categoriasDao->getById($produtoBean->getIdCategoria());
+                            foreach ($produtosController->retornePorStatus(false) as $produtoBean) {
+                                $categoriaBean = $categoriasController->getById($produtoBean->getIdCategoria());
                                 if ($produtoBean instanceof Produtos && $categoriaBean instanceof CategoriaProdutos) {
 
                                     if($produtoBean->getIsAtivo()){

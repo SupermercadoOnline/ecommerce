@@ -35,11 +35,11 @@ if(isset($_GET["retorno_edicao"])) {
 
 if($_GET["desativar"]){
     $id = $_GET["desativar"];
-    $produtoDao = new ProdutosController();
-    $produto = $produtoDao->getById($id);
+    $produtoController = new ProdutosController();
+    $produto = $produtoController->getById($id);
 
     if($produto instanceof Produtos){
-        if($produtoDao->delete($produto)){
+        if($produtoController->delete($produto)){
             ?>
 
             <div class="panel-body">
@@ -102,11 +102,11 @@ if($_GET["desativar"]){
 
                                 <tbody>
                                 <?php
-                                $produtosDao = new ProdutosController();
-                                $categoriasDao = new CategoriaProdutosController();
+                                $produtosController = new ProdutosController();
+                                $categoriasController = new CategoriaProdutosController();
 
-                                foreach ($produtosDao->retornePorStatus(true) as $produtoBean) {
-                                    $categoriaBean = $categoriasDao->getById($produtoBean->getIdCategoria());
+                                foreach ($produtosController->retornePorStatus(true) as $produtoBean) {
+                                    $categoriaBean = $categoriasController->getById($produtoBean->getIdCategoria());
                                     if ($produtoBean instanceof Produtos && $categoriaBean instanceof CategoriaProdutos) {
 
                                         if($produtoBean->getIsAtivo()){

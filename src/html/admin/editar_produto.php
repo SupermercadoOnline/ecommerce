@@ -6,9 +6,9 @@ if($_POST["alterar"]) {
     $produto = new Produtos($_POST["id"], $_POST["nome"], $_POST["categoria"], remover_mascara_reais($_POST["preco"]),
         $_POST["fabricante"], $_POST["descricao"], $_POST["estoque_minimo"], true);
 
-    $produtoDao = new ProdutosController();
+    $produtoController = new ProdutosController();
 
-    if ($produtoDao->salvar($produto)) {
+    if ($produtoController->salvar($produto)) {
 
         header("location: /admin/visualizar_produto.php?retorno_edicao=1");
 
