@@ -22,10 +22,10 @@ include_once 'header.php';
                 <?php
                     if($_GET["editar"]) {
                             $id = $_GET["editar"];
-                            $produtoDao = new ProdutosController();
-                            $categoriaDao = new CategoriaProdutosController();
-                            $produto = $produtoDao->getById($id);
-                            $categorias = $categoriaDao->getAll();
+                            $produtoController = new ProdutosController();
+                            $categoriaController = new CategoriaProdutosController();
+                            $produto = $produtoController->getById($id);
+                            $categorias = $categoriaController->getAll();
 
 
                         ?>
@@ -49,9 +49,9 @@ include_once 'header.php';
                                 <div class="form-group-lg">
                                     <select name="categoria" class="form-control selectpicker">
                                         <?php
-                                        $categoriasDAO = new CategoriaProdutosController();
+                                        $categoriasController = new CategoriaProdutosController();
 
-                                        foreach ($categoriasDAO->retornePorStatus(true) as $categoriaBean) {
+                                        foreach ($categoriasController->retornePorStatus(true) as $categoriaBean) {
                                             if ($categoriaBean instanceof CategoriaProdutos) {
 
                                                 $selected = ($produto->getIdCategoria() == $categoriaBean->getId()) ? 'selected' : null;

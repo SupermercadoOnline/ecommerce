@@ -8,9 +8,9 @@ if(!empty($_POST["cadastrar"])){
     $produto = new Produtos(null, $_POST["nome"], $_POST["categoria"], remover_mascara_reais($_POST["preco"]),
     $_POST["fabricante"], $_POST["descricao"], $_POST["estoque_minimo"], null);
 
-    $produtoDao = new ProdutosController();
+    $produtoController = new ProdutosController();
 
-    if($produtoDao->salvar($produto)){
+    if($produtoController->salvar($produto)){
         ?>
 
         <div class="row">
@@ -71,9 +71,9 @@ if(!empty($_POST["cadastrar"])){
                     <div class="form-group-lg">
                         <select name="categoria" class="form-control selectpicker" title="Selecione">
                             <?php
-                            $categoriasDAO = new CategoriaProdutosController();
+                            $categoriasController = new CategoriaProdutosController();
 
-                            foreach ($categoriasDAO->retornePorStatus(true) as $categoriaBean){
+                            foreach ($categoriasController->retornePorStatus(true) as $categoriaBean){
                                 if($categoriaBean instanceof CategoriaProdutos){
                                     ?>
 
