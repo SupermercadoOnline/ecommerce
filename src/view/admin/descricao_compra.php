@@ -1,15 +1,15 @@
 <?php
 include_once 'header.php';
-include_once ROOT_PATH . '/controller/CategoriaProdutosController.php';
-include_once ROOT_PATH . '/model/Produtos.php';
-include_once ROOT_PATH . '/controller/ProdutosController.php';
 include_once ROOT_PATH . '/controller/PessoasController.php';
-include_once ROOT_PATH . '/controller/TipoPessoaController.php';
+include_once ROOT_PATH . '/controller/VendasController.php';
+include_once ROOT_PATH . '/model/Pessoas.php';
 
 $pessoaController = new PessoasController();
+$vendasController = new VendasController();
 $id = $_SESSION['login']['id_pessoa'];
-$cliente = $pessoaController->getById($id);
 
+$pessoa = $pessoaController->getById($id);
+$listaVendas = $vendasController->retornePorPessoa($pessoa->getId());
 
 ?>
 
@@ -26,7 +26,7 @@ $cliente = $pessoaController->getById($id);
             <div class="row">
 
                 <div class="col-lg-12">
-                    <label for="exibir">Exibir cadastros</label>
+                    <label for="exibir">Compras</label>
 
                     <div class="table-responsive">
                         <br>
