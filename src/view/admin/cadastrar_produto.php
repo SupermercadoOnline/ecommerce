@@ -3,6 +3,7 @@ include_once 'header.php';
 include_once ROOT_PATH . '/controller/CategoriaProdutosController.php';
 include_once ROOT_PATH . '/model/Produtos.php';
 include_once ROOT_PATH . '/controller/ProdutosController.php';
+include_once ROOT_PATH . '/controller/EstoqueProdutosController.php';
 
 if(!empty($_POST["cadastrar"])){
     $produto = new Produtos(null, $_POST["nome"], $_POST["categoria"], remover_mascara_reais($_POST["preco"]),
@@ -10,7 +11,10 @@ if(!empty($_POST["cadastrar"])){
 
     $produtoController = new ProdutosController();
 
-    if($produtoController->salvar($produto)){
+    $produto = $produtoController->salvar($produto);
+    if($produto){
+        $estoqueProdutosController = new EstoqueProdutosController();
+        $estoqueProdutosController->entradaProduto($produto, $_POST['estoque_inicial']);
         ?>
 
         <div class="row">
@@ -102,6 +106,11 @@ if(!empty($_POST["cadastrar"])){
                 <div class="col-lg-4">
                     <label for="descricao">Descrição</label>
                     <input required id="descricao" name="descricao" type="text" class="form-control input-lg">
+                </div>
+
+                <div class="col-lg-2">
+                    <label for="estoque-inicial">Estoque inicial:</label>
+                    <input required id="estoque-inicial" name="estoque_inicial" min="1" type="number" class="form-control input-lg">
                 </div>
 
                 <div class="col-lg-2">
