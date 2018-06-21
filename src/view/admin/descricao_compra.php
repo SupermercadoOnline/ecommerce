@@ -2,14 +2,22 @@
 include_once 'header.php';
 include_once ROOT_PATH . '/controller/PessoasController.php';
 include_once ROOT_PATH . '/controller/VendasController.php';
+include_once ROOT_PATH . '/controller/ProdutosVendaController.php';
+include_once ROOT_PATH . '/controller/ProdutosController.php';
 include_once ROOT_PATH . '/model/Pessoas.php';
+include_once ROOT_PATH . '/model/ProdutosVenda.php';
+include_once ROOT_PATH . '/model/Produtos.php';
+include_once ROOT_PATH . '/model/Vendas.php';
 
 $pessoaController = new PessoasController();
 $vendasController = new VendasController();
 $id = $_SESSION['login']['id_pessoa'];
 
 $pessoa = $pessoaController->getById($id);
-$listaVendas = $vendasController->retornePorPessoa($pessoa->getId());
+$produtoController = new ProdutosController();
+$produtosVendaController = new ProdutosVendaController();
+
+
 
 ?>
 
@@ -33,23 +41,33 @@ $listaVendas = $vendasController->retornePorPessoa($pessoa->getId());
                         <table class="table table-bordered table-hover table-striped">
                             <thead>
                             <tr>
-                                <th>Nome</th>
+                                <th>Produto</th>
                                 <th>Preço</th>
-                                <th>Categoria</th>
-                                <th>Status</th>
-                                <th>Opções</th>
+                                <th>Data da Compra</th>
+
                             </tr>
                             </thead>
 
                             <tbody>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-
+                            <?php
+                            foreach ($vendasController->retornePorPessoa($pessoa->getId()) as $venda){
+                                if($venda instanceof Vendas){
+                                    foreach ($produtosVendaController->getByIdVenda($venda->getId()) as $produto_venda){
+                                        $idProduto = $produtosVendaController->getByIdProduto($produto_venda->getIdProduto());
+                                        $produto = $produtoController->getById($idProduto);
+                                        if($produto instanceof Produtos){
+                                            ?>
+                                            <tr>
+                                                <td><?php echo $produto->getNome()?></td>
+                                                <td><?php echo aplicar_mascara_reais($produto->getPreco())?></td>
+                                                <td><?php echo $venda->getDataVenda()?></td>
+                                            </tr>
+                                            <?php
+                                        }
+                                    }
+                                }
+                            }
+                            ?>
 
                             </tbody>
                         </table>
