@@ -9,6 +9,10 @@ class ProdutosVendaController{
         return $this->select("SELECT * FROM produtos_venda WHERE id_venda='$id'");
     }
 
+    public function getByIdProduto($id){
+        return $this->select("SELECT * FROM produtos_venda WHERE id_produto = '$id'");
+    }
+
     public function salvar($bean){
 
         if($bean instanceof ProdutosVenda){
@@ -52,7 +56,7 @@ class ProdutosVendaController{
             $result = MySqlDAO::executeQuery($query, $params);
 
             if($result != false){
-                $bean->setIdVenda();
+                $bean->setIdVenda($result);
                 return $bean;
             }
         }
