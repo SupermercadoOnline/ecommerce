@@ -56,12 +56,12 @@ if(!empty($_POST["cadastrar"])){
 
                 <div class="col-lg-4">
                     <label for="nome">Nome:</label>
-                    <input id="nome" name="nome" type="text" class="form-control input-lg">
+                    <input required id="nome" name="nome" type="text" class="form-control input-lg">
                 </div>
 
                 <div class="col-lg-2">
                     <label for="preco">Preço</label>
-                    <input id="preco" name="preco" type="text" class="form-control input-lg mascara-reais">
+                    <input required id="preco" name="preco" type="text" class="form-control input-lg mascara-reais">
                 </div>
 
                 <div class="col-lg-3">
@@ -69,7 +69,7 @@ if(!empty($_POST["cadastrar"])){
                     <label for="categoria">Categoria</label>
 
                     <div class="form-group-lg">
-                        <select name="categoria" class="form-control selectpicker" title="Selecione">
+                        <select required name="categoria" class="form-control selectpicker" title="Selecione">
                             <?php
                             $categoriasController = new CategoriaProdutosController();
 
@@ -92,9 +92,8 @@ if(!empty($_POST["cadastrar"])){
 
                 <div class="col-lg-3">
                     <label for="fabricante">Fabricante</label>
-                    <input id="fabricante" name="fabricante" type="text" class="form-control input-lg">
+                    <input required id="fabricante" name="fabricante" type="text" class="form-control input-lg">
                 </div>
-                <!--continuar com os outros atributos-->
 
             </div>
 
@@ -102,12 +101,12 @@ if(!empty($_POST["cadastrar"])){
                 <br/>
                 <div class="col-lg-4">
                     <label for="descricao">Descrição</label>
-                    <input id="descricao" name="descricao" type="text" class="form-control input-lg">
+                    <input required id="descricao" name="descricao" type="text" class="form-control input-lg">
                 </div>
 
                 <div class="col-lg-2">
                     <label for="estoque_minimo">Estoque Minimo</label>
-                    <input id="estoque_minimo" name="estoque_minimo" type="text" class="form-control input-lg">
+                    <input required id="estoque_minimo" name="estoque_minimo" type="text" class="form-control input-lg">
                 </div>
             </div>
 

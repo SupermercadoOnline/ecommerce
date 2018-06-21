@@ -34,12 +34,12 @@ include_once 'header.php';
 
                             <div class="col-lg-4">
                                 <label for="nome">Nome:</label>
-                                <input id="nome" name="nome" type="text" value="<?php echo $produto->getNome() ?>" class="form-control input-lg">
+                                <input required id="nome" name="nome" type="text" value="<?php echo $produto->getNome() ?>" class="form-control input-lg">
                             </div>
 
                             <div class="col-lg-2">
                                 <label for="preco">Preço</label>
-                                <input id="preco" name="preco" type="text" value="<?php echo $produto->getPreco() ?>" class="form-control input-lg mascara-reais">
+                                <input required id="preco" name="preco" type="text" value="<?php echo $produto->getPreco() ?>" class="form-control input-lg mascara-reais">
                             </div>
 
                             <div class="col-lg-3">
@@ -47,7 +47,7 @@ include_once 'header.php';
                                 <label for="categoria">Categoria</label>
 
                                 <div class="form-group-lg">
-                                    <select name="categoria" class="form-control selectpicker">
+                                    <select required id="categoria" name="categoria" class="form-control selectpicker">
                                         <?php
                                         $categoriasController = new CategoriaProdutosController();
 
@@ -75,17 +75,17 @@ include_once 'header.php';
 
                             <div class="col-lg-3">
                                 <label for="fabricante">Fabricante</label>
-                                <input id="fabricante" name="fabricante" type="text" value="<?php echo $produto->getFabricante() ?>" class="form-control input-lg">
+                                <input required id="fabricante" name="fabricante" type="text" value="<?php echo $produto->getFabricante() ?>" class="form-control input-lg">
                             </div>
 
                             <div class="col-lg-4">
                                 <label for="descricao">Descrição</label>
-                                <input id="descricao" name="descricao" type="text" value="<?php echo $produto->getDescricao() ?>" class="form-control input-lg">
+                                <input required id="descricao" name="descricao" type="text" value="<?php echo $produto->getDescricao() ?>" class="form-control input-lg">
                             </div>
 
                             <div class="col-lg-2">
                                 <label for="estoque_minimo">Estoque Minimo</label>
-                                <input id="estoque_minimo" name="estoque_minimo" value="<?php echo $produto->getEstoqueMinimo() ?>" type="text"
+                                <input required id="estoque_minimo" name="estoque_minimo" value="<?php echo $produto->getEstoqueMinimo() ?>" type="text"
                                        class="form-control input-lg">
                             </div>
 
