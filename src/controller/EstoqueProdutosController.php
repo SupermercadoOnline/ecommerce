@@ -83,6 +83,8 @@ class EstoqueProdutosController
             $parametros = array($produtosBean->getId());
             $result = MySqlDAO::getResult($query, $parametros)->fetch_row();
             $quantidadeEstoque = $result[0];
+            if($quantidadeEstoque == null)
+                $quantidadeEstoque = 0;
 
         }
 

@@ -3,6 +3,7 @@ include_once 'header.php';
 include_once ROOT_PATH . '/controller/CategoriaProdutosController.php';
 include_once ROOT_PATH . '/model/Produtos.php';
 include_once ROOT_PATH . '/controller/ProdutosController.php';
+include_once ROOT_PATH . '/controller/EstoqueProdutosController.php';
 
 if(isset($_GET["retorno_edicao"])) {
     if (empty($_GET["retorno_edicao"])) {
@@ -95,6 +96,7 @@ if($_GET["desativar"]){
                                     <th>Nome</th>
                                     <th>Preço</th>
                                     <th>Categoria</th>
+                                    <th>Em estoque</th>
                                     <th>Status</th>
                                     <th>Opções</th>
                                 </tr>
@@ -104,6 +106,7 @@ if($_GET["desativar"]){
                                 <?php
                                 $produtosController = new ProdutosController();
                                 $categoriasController = new CategoriaProdutosController();
+                                $estoqueProdutosController = new EstoqueProdutosController();
 
                                 foreach ($produtosController->retornePorStatus(true) as $produtoBean) {
                                     $categoriaBean = $categoriasController->getById($produtoBean->getIdCategoria());
@@ -120,6 +123,7 @@ if($_GET["desativar"]){
                                             <td><?php echo $produtoBean->getNome() ?> </td>
                                             <td>R$ <?php echo aplicar_mascara_reais($produtoBean->getPreco()) ?> </td>
                                             <td><?php echo $categoriaBean->getNome() ?> </td>
+                                            <td><?php echo $estoqueProdutosController->getQuantidadeEmEstoque($produtoBean) ?></td>
                                             <td><?php echo $status ?> </td>
                                             <td>
                                                 <a class="btn btn-primary" href="/admin/form_editar_produto.php?editar=<?php echo $produtoBean->getId() ?>">Editar</a>
