@@ -1,5 +1,5 @@
 </div>
-<div class="container-fluid bg-info">
+<div id="footer" class="container-fluid bg-info">
 
     <div class="row">
 
