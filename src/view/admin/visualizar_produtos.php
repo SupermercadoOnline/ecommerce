@@ -115,7 +115,6 @@ if($_GET["desativar"]){
                                         } else {
                                             $status = "Inativo";
                                         }
-
                                         ?>
                                         <tr>
                                             <td><?php echo $produtoBean->getNome() ?> </td>
