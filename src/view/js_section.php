@@ -17,3 +17,4 @@ include_once dirname(__DIR__) . '/configs.php';
 <script src="<?php echo URL_JS_DIR ?>/mascara-data.js"></script>
 <script src="<?php echo URL_JS_DIR ?>/mascara-reais.js"></script>
 <script src="<?php echo URL_JS_DIR ?>/mascara-telefone.js"></script>
+<script src="<?php echo URL_JS_DIR ?>/ajustar-posicao-footer.js"></script>
